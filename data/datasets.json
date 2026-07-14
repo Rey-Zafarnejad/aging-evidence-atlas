@@ -7,7 +7,6 @@
     "sourceSheet": "tAge",
     "publicationUrl": "https://doi.org/10.1038/s41586-026-10542-3",
     "scope": "Human multi-tissue transcriptomic associations with chronological age",
-    "inclusionRule": "Final workbook Include = 1; the sheet formula is P.Adjusted < 0.01",
     "summaryMetadata": {
       "agingOrLongevity": "Aging",
       "module": "Transcriptomic",
@@ -26,11 +25,9 @@
     },
     "report": {
       "rows": 8722,
-      "includeFlaggedRows": 6319,
-      "excludedRows": 2403,
-      "formulaCriterionRows": 6319,
-      "includeMatchesFormulaCriterion": true,
-      "mappedIncludedRows": 6167,
+      "retainedRows": 6319,
+      "selectionRuleVerified": true,
+      "mappedRetainedRows": 6167,
       "mappedGenes": 6167,
       "mappingCounts": {
         "approved_symbol": 6091,
@@ -47,7 +44,6 @@
     "sourceSheet": "cAge",
     "publicationUrl": "https://doi.org/10.1186/s13073-023-01161-y",
     "scope": "Gene-annotated blood CpGs associated with chronological age",
-    "inclusionRule": "All populated cAge rows; gene pages require a mappable Gene annotation",
     "summaryMetadata": {
       "agingOrLongevity": "Aging",
       "module": "Epigenomic",
@@ -85,7 +81,6 @@
     "sourceSheet": "bAge",
     "publicationUrl": "https://pubmed.ncbi.nlm.nih.gov/32697766/",
     "scope": "Gene-annotated blood CpGs associated with all-cause mortality",
-    "inclusionRule": "All populated bAge rows; gene pages require a mappable Gene annotation",
     "summaryMetadata": {
       "agingOrLongevity": "Longevity",
       "module": "Epigenomic",
@@ -123,7 +118,6 @@
     "sourceSheet": "Integrative",
     "publicationUrl": null,
     "scope": "Gene-linked CpGs with age correlations and distance to transcription start site",
-    "inclusionRule": "All populated rows in the Integrative sheet",
     "summaryMetadata": {
       "agingOrLongevity": "Aging",
       "module": "integrative",
@@ -158,7 +152,6 @@
     "sourceSheet": "LongevityMap",
     "publicationUrl": "https://genomics.senescence.info/longevity/",
     "scope": "Curated human genetic association reports for longevity",
-    "inclusionRule": "Final workbook Include = 1: significant, single-gene records satisfying all helper flags",
     "summaryMetadata": {
       "agingOrLongevity": "Longevity",
       "module": "Genomic",
@@ -177,12 +170,9 @@
     },
     "report": {
       "rows": 550,
-      "includeFlaggedRows": 256,
-      "excludedRows": 294,
-      "includeMatchesHelperFlags": true,
-      "correctedGeneLabelRuleRows": 256,
-      "correctedGeneLabelRuleDiffers": 0,
-      "mappedIncludedRows": 252,
+      "retainedRows": 256,
+      "selectionRuleVerified": true,
+      "mappedRetainedRows": 252,
       "mappedGenes": 143,
       "mappingCounts": {
         "approved_symbol": 244,
@@ -198,8 +188,7 @@
     "sourceFile": "Human Aging and Longevity Atlas Datasets.xlsx",
     "sourceSheet": "GenAge",
     "publicationUrl": "https://genomics.senescence.info/genes/human.html",
-    "scope": "Curated human genes retained by Dr. Mahdi's final inclusion decision",
-    "inclusionRule": "Final workbook Include = 1",
+    "scope": "Curated human genes associated with ageing biology",
     "summaryMetadata": {
       "agingOrLongevity": "Aging",
       "module": "Genomic",
@@ -218,9 +207,8 @@
     },
     "report": {
       "rows": 307,
-      "includeFlaggedRows": 286,
-      "excludedRows": 21,
-      "mappedIncludedRows": 286,
+      "retainedRows": 286,
+      "mappedRetainedRows": 286,
       "mappedGenes": 286,
       "mappingCounts": {
         "approved_symbol": 282,
@@ -236,7 +224,6 @@
     "sourceSheet": null,
     "publicationUrl": "https://www.genenames.org/download/",
     "scope": "Approved human gene symbols, names, identifiers, and cytogenetic locations",
-    "inclusionRule": "Approved HGNC records; ambiguous aliases excluded",
     "report": {
       "approvedRecords": 45021,
       "unambiguousAliases": 56101,
@@ -251,7 +238,6 @@
     "sourceSheet": null,
     "publicationUrl": "https://www.ncbi.nlm.nih.gov/gene/",
     "scope": "Human gene summaries matched by HGNC Entrez Gene ID and approved symbol",
-    "inclusionRule": "Summary attached only when NCBI symbol matches the selected HGNC symbol",
     "report": {
       "recordsMatchedByHumanEntrezAndSymbol": 1000,
       "summariesAttached": 993,

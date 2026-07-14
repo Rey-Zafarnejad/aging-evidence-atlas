@@ -1,6 +1,6 @@
 # Aging Evidence Atlas
 
-A static, searchable scientific reference for gene-level evidence in Dr. Mahdi's consolidated Human Aging and Longevity Atlas workbook. The atlas separates six evidence modules:
+A static, searchable scientific reference for gene-level evidence from a consolidated Human Aging and Longevity Atlas workbook. The atlas separates six evidence modules:
 
 - `tAge`: transcriptomic associations with chronological age;
 - `cAge`: CpG associations with chronological age;
@@ -33,14 +33,9 @@ python3 scripts/scientific_qc.py
 
 The builder accepts command-line paths for the consolidated workbook and annotation references. Defaults point to the local FAST PROSPR data directory used for this release.
 
-## Inclusion rules
+## Evidence coverage
 
-- `tAge`: keep rows where the workbook's final `Include` value is 1. This exactly matches `P.Adjusted < 0.01` in the supplied workbook.
-- `LongevityMap`: keep rows where final `Include` is 1. These are significant, single-gene records satisfying the helper flags.
-- `GenAge`: keep rows where final `Include` is 1.
-- `cAge`, `bAge`, and `Integrative`: these sheets have no `Include` column, so all populated source rows remain in their module. A row appears on a gene page only when its gene annotation maps unambiguously to an approved HGNC symbol.
-
-The row-level sheets are authoritative. The source-level discrepancies identified during validation are recorded in `data/build-report.json` and shown on the site Methods and Sources pages.
+The atlas uses the retained evidence release from the consolidated workbook. Gene pages expose source-linked records only when the source label maps unambiguously to an approved HGNC symbol.
 
 ## Browsing hierarchy
 
@@ -57,9 +52,9 @@ This order supports browsing. It is not a weighted evidence score and should not
 
 ## Reproducibility
 
-- `data/build-report.json` records source checksums, row counts, final inclusion counts, mapping counts, and annotation QC.
+- `data/build-report.json` records source checksums, source dimensions, mapping counts, and annotation QC.
 - Each gene record retains its source workbook, sheet, and row number.
-- `scripts/scientific_qc.py` independently recomputes inclusion logic and reconciles every published record against the source row.
+- `scripts/scientific_qc.py` independently reconciles every published record against the source row.
 - NCBI summaries are attached only when the HGNC human Entrez ID and approved NCBI symbol agree.
 
 ## Public deployment

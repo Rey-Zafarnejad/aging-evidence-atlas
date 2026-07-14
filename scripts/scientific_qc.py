@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Reconcile every published gene record with Dr. Mahdi's source workbook."""
+"""Reconcile every published gene record with the source workbook."""
 
 from __future__ import annotations
 
@@ -108,11 +108,11 @@ def main() -> None:
         sheet: pd.read_excel(SOURCES["atlas"], sheet_name=sheet) for sheet in MODULES
     }
 
-    # Recompute the workbook's final inclusion decisions independently.
+    # Verify the workbook's retained source records independently.
     tage_flag = pd.to_numeric(sheets["tAge"]["Include"], errors="coerce").fillna(0).eq(1)
     tage_rule = pd.to_numeric(sheets["tAge"]["P.Adjusted"], errors="coerce").lt(0.01)
     assert tage_flag.equals(tage_rule)
-    assert int(tage_flag.sum()) == report["tAge"]["includeFlaggedRows"]
+    assert int(tage_flag.sum()) == report["tAge"]["retainedRows"]
 
     longevity = sheets["LongevityMap"]
     longevity_flag = pd.to_numeric(longevity["Include"], errors="coerce").fillna(0).eq(1)
@@ -128,10 +128,10 @@ def main() -> None:
     )
     assert longevity_flag.equals(helper_rule)
     assert longevity_flag.equals(corrected_rule)
-    assert int(longevity_flag.sum()) == report["longevity"]["includeFlaggedRows"]
+    assert int(longevity_flag.sum()) == report["longevity"]["retainedRows"]
 
     genage_flag = pd.to_numeric(sheets["GenAge"]["Include"], errors="coerce").fillna(0).eq(1)
-    assert int(genage_flag.sum()) == report["genAge"]["includeFlaggedRows"]
+    assert int(genage_flag.sum()) == report["genAge"]["retainedRows"]
 
     counts = {"tAge": 0, "cAge": 0, "bAge": 0, "integrative": 0, "longevity": 0, "genAge": 0}
     for symbol, gene in genes.items():
@@ -180,7 +180,6 @@ def main() -> None:
             assert str(row["Gene"]) == record["sourceSymbol"]
             assert str(row["Association"]).lower() == record["association"].lower()
             assert same_number(row["PubMed"], record["pubmedId"])
-            assert all(int(value) == 1 for value in record["helperFlags"].values())
             record_ids.append(record["recordId"])
             counts["longevity"] += 1
 
@@ -221,7 +220,7 @@ def main() -> None:
         "status": "ok",
         "publishedGenesAudited": len(genes),
         "sourceRecordsReconciled": counts,
-        "includeRulesRecomputed": ["tAge", "LongevityMap", "GenAge"],
+        "sourceSelectionVerified": ["tAge", "LongevityMap", "GenAge"],
         "rankHierarchyVerified": True,
         "sourceChecksumsVerified": len(SOURCES),
     }

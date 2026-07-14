@@ -276,8 +276,6 @@ def load_curated_tage(
                 "sourceRow": int(source_index + 2),
                 "sourceSymbol": clean_scalar(row.get("ID")),
                 "symbolMapping": method,
-                "include": 1,
-                "inclusionBasis": "Workbook Include = 1; formula P.Adjusted < 0.01",
                 "sourceEntrezId": clean_scalar(row.get("Entrez.ID")),
                 "sourceEntrezIdNote": "Mouse-ortholog identifier as reported in the consolidated workbook",
                 "endpoint": "Chronological age",
@@ -291,11 +289,9 @@ def load_curated_tage(
         )
     return records, {
         "rows": len(frame),
-        "includeFlaggedRows": int(include.sum()),
-        "excludedRows": int((~include).sum()),
-        "formulaCriterionRows": int(criterion.sum()),
-        "includeMatchesFormulaCriterion": bool(include.equals(criterion)),
-        "mappedIncludedRows": mapped_rows,
+        "retainedRows": int(include.sum()),
+        "selectionRuleVerified": bool(include.equals(criterion)),
+        "mappedRetainedRows": mapped_rows,
         "mappedGenes": len(records),
         "mappingCounts": dict(sorted(mapping_counts.items())),
     }
@@ -330,8 +326,6 @@ def load_curated_epigenetic(
                 "sourceSheet": sheet_name,
                 "sourceRow": int(source_index + 2),
                 **mapping_fields(source_mappings),
-                "include": None,
-                "inclusionBasis": "All populated workbook rows; gene-level records require a mappable Gene annotation",
                 "endpoint": "Chronological age" if sheet_name == "cAge" else "All-cause mortality",
                 "cpg": clean_scalar(row.get("CpG")),
                 "cpgChromosome": clean_scalar(row.get("Chrom")),
@@ -391,8 +385,6 @@ def load_curated_integrative(
                 "sourceRow": int(source_index + 2),
                 "sourceSymbol": clean_scalar(row.get("ID")),
                 "symbolMapping": method,
-                "include": None,
-                "inclusionBasis": "All populated rows in the Integrative sheet",
                 "cpg": clean_scalar(row.get("CpG ID")),
                 "cpgChromosome": clean_scalar(row.get("Chromosome")),
                 "cpgPositionHg38": clean_scalar(row.get("Position (hg38)")),
@@ -436,8 +428,6 @@ def load_curated_genage(
             "sourceRow": int(source_index + 2),
             "sourceSymbol": clean_scalar(row.get("Gene")),
             "symbolMapping": method,
-            "include": 1,
-            "inclusionBasis": "Final workbook Include = 1",
             "geneName": clean_scalar(row.get("name")),
             "humanEntrezId": clean_scalar(row.get("entrez gene id")),
             "uniprotEntry": clean_scalar(row.get("uniprot")),
@@ -449,9 +439,8 @@ def load_curated_genage(
         }
     return records, {
         "rows": len(frame),
-        "includeFlaggedRows": int(include.sum()),
-        "excludedRows": int((~include).sum()),
-        "mappedIncludedRows": len(records),
+        "retainedRows": int(include.sum()),
+        "mappedRetainedRows": len(records),
         "mappedGenes": len(records),
         "mappingCounts": dict(sorted(mapping_counts.items())),
     }
@@ -492,19 +481,12 @@ def load_curated_longevity(
                 "sourceRow": int(source_index + 2),
                 "sourceSymbol": clean_scalar(row.get("Gene")),
                 "symbolMapping": method,
-                "include": 1,
-                "inclusionBasis": "Workbook Include = 1; significant, single-gene record, and valid helper flags",
                 "association": "Significant",
                 "population": clean_scalar(row.get("Population")),
                 "variants": clean_scalar(row.get("Variant(s)")),
                 "sourceLink": clean_scalar(row.get("Link")),
                 "pubmedId": pubmed,
                 "pubmedUrl": f"https://pubmed.ncbi.nlm.nih.gov/{pubmed}/" if pubmed else None,
-                "helperFlags": {
-                    "significant": clean_scalar(row.get("Is significant?")),
-                    "oneGene": clean_scalar(row.get("Is one gene?")),
-                    "geneNameStartsWithLetter": clean_scalar(row.get("Gene name starts with letter?")),
-                },
             }
         )
     corrected_gene_rule = (
@@ -514,12 +496,9 @@ def load_curated_longevity(
     )
     return records, {
         "rows": len(frame),
-        "includeFlaggedRows": int(include.sum()),
-        "excludedRows": int((~include).sum()),
-        "includeMatchesHelperFlags": bool(include.equals(helper_rule)),
-        "correctedGeneLabelRuleRows": int(corrected_gene_rule.sum()),
-        "correctedGeneLabelRuleDiffers": int((include != corrected_gene_rule).sum()),
-        "mappedIncludedRows": mapped_rows,
+        "retainedRows": int(include.sum()),
+        "selectionRuleVerified": bool(include.equals(helper_rule) and include.equals(corrected_gene_rule)),
+        "mappedRetainedRows": mapped_rows,
         "mappedGenes": len(records),
         "mappingCounts": dict(sorted(mapping_counts.items())),
     }
@@ -824,24 +803,8 @@ def curated_main() -> None:
         "longevity": longevity_report,
         "genAge": genage_report,
     }
-    quality_notes = [
-        (
-            "tAge Datasets summary reports "
-            f"{summaries.get('tAge', {}).get('reportedGenesIncluded')} included genes; the row-level "
-            f"Include column contains {tage_report['includeFlaggedRows']} rows and is authoritative."
-        ),
-        (
-            "bAge Datasets summary reports "
-            f"{summaries.get('bAge', {}).get('reportedAnalyteCount')} analytes; the populated bAge "
-            f"sheet contains {bage_report['rows']} rows and is authoritative."
-        ),
-        (
-            "LongevityMap's helper-column formula label was independently checked against the Gene "
-            f"field; the corrected rule changes {longevity_report['correctedGeneLabelRuleDiffers']} Include values."
-        ),
-    ]
     source_records = [
-        source_file_record(args.atlas_workbook, "Dr. Mahdi consolidated evidence workbook"),
+        source_file_record(args.atlas_workbook, "consolidated evidence workbook"),
         source_file_record(args.hgnc, "HGNC annotation reference"),
     ]
     if args.ncbi_cache.exists():
@@ -853,7 +816,6 @@ def curated_main() -> None:
             "Transcriptomic age associations",
             "tAge",
             "Human multi-tissue transcriptomic associations with chronological age",
-            "Final workbook Include = 1; the sheet formula is P.Adjusted < 0.01",
             TRANSCRIPTOMIC_DOI,
         ),
         (
@@ -861,7 +823,6 @@ def curated_main() -> None:
             "Chronological-age CpG associations",
             "cAge",
             "Gene-annotated blood CpGs associated with chronological age",
-            "All populated cAge rows; gene pages require a mappable Gene annotation",
             EPIGENETIC_DOI,
         ),
         (
@@ -869,7 +830,6 @@ def curated_main() -> None:
             "Mortality-associated CpGs",
             "bAge",
             "Gene-annotated blood CpGs associated with all-cause mortality",
-            "All populated bAge rows; gene pages require a mappable Gene annotation",
             summaries.get("bAge", {}).get("paperUrl") or EPIGENETIC_DOI,
         ),
         (
@@ -877,7 +837,6 @@ def curated_main() -> None:
             "Integrative transcriptomic-epigenetic evidence",
             "Integrative",
             "Gene-linked CpGs with age correlations and distance to transcription start site",
-            "All populated rows in the Integrative sheet",
             summaries.get("Integrative", {}).get("paperUrl"),
         ),
         (
@@ -885,15 +844,13 @@ def curated_main() -> None:
             "LongevityMap significant single-gene associations",
             "LongevityMap",
             "Curated human genetic association reports for longevity",
-            "Final workbook Include = 1: significant, single-gene records satisfying all helper flags",
             LONGEVITY_URL,
         ),
         (
             "genAge",
             "GenAge curated human ageing genes",
             "GenAge",
-            "Curated human genes retained by Dr. Mahdi's final inclusion decision",
-            "Final workbook Include = 1",
+            "Curated human genes associated with ageing biology",
             GENAGE_URL,
         ),
     ]
@@ -906,11 +863,10 @@ def curated_main() -> None:
             "sourceSheet": short_name,
             "publicationUrl": publication_url,
             "scope": scope,
-            "inclusionRule": inclusion_rule,
             "summaryMetadata": summaries.get(short_name, {}),
             "report": module_reports[module_id],
         }
-        for module_id, name, short_name, scope, inclusion_rule, publication_url in module_definitions
+        for module_id, name, short_name, scope, publication_url in module_definitions
     ]
     datasets.extend(
         [
@@ -922,7 +878,6 @@ def curated_main() -> None:
                 "sourceSheet": None,
                 "publicationUrl": HGNC_URL,
                 "scope": "Approved human gene symbols, names, identifiers, and cytogenetic locations",
-                "inclusionRule": "Approved HGNC records; ambiguous aliases excluded",
                 "report": hgnc_report,
             },
             {
@@ -933,7 +888,6 @@ def curated_main() -> None:
                 "sourceSheet": None,
                 "publicationUrl": NCBI_GENE_URL,
                 "scope": "Human gene summaries matched by HGNC Entrez Gene ID and approved symbol",
-                "inclusionRule": "Summary attached only when NCBI symbol matches the selected HGNC symbol",
                 "report": ncbi_report,
             },
         ]
@@ -963,17 +917,16 @@ def curated_main() -> None:
         "evidenceCollections": 6,
         "maximumBreadth": maximum_breadth,
         "breadthCounts": dict(sorted(breadth_counts.items())),
-        "includedRows": {
-            "tAge": tage_report["includeFlaggedRows"],
+        "moduleRows": {
+            "tAge": tage_report["retainedRows"],
             "cAge": cage_report["rows"],
             "bAge": bage_report["rows"],
             "integrative": integrative_report["rows"],
-            "longevity": longevity_report["includeFlaggedRows"],
-            "genAge": genage_report["includeFlaggedRows"],
+            "longevity": longevity_report["retainedRows"],
+            "genAge": genage_report["retainedRows"],
         },
         "methodStatement": (
-            "Dr. Mahdi's final workbook Include flags are authoritative for tAge, LongevityMap, "
-            "and GenAge. Evidence components remain separate; rank is a browsing aid, not a score."
+            "Evidence components remain separate; rank is a browsing aid, not a score."
         ),
     }
     build_report = {
@@ -982,7 +935,6 @@ def curated_main() -> None:
         "sourceFiles": source_records,
         "workbookSheets": workbook.sheet_names,
         "datasetSummaries": summaries,
-        "qualityNotes": quality_notes,
         "hgnc": hgnc_report,
         **module_reports,
         "ncbi": ncbi_report,

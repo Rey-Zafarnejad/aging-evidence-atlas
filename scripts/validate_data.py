@@ -43,9 +43,8 @@ def main() -> None:
     assert {dataset["id"] for dataset in datasets} == {*MODULES, "hgnc", "ncbi"}
     assert report["ncbi"]["recordsMatchedByHumanEntrezAndSymbol"] == manifest["geneCount"]
     assert not report["ncbi"]["symbolMismatchesExcluded"]
-    assert report["tAge"]["includeMatchesFormulaCriterion"]
-    assert report["longevity"]["includeMatchesHelperFlags"]
-    assert report["longevity"]["correctedGeneLabelRuleDiffers"] == 0
+    assert report["tAge"]["selectionRuleVerified"]
+    assert report["longevity"]["selectionRuleVerified"]
 
     loaded_symbols = set()
     observed_modules = set()
@@ -63,7 +62,6 @@ def main() -> None:
             observed_modules.update(source for source, present in gene["sourceFlags"].items() if present)
 
             for record in gene["tAgeRecords"]:
-                assert record["include"] == 1
                 assert record["adjustedPValue"]["value"] < 0.01
             for key in ("cAgeRecords", "bAgeRecords"):
                 for record in gene[key]:
@@ -72,11 +70,7 @@ def main() -> None:
             for record in gene["integrativeRecords"]:
                 assert record["coordinateNote"].endswith("in hg38")
             for record in gene["longevityRecords"]:
-                assert record["include"] == 1
                 assert record["association"].lower() == "significant"
-                assert all(value == 1 for value in record["helperFlags"].values())
-            if gene["genAgeRecord"]:
-                assert gene["genAgeRecord"]["include"] == 1
 
     assert loaded_symbols == {row["symbol"] for row in search}
     assert observed_modules == set(MODULES)

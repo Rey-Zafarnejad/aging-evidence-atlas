@@ -1,7 +1,7 @@
 {
   "atlasName": "Aging Evidence Atlas",
   "version": "0.2.0",
-  "generatedAt": "2026-07-14T19:35:23+00:00",
+  "generatedAt": "2026-07-14T20:11:51+00:00",
   "geneCount": 1000,
   "candidateGeneCount": 9182,
   "chunkSize": 20,
@@ -29,7 +29,7 @@
     "3": 280,
     "4": 14
   },
-  "includedRows": {
+  "moduleRows": {
     "tAge": 6319,
     "cAge": 10001,
     "bAge": 1182,
@@ -37,5 +37,5 @@
     "longevity": 256,
     "genAge": 286
   },
-  "methodStatement": "Dr. Mahdi's final workbook Include flags are authoritative for tAge, LongevityMap, and GenAge. Evidence components remain separate; rank is a browsing aid, not a score."
+  "methodStatement": "Evidence components remain separate; rank is a browsing aid, not a score."
 }

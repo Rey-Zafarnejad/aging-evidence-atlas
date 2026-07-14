@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-14T19:35:23+00:00",
+  "generatedAt": "2026-07-14T20:11:51+00:00",
   "parameters": {
     "geneLimit": 1000,
     "chunkSize": 20
@@ -7,7 +7,7 @@
   "sourceFiles": [
     {
       "name": "Human Aging and Longevity Atlas Datasets.xlsx",
-      "kind": "Dr. Mahdi consolidated evidence workbook",
+      "kind": "consolidated evidence workbook",
       "bytes": 1291359,
       "sha256": "78b5b8e4ea5e9f57d116d92184e4d205230465a8e3e30f6caf0da89baedd80c3"
     },
@@ -131,11 +131,6 @@
       "paperUrl": null
     }
   },
-  "qualityNotes": [
-    "tAge Datasets summary reports 6139 included genes; the row-level Include column contains 6319 rows and is authoritative.",
-    "bAge Datasets summary reports 1183 analytes; the populated bAge sheet contains 1182 rows and is authoritative.",
-    "LongevityMap's helper-column formula label was independently checked against the Gene field; the corrected rule changes 0 Include values."
-  ],
   "hgnc": {
     "approvedRecords": 45021,
     "unambiguousAliases": 56101,
@@ -143,11 +138,9 @@
   },
   "tAge": {
     "rows": 8722,
-    "includeFlaggedRows": 6319,
-    "excludedRows": 2403,
-    "formulaCriterionRows": 6319,
-    "includeMatchesFormulaCriterion": true,
-    "mappedIncludedRows": 6167,
+    "retainedRows": 6319,
+    "selectionRuleVerified": true,
+    "mappedRetainedRows": 6167,
     "mappedGenes": 6167,
     "mappingCounts": {
       "approved_symbol": 6091,
@@ -190,12 +183,9 @@
   },
   "longevity": {
     "rows": 550,
-    "includeFlaggedRows": 256,
-    "excludedRows": 294,
-    "includeMatchesHelperFlags": true,
-    "correctedGeneLabelRuleRows": 256,
-    "correctedGeneLabelRuleDiffers": 0,
-    "mappedIncludedRows": 252,
+    "retainedRows": 256,
+    "selectionRuleVerified": true,
+    "mappedRetainedRows": 252,
     "mappedGenes": 143,
     "mappingCounts": {
       "approved_symbol": 244,
@@ -205,9 +195,8 @@
   },
   "genAge": {
     "rows": 307,
-    "includeFlaggedRows": 286,
-    "excludedRows": 21,
-    "mappedIncludedRows": 286,
+    "retainedRows": 286,
+    "mappedRetainedRows": 286,
     "mappedGenes": 286,
     "mappingCounts": {
       "approved_symbol": 282,
