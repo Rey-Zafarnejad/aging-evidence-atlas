@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="A searchable atlas of transcriptomic, epigenetic, longevity-association, and curated ageing-gene evidence."
+    />
+    <meta name="theme-color" content="#0b3042" />
+    <title>Aging Evidence Atlas</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script type="module" src="app.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <header class="site-header">
+      <a class="brand" href="#/" aria-label="Aging Evidence Atlas home">
+        <span class="brand-mark" aria-hidden="true">
+          <span></span><span></span><span></span><i></i><b></b>
+        </span>
+        <span class="brand-name">Aging Evidence Atlas</span>
+      </a>
+      <nav class="primary-nav" aria-label="Primary navigation">
+        <a href="#/" data-nav="home">Atlas</a>
+        <a href="#/genes" data-nav="genes">Gene index</a>
+        <a href="#/methods" data-nav="methods">Methods</a>
+        <a href="#/sources" data-nav="sources">Sources</a>
+      </nav>
+      <a class="header-search" href="#/genes" aria-label="Search genes">Search genes</a>
+    </header>
+
+    <div class="page-shell">
+      <aside class="contents-rail" aria-label="Page contents">
+        <div class="rail-label">Contents</div>
+        <nav id="section-nav"></nav>
+        <div class="rail-note">
+          <strong>Gene-level</strong>
+          <span>source-backed evidence</span>
+        </div>
+      </aside>
+
+      <main id="main-content" tabindex="-1">
+        <div class="loading-state">
+          <div class="loading-line"></div>
+          <div class="loading-line short"></div>
+          <p>Loading the atlas data...</p>
+        </div>
+      </main>
+    </div>
+
+    <footer class="site-footer">
+      <div>
+        <strong>Aging Evidence Atlas</strong>
+        <p>Evidence is reported by source and analysis. Association does not establish causation.</p>
+      </div>
+      <nav aria-label="Footer navigation">
+        <a href="#/methods">Methods</a>
+        <a href="#/sources">Source data</a>
+        <a href="https://github.com/Rey-Zafarnejad/aging-evidence-atlas">GitHub</a>
+      </nav>
+    </footer>
+  </body>
+</html>

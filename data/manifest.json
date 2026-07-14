@@ -1,0 +1,38 @@
+{
+  "atlasName": "Aging Evidence Atlas",
+  "version": "0.1.0",
+  "generatedAt": "2026-07-14T18:41:56+00:00",
+  "geneCount": 1000,
+  "candidateGeneCount": 14807,
+  "chunkSize": 20,
+  "chunkCount": 50,
+  "featuredGenes": [
+    "FOXO3",
+    "AKT1",
+    "IGF1R",
+    "FOXO1",
+    "UCP3",
+    "SERPINE1",
+    "NR3C1",
+    "IRS2",
+    "CDKN1A",
+    "ESR1",
+    "PRKCA",
+    "SOCS2",
+    "PPARGC1A",
+    "INSR",
+    "SIRT6",
+    "IGF1"
+  ],
+  "evidenceCollections": 4,
+  "breadthCounts": {
+    "2": 557,
+    "3": 395,
+    "4": 48
+  },
+  "transcriptomicSignificantRecords": 72788,
+  "epigeneticGeneAssignments": 17463,
+  "genAgeGenes": 307,
+  "longevityRows": 550,
+  "methodStatement": "The atlas reports evidence components separately. The rank is a deterministic browsing aid, not a causal, clinical, or biological-importance score."
+}

@@ -1,0 +1,405 @@
+[
+  {
+    "id": "transcriptomic",
+    "name": "Universal transcriptomic hallmarks of mammalian ageing and mortality",
+    "shortName": "Transcriptomic signatures",
+    "sourceFile": "41586_2026_10542_MOESM4_ESM.xlsx",
+    "publicationUrl": "https://doi.org/10.1038/s41586-026-10542-3",
+    "scope": "18 gene-level analyses spanning ITP, rodent, mouse, rat, macaque, and human data",
+    "inclusionRule": "Benjamini-Hochberg adjusted P <= 0.05 in the source sheet",
+    "report": {
+      "rowsTested": 221149,
+      "fdrSignificantRows": 72788,
+      "geneCountWithMappedSignificantEvidence": 12400,
+      "mappingCounts": {
+        "approved_symbol": 68415,
+        "hgnc_alias": 972,
+        "unmapped": 3401
+      },
+      "sheets": [
+        {
+          "sheet": "(A) ITP Chronological age",
+          "rowsTested": 13422,
+          "fdrSignificantRows": 1272,
+          "mappedSignificantRows": 1121,
+          "family": "ITP",
+          "endpoint": "Chronological age",
+          "model": "Unadjusted",
+          "population": "Mouse ITP liver",
+          "label": "ITP Chronological age"
+        },
+        {
+          "sheet": "(B) ITP Normalized age",
+          "rowsTested": 13422,
+          "fdrSignificantRows": 1457,
+          "mappedSignificantRows": 1296,
+          "family": "ITP",
+          "endpoint": "Normalized age",
+          "model": "Unadjusted",
+          "population": "Mouse ITP liver",
+          "label": "ITP Normalized age"
+        },
+        {
+          "sheet": "(C) ITP Normalized age, adj.",
+          "rowsTested": 13422,
+          "fdrSignificantRows": 744,
+          "mappedSignificantRows": 677,
+          "family": "ITP",
+          "endpoint": "Normalized age",
+          "model": "Age-adjusted",
+          "population": "Mouse ITP liver",
+          "label": "ITP Normalized age, adj."
+        },
+        {
+          "sheet": "(D) ITP Mortality rate",
+          "rowsTested": 13422,
+          "fdrSignificantRows": 868,
+          "mappedSignificantRows": 762,
+          "family": "ITP",
+          "endpoint": "Mortality rate",
+          "model": "Unadjusted",
+          "population": "Mouse ITP liver",
+          "label": "ITP Mortality rate"
+        },
+        {
+          "sheet": "(E) ITP Mortality rate, adj.",
+          "rowsTested": 13422,
+          "fdrSignificantRows": 41,
+          "mappedSignificantRows": 36,
+          "family": "ITP",
+          "endpoint": "Mortality rate",
+          "model": "Age-adjusted",
+          "population": "Mouse ITP liver",
+          "label": "ITP Mortality rate, adj."
+        },
+        {
+          "sheet": "(F) ITP Max lifespan",
+          "rowsTested": 13422,
+          "fdrSignificantRows": 795,
+          "mappedSignificantRows": 730,
+          "family": "ITP",
+          "endpoint": "Max lifespan",
+          "model": "Unadjusted",
+          "population": "Mouse ITP liver",
+          "label": "ITP Max lifespan"
+        },
+        {
+          "sheet": "(G) ITP Max lifespan, adj.",
+          "rowsTested": 13422,
+          "fdrSignificantRows": 915,
+          "mappedSignificantRows": 842,
+          "family": "ITP",
+          "endpoint": "Max lifespan",
+          "model": "Age-adjusted",
+          "population": "Mouse ITP liver",
+          "label": "ITP Max lifespan, adj."
+        },
+        {
+          "sheet": "(H) Rodents Chronological age",
+          "rowsTested": 12908,
+          "fdrSignificantRows": 9059,
+          "mappedSignificantRows": 8588,
+          "family": "Rodents",
+          "endpoint": "Chronological age",
+          "model": "Unadjusted",
+          "population": "Mouse and rat multi-tissue",
+          "label": "Rodents Chronological age"
+        },
+        {
+          "sheet": "(I) Rodents Normalized age",
+          "rowsTested": 12908,
+          "fdrSignificantRows": 9167,
+          "mappedSignificantRows": 8699,
+          "family": "Rodents",
+          "endpoint": "Normalized age",
+          "model": "Unadjusted",
+          "population": "Mouse and rat multi-tissue",
+          "label": "Rodents Normalized age"
+        },
+        {
+          "sheet": "(J) Rodents Normalized age, adj",
+          "rowsTested": 12908,
+          "fdrSignificantRows": 4099,
+          "mappedSignificantRows": 3898,
+          "family": "Rodents",
+          "endpoint": "Normalized age",
+          "model": "Age-adjusted",
+          "population": "Mouse and rat multi-tissue",
+          "label": "Rodents Normalized age, adj"
+        },
+        {
+          "sheet": "(K) Rodents Mortality rate",
+          "rowsTested": 12908,
+          "fdrSignificantRows": 9094,
+          "mappedSignificantRows": 8624,
+          "family": "Rodents",
+          "endpoint": "Mortality rate",
+          "model": "Unadjusted",
+          "population": "Mouse and rat multi-tissue",
+          "label": "Rodents Mortality rate"
+        },
+        {
+          "sheet": "(L) Rodents Mortality rate, adj",
+          "rowsTested": 12908,
+          "fdrSignificantRows": 4439,
+          "mappedSignificantRows": 4209,
+          "family": "Rodents",
+          "endpoint": "Mortality rate",
+          "model": "Age-adjusted",
+          "population": "Mouse and rat multi-tissue",
+          "label": "Rodents Mortality rate, adj"
+        },
+        {
+          "sheet": "(M) Rodents Max lifespan",
+          "rowsTested": 12908,
+          "fdrSignificantRows": 3098,
+          "mappedSignificantRows": 2926,
+          "family": "Rodents",
+          "endpoint": "Max lifespan",
+          "model": "Unadjusted",
+          "population": "Mouse and rat multi-tissue",
+          "label": "Rodents Max lifespan"
+        },
+        {
+          "sheet": "(N) Rodents Max lifespan, adj",
+          "rowsTested": 12908,
+          "fdrSignificantRows": 3213,
+          "mappedSignificantRows": 3030,
+          "family": "Rodents",
+          "endpoint": "Max lifespan",
+          "model": "Age-adjusted",
+          "population": "Mouse and rat multi-tissue",
+          "label": "Rodents Max lifespan, adj"
+        },
+        {
+          "sheet": "(O) Mouse aging multi-tissue",
+          "rowsTested": 9328,
+          "fdrSignificantRows": 6184,
+          "mappedSignificantRows": 6038,
+          "family": "Mouse",
+          "endpoint": "Chronological age",
+          "model": "Unadjusted",
+          "population": "Mouse multi-tissue",
+          "label": "Mouse aging multi-tissue"
+        },
+        {
+          "sheet": "(P) Rat aging multi-tissue",
+          "rowsTested": 9009,
+          "fdrSignificantRows": 5318,
+          "mappedSignificantRows": 5200,
+          "family": "Rat",
+          "endpoint": "Chronological age",
+          "model": "Unadjusted",
+          "population": "Rat multi-tissue",
+          "label": "Rat aging multi-tissue"
+        },
+        {
+          "sheet": "(Q) Macaque aging multi-tissue",
+          "rowsTested": 9780,
+          "fdrSignificantRows": 6214,
+          "mappedSignificantRows": 6066,
+          "family": "Macaque",
+          "endpoint": "Chronological age",
+          "model": "Unadjusted",
+          "population": "Macaque multi-tissue",
+          "label": "Macaque aging multi-tissue"
+        },
+        {
+          "sheet": "(R) Human aging multi-tissue",
+          "rowsTested": 8722,
+          "fdrSignificantRows": 6811,
+          "mappedSignificantRows": 6645,
+          "family": "Human",
+          "endpoint": "Chronological age",
+          "model": "Unadjusted",
+          "population": "Human multi-tissue",
+          "label": "Human aging multi-tissue"
+        }
+      ]
+    }
+  },
+  {
+    "id": "epigenetic",
+    "name": "Refining epigenetic prediction of chronological and biological age",
+    "shortName": "Epigenetic age and mortality",
+    "sourceFile": "13073_2023_1161_MOESM4_ESM.xlsx",
+    "publicationUrl": "https://doi.org/10.1186/s13073-023-01161-y",
+    "scope": "Gene-annotated CpGs from four epigenome-wide significant age and mortality tables",
+    "inclusionRule": "All records in source Tables S1-S4; source tables report P < 3.6 x 10^-8",
+    "report": {
+      "associationRows": 22366,
+      "rowsWithGeneAnnotation": 16249,
+      "mappedGeneAssignments": 17463,
+      "geneCountWithMappedEvidence": 7248,
+      "mappingCounts": {
+        "approved_symbol": 16024,
+        "hgnc_alias": 1444,
+        "unmapped": 530
+      },
+      "tables": [
+        {
+          "sheet": "S1",
+          "rows": 10001,
+          "mappedGeneAssignments": 7831,
+          "endpoint": "Chronological age",
+          "analysis": "Linear CpG-age EWAS",
+          "title": "Top 10,000 epigenome-wide significant linear CpG-age associations"
+        },
+        {
+          "sheet": "S2",
+          "rows": 10001,
+          "mappedGeneAssignments": 7756,
+          "endpoint": "Chronological age",
+          "analysis": "Quadratic CpG-age EWAS",
+          "title": "Top 10,000 epigenome-wide significant quadratic CpG-age associations"
+        },
+        {
+          "sheet": "S3",
+          "rows": 1182,
+          "mappedGeneAssignments": 938,
+          "endpoint": "All-cause mortality",
+          "analysis": "Mortality EWAS",
+          "title": "Epigenome-wide significant CpG associations with all-cause mortality"
+        },
+        {
+          "sheet": "S4",
+          "rows": 1182,
+          "mappedGeneAssignments": 938,
+          "endpoint": "All-cause mortality",
+          "analysis": "Mortality EWAS with relatedness adjustment",
+          "title": "Mortality CpG associations replicated with coxme relatedness adjustment"
+        }
+      ]
+    }
+  },
+  {
+    "id": "genage",
+    "name": "GenAge human genes",
+    "shortName": "GenAge",
+    "sourceFile": "genage_human.csv",
+    "publicationUrl": "https://genomics.senescence.info/genes/human.html",
+    "scope": "Manually curated candidate human ageing-associated genes",
+    "inclusionRule": "All rows in the supplied GenAge human-gene file",
+    "report": {
+      "rows": 307,
+      "mappedGenes": 307,
+      "mappingCounts": {
+        "approved_symbol": 303,
+        "hgnc_alias": 4
+      }
+    }
+  },
+  {
+    "id": "longevity",
+    "name": "LongevityMap genetic association studies of longevity",
+    "shortName": "LongevityMap",
+    "sourceFile": "longevity.csv",
+    "publicationUrl": "https://genomics.senescence.info/longevity/",
+    "scope": "Human longevity association reports, including significant and non-significant findings",
+    "inclusionRule": "All rows in the supplied LongevityMap Build 3 file",
+    "report": {
+      "rows": 550,
+      "associationCounts": {
+        "Non-significant": 274,
+        "Significant": 274,
+        "Unreported": 2
+      },
+      "mappedGenes": 822,
+      "mappingCounts": {
+        "approved_symbol": 1260,
+        "hgnc_alias": 31,
+        "unmapped": 63
+      }
+    }
+  },
+  {
+    "id": "hgnc",
+    "name": "HGNC complete approved gene set",
+    "shortName": "HGNC",
+    "sourceFile": "hgnc_complete_set.txt",
+    "publicationUrl": "https://www.genenames.org/download/",
+    "scope": "Approved human gene symbols, names, identifiers, and cytogenetic locations",
+    "inclusionRule": "Approved HGNC records; ambiguous aliases excluded",
+    "report": {
+      "approvedRecords": 45021,
+      "unambiguousAliases": 56101,
+      "ambiguousAliasesExcluded": 1655
+    }
+  },
+  {
+    "id": "ncbi",
+    "name": "NCBI Gene summaries",
+    "shortName": "NCBI Gene",
+    "sourceFile": "ncbi_gene_summaries.json",
+    "publicationUrl": "https://www.ncbi.nlm.nih.gov/gene/",
+    "scope": "Human gene summaries matched by HGNC Entrez Gene ID and approved symbol",
+    "inclusionRule": "Summary attached only when NCBI symbol matches the selected HGNC symbol",
+    "report": {
+      "recordsMatchedByHumanEntrezAndSymbol": 1000,
+      "summariesAttached": 993,
+      "symbolMismatchesExcluded": [],
+      "locationDifferences": [
+        {
+          "symbol": "PLCG2",
+          "hgncLocation": "16q24.1",
+          "ncbiLocation": "16q23.3"
+        },
+        {
+          "symbol": "STARD13",
+          "hgncLocation": "13q13.1",
+          "ncbiLocation": "13q13.1-q13.2"
+        },
+        {
+          "symbol": "PTPRO",
+          "hgncLocation": "12p12.3",
+          "ncbiLocation": "12p13-p12"
+        },
+        {
+          "symbol": "LONP1",
+          "hgncLocation": "19p13.2",
+          "ncbiLocation": "19p13.3"
+        },
+        {
+          "symbol": "PLEKHA7",
+          "hgncLocation": "11p15",
+          "ncbiLocation": "11p15.2-p15.1"
+        },
+        {
+          "symbol": "RECQL5",
+          "hgncLocation": "17q25",
+          "ncbiLocation": "17q25.1"
+        },
+        {
+          "symbol": "TAS2R16",
+          "hgncLocation": "7q31.32",
+          "ncbiLocation": "7q31"
+        },
+        {
+          "symbol": "XBP1",
+          "hgncLocation": "22q12.1",
+          "ncbiLocation": "22q12"
+        },
+        {
+          "symbol": "ATF6B",
+          "hgncLocation": "6p21.3",
+          "ncbiLocation": "6p21.32"
+        },
+        {
+          "symbol": "ARHGAP29",
+          "hgncLocation": "1p22.1",
+          "ncbiLocation": "1p22.1-p21.3"
+        },
+        {
+          "symbol": "NUMB",
+          "hgncLocation": "14q24.3",
+          "ncbiLocation": "14q24.2-q24.3"
+        },
+        {
+          "symbol": "THUMPD2",
+          "hgncLocation": "2p22.1",
+          "ncbiLocation": "2p22-p21"
+        }
+      ]
+    }
+  }
+]
