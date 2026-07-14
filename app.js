@@ -186,7 +186,6 @@ function renderHome() {
   const featured = state.manifest.featuredGenes
     .map((symbol) => state.searchIndex.find((gene) => gene.symbol === symbol))
     .filter(Boolean);
-  const modules = state.datasets.filter((dataset) => Object.hasOwn(SOURCE_LABELS, dataset.id));
 
   main.innerHTML = `
     ${pageHeader(
@@ -215,20 +214,8 @@ function renderHome() {
       </div>
       <div class="evidence-map">
         <figure class="evidence-illustration">
-          <img src="assets/evidence-landscape.png" alt="Orbital illustration of gene-level evidence" />
+          <img src="assets/evidence-landscape.png" alt="Gene-level evidence landscape spanning transcriptomic, epigenetic, longevity, and GenAge evidence" />
         </figure>
-        <div class="collection-list">
-          ${modules
-            .map(
-              (dataset) => `
-                <div class="collection-item">
-                  <span class="collection-dot"></span>
-                  <div><strong>${escapeHtml(dataset.shortName)}</strong><p>${escapeHtml(dataset.scope)}</p></div>
-                  <span class="collection-count">${escapeHtml(dataset.summaryMetadata?.module || "Evidence")}</span>
-                </div>`,
-            )
-            .join("")}
-        </div>
       </div>
     </section>
 

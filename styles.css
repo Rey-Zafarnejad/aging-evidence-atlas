@@ -488,16 +488,11 @@ h3 {
 }
 
 .evidence-map {
-  display: grid;
-  grid-template-columns: minmax(260px, 0.8fr) minmax(360px, 1.3fr);
-  gap: 34px;
-  align-items: center;
-  max-width: 1050px;
+  width: 100%;
   padding: 26px 0;
 }
 
 .evidence-illustration {
-  min-height: 330px;
   margin: 0;
   overflow: hidden;
   border: 1px solid var(--line);
@@ -507,9 +502,7 @@ h3 {
 .evidence-illustration img {
   display: block;
   width: 100%;
-  height: 330px;
-  object-fit: cover;
-  object-position: left center;
+  height: auto;
 }
 
 .collection-list {
@@ -1155,8 +1148,6 @@ h3 {
   .profile-grid { grid-template-columns: 1fr; }
   .profile-component { border-right: 0 !important; }
   .profile-component:nth-child(2) { border-top: 1px solid var(--line); }
-  .evidence-illustration { min-height: 280px; }
-  .evidence-illustration img { height: 280px; }
   .direction-row { grid-template-columns: 90px minmax(0, 1fr); }
   .direction-row > :last-child { grid-column: 2; }
   .source-facts { grid-template-columns: 1fr; }
