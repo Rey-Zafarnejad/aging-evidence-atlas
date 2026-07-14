@@ -26,10 +26,7 @@ import pandas as pd
 DEFAULT_DATA_ROOT = Path(
     "/Users/ReyZafarnejad/Documents/Harvard University/Internship/FAST PROSPR/Data"
 )
-DEFAULT_TRANSCRIPTOMIC = DEFAULT_DATA_ROOT / "41586_2026_10542_MOESM4_ESM.xlsx"
-DEFAULT_EPIGENETIC = DEFAULT_DATA_ROOT / "13073_2023_1161_MOESM4_ESM.xlsx"
-DEFAULT_GENAGE = DEFAULT_DATA_ROOT / "human_genes/genage_human.csv"
-DEFAULT_LONGEVITY = DEFAULT_DATA_ROOT / "longevity_genes/longevity.csv"
+DEFAULT_ATLAS_WORKBOOK = DEFAULT_DATA_ROOT / "Human Aging and Longevity Atlas Datasets.xlsx"
 DEFAULT_HGNC = Path(__file__).resolve().parent / "cache/hgnc_complete_set.txt"
 DEFAULT_NCBI_CACHE = Path(__file__).resolve().parent / "cache/ncbi_gene_summaries.json"
 DEFAULT_OUTPUT = Path(__file__).resolve().parents[1] / "data"
@@ -41,62 +38,17 @@ LONGEVITY_URL = "https://genomics.senescence.info/longevity/"
 HGNC_URL = "https://www.genenames.org/download/"
 NCBI_GENE_URL = "https://www.ncbi.nlm.nih.gov/gene/"
 
-TRANSCRIPTOMIC_EXPECTED_SHEETS = [
-    "(A) ITP Chronological age",
-    "(B) ITP Normalized age",
-    "(C) ITP Normalized age, adj.",
-    "(D) ITP Mortality rate",
-    "(E) ITP Mortality rate, adj.",
-    "(F) ITP Max lifespan",
-    "(G) ITP Max lifespan, adj.",
-    "(H) Rodents Chronological age",
-    "(I) Rodents Normalized age",
-    "(J) Rodents Normalized age, adj",
-    "(K) Rodents Mortality rate",
-    "(L) Rodents Mortality rate, adj",
-    "(M) Rodents Max lifespan",
-    "(N) Rodents Max lifespan, adj",
-    "(O) Mouse aging multi-tissue",
-    "(P) Rat aging multi-tissue",
-    "(Q) Macaque aging multi-tissue",
-    "(R) Human aging multi-tissue",
-]
-
-EPIGENETIC_TABLES = {
-    "S1": {
-        "endpoint": "Chronological age",
-        "analysis": "Linear CpG-age EWAS",
-        "title": "Top 10,000 epigenome-wide significant linear CpG-age associations",
-    },
-    "S2": {
-        "endpoint": "Chronological age",
-        "analysis": "Quadratic CpG-age EWAS",
-        "title": "Top 10,000 epigenome-wide significant quadratic CpG-age associations",
-    },
-    "S3": {
-        "endpoint": "All-cause mortality",
-        "analysis": "Mortality EWAS",
-        "title": "Epigenome-wide significant CpG associations with all-cause mortality",
-    },
-    "S4": {
-        "endpoint": "All-cause mortality",
-        "analysis": "Mortality EWAS with relatedness adjustment",
-        "title": "Mortality CpG associations replicated with coxme relatedness adjustment",
-    },
-}
+MODULE_SHEETS = ("GenAge", "LongevityMap", "cAge", "bAge", "tAge", "Integrative")
 
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--transcriptomic", type=Path, default=DEFAULT_TRANSCRIPTOMIC)
-    parser.add_argument("--epigenetic", type=Path, default=DEFAULT_EPIGENETIC)
-    parser.add_argument("--genage", type=Path, default=DEFAULT_GENAGE)
-    parser.add_argument("--longevity", type=Path, default=DEFAULT_LONGEVITY)
+    parser.add_argument("--atlas-workbook", type=Path, default=DEFAULT_ATLAS_WORKBOOK)
     parser.add_argument("--hgnc", type=Path, default=DEFAULT_HGNC)
     parser.add_argument("--ncbi-cache", type=Path, default=DEFAULT_NCBI_CACHE)
     parser.add_argument("--output-dir", type=Path, default=DEFAULT_OUTPUT)
     parser.add_argument("--gene-limit", type=int, default=1000)
-    parser.add_argument("--chunk-size", type=int, default=100)
+    parser.add_argument("--chunk-size", type=int, default=20)
     parser.add_argument("--fetch-ncbi", action="store_true")
     return parser.parse_args()
 
@@ -237,325 +189,337 @@ def resolve_symbol(
     return None, "unmapped"
 
 
-def classify_transcript_sheet(sheet_name: str) -> dict[str, str]:
-    label = re.sub(r"^\([A-Z]\)\s*", "", sheet_name).strip()
-    adjusted = bool(re.search(r",?\s*adj\.?$", label, flags=re.IGNORECASE))
-    clean = re.sub(r",?\s*adj\.?$", "", label, flags=re.IGNORECASE).strip()
-    if clean.startswith("ITP "):
-        family = "ITP"
-        endpoint = clean.removeprefix("ITP ")
-        population = "Mouse ITP liver"
-    elif clean.startswith("Rodents "):
-        family = "Rodents"
-        endpoint = clean.removeprefix("Rodents ")
-        population = "Mouse and rat multi-tissue"
-    elif clean.endswith(" aging multi-tissue"):
-        family = clean.removesuffix(" aging multi-tissue")
-        endpoint = "Chronological age"
-        population = f"{family} multi-tissue"
-    else:
-        family = clean.split()[0]
-        endpoint = clean
-        population = family
+def load_atlas_summaries(path: Path) -> dict[str, dict[str, Any]]:
+    frame = pd.read_excel(path, sheet_name="Datasets")
+    summaries: dict[str, dict[str, Any]] = {}
+    for _, row in frame.iterrows():
+        dataset = clean_scalar(row.get("Dataset"))
+        if not dataset:
+            continue
+        release = row.get("Release Date")
+        release_date = None if pd.isna(release) else pd.Timestamp(release).date().isoformat()
+        summaries[str(dataset)] = {
+            "agingOrLongevity": clean_scalar(row.get("Aging or Longevity")),
+            "module": clean_scalar(row.get("Module")),
+            "curation": clean_scalar(row.get("Curated or Not curated")),
+            "tissue": clean_scalar(row.get("Tissue")),
+            "reportedGeneCount": clean_scalar(row.get("Count of genes")),
+            "reportedAnalyteCount": clean_scalar(row.get("Count of analytes")),
+            "reportedGenesIncluded": clean_scalar(row.get("Genes included")),
+            "releaseDate": release_date,
+            "population": clean_scalar(row.get("Population")),
+            "cohorts": clean_scalar(row.get("Cohorts in training and testing")),
+            "trainingSampleCount": clean_scalar(row.get("Count of samples in training")),
+            "databaseUrl": clean_scalar(row.get("Database")),
+            "datasetUrl": clean_scalar(row.get("Dataset.1")),
+            "paperUrl": clean_scalar(row.get("Paper")),
+        }
+    return summaries
+
+
+def resolved_row_symbols(
+    value: Any,
+    approved: dict[str, dict[str, Any]],
+    alias_map: dict[str, str],
+    mapping_counts: defaultdict[str, int],
+) -> dict[str, list[tuple[str, str]]]:
+    resolved: defaultdict[str, list[tuple[str, str]]] = defaultdict(list)
+    for raw_symbol in gene_tokens(value):
+        symbol, method = resolve_symbol(raw_symbol, approved, alias_map)
+        mapping_counts[method] += 1
+        if symbol:
+            resolved[symbol].append((raw_symbol, method))
+    return dict(resolved)
+
+
+def mapping_fields(source_mappings: list[tuple[str, str]]) -> dict[str, Any]:
+    source_symbols = [item[0] for item in source_mappings]
+    methods = sorted({item[1] for item in source_mappings})
     return {
-        "family": family,
-        "endpoint": endpoint,
-        "model": "Age-adjusted" if adjusted else "Unadjusted",
-        "population": population,
-        "label": label,
+        "sourceSymbol": source_symbols[0],
+        "sourceSymbols": source_symbols,
+        "symbolMapping": methods[0] if len(methods) == 1 else "multiple",
+        "symbolMappings": [
+            {"sourceSymbol": raw, "method": method} for raw, method in source_mappings
+        ],
     }
 
 
-def load_transcriptomic(
+def load_curated_tage(
     path: Path,
     approved: dict[str, dict[str, Any]],
     alias_map: dict[str, str],
 ) -> tuple[defaultdict[str, list[dict[str, Any]]], dict[str, Any]]:
-    workbook = pd.ExcelFile(path)
-    if workbook.sheet_names != TRANSCRIPTOMIC_EXPECTED_SHEETS:
-        missing = sorted(set(TRANSCRIPTOMIC_EXPECTED_SHEETS) - set(workbook.sheet_names))
-        extra = sorted(set(workbook.sheet_names) - set(TRANSCRIPTOMIC_EXPECTED_SHEETS))
-        raise ValueError(f"Unexpected transcriptomic sheets. Missing={missing}, extra={extra}")
-
-    records: defaultdict[str, list[dict[str, Any]]] = defaultdict(list)
-    sheet_report = []
-    mapping_counts: defaultdict[str, int] = defaultdict(int)
-    total_rows = 0
-    significant_rows = 0
-
-    for sheet_name in workbook.sheet_names:
-        frame = pd.read_excel(path, sheet_name=sheet_name)
-        required = {"Entrez.ID", "Gene.symbol", "Slope", "P.Value", "P.Adjusted"}
-        missing = required - set(frame.columns)
-        if missing:
-            raise ValueError(f"{sheet_name} missing columns: {sorted(missing)}")
-        meta = classify_transcript_sheet(sheet_name)
-        total_rows += len(frame)
-        significant = frame[pd.to_numeric(frame["P.Adjusted"], errors="coerce").le(0.05)].copy()
-        significant_rows += len(significant)
-        mapped_rows = 0
-
-        for source_row, row in significant.iterrows():
-            symbol, method = resolve_symbol(row.get("Gene.symbol"), approved, alias_map)
-            mapping_counts[method] += 1
-            if not symbol:
-                continue
-            mapped_rows += 1
-            support_metric = "SE" if "SE" in frame.columns else "logCPM"
-            association_metric = "Pearson.corr" if "Pearson.corr" in frame.columns else "LR"
-            slope = numeric(row.get("Slope"))
-            records[symbol].append(
-                {
-                    "recordId": f"transcriptomic:{sheet_name}:{source_row + 2}",
-                    "sourceCollection": "Transcriptomic signatures",
-                    "sourceFile": path.name,
-                    "sourceSheet": sheet_name,
-                    "sourceRow": int(source_row + 2),
-                    "sourceSymbol": clean_scalar(row.get("Gene.symbol")),
-                    "symbolMapping": method,
-                    "sourceEntrezId": clean_scalar(row.get("Entrez.ID")),
-                    "sourceEntrezIdNote": "Mouse-ortholog identifier as reported in the source workbook",
-                    **meta,
-                    "slope": slope,
-                    "direction": "Positive" if slope and slope > 0 else "Negative" if slope and slope < 0 else "Zero",
-                    "pValue": probability(row.get("P.Value")),
-                    "adjustedPValue": probability(row.get("P.Adjusted")),
-                    "supportMetric": support_metric,
-                    "supportValue": clean_scalar(row.get(support_metric)),
-                    "associationMetric": association_metric,
-                    "associationValue": clean_scalar(row.get(association_metric)),
-                }
-            )
-
-        sheet_report.append(
-            {
-                "sheet": sheet_name,
-                "rowsTested": len(frame),
-                "fdrSignificantRows": len(significant),
-                "mappedSignificantRows": mapped_rows,
-                **meta,
-            }
-        )
-
-    return records, {
-        "rowsTested": total_rows,
-        "fdrSignificantRows": significant_rows,
-        "geneCountWithMappedSignificantEvidence": len(records),
-        "mappingCounts": dict(sorted(mapping_counts.items())),
-        "sheets": sheet_report,
-    }
-
-
-def load_epigenetic(
-    path: Path,
-    approved: dict[str, dict[str, Any]],
-    alias_map: dict[str, str],
-) -> tuple[defaultdict[str, list[dict[str, Any]]], dict[str, Any]]:
-    workbook = pd.ExcelFile(path)
-    missing_sheets = sorted(set(EPIGENETIC_TABLES) - set(workbook.sheet_names))
-    if missing_sheets:
-        raise ValueError(f"Epigenetic workbook missing sheets: {missing_sheets}")
-
-    records: defaultdict[str, list[dict[str, Any]]] = defaultdict(list)
-    table_report = []
-    mapping_counts: defaultdict[str, int] = defaultdict(int)
-    rows_with_gene = 0
-    mapped_assignments = 0
-
-    for sheet_name, meta in EPIGENETIC_TABLES.items():
-        frame = pd.read_excel(path, sheet_name=sheet_name, header=2)
-        required = {"CpG", "Chrom", "Position", "Gene"}
-        missing = required - set(frame.columns)
-        if missing:
-            raise ValueError(f"{sheet_name} missing columns: {sorted(missing)}")
-        table_mapped = 0
-        for source_row, row in frame.iterrows():
-            raw_tokens = gene_tokens(row.get("Gene"))
-            if raw_tokens:
-                rows_with_gene += 1
-            resolved_in_row: defaultdict[str, list[tuple[str, str]]] = defaultdict(list)
-            for raw_symbol in raw_tokens:
-                symbol, method = resolve_symbol(raw_symbol, approved, alias_map)
-                mapping_counts[method] += 1
-                if not symbol:
-                    continue
-                resolved_in_row[symbol].append((raw_symbol, method))
-            for symbol, source_mappings in resolved_in_row.items():
-                table_mapped += 1
-                mapped_assignments += 1
-                source_symbols = [item[0] for item in source_mappings]
-                mapping_methods = sorted({item[1] for item in source_mappings})
-                base = {
-                    "recordId": f"epigenetic:{sheet_name}:{clean_scalar(row.get('CpG'))}:{symbol}",
-                    "sourceCollection": "Epigenetic age and mortality",
-                    "sourceFile": path.name,
-                    "sourceSheet": sheet_name,
-                    "sourceRow": int(source_row + 4),
-                    "sourceSymbol": source_symbols[0],
-                    "sourceSymbols": source_symbols,
-                    "symbolMapping": mapping_methods[0] if len(mapping_methods) == 1 else "multiple",
-                    "symbolMappings": [
-                        {"sourceSymbol": raw, "method": mapping_method}
-                        for raw, mapping_method in source_mappings
-                    ],
-                    "endpoint": meta["endpoint"],
-                    "analysis": meta["analysis"],
-                    "tableTitle": meta["title"],
-                    "cpg": clean_scalar(row.get("CpG")),
-                    "cpgChromosome": clean_scalar(row.get("Chrom")),
-                    "cpgPosition": clean_scalar(row.get("Position")),
-                    "coordinateNote": "Chromosome and position refer to the CpG locus, not the gene locus",
-                }
-                if sheet_name == "S1":
-                    base.update(
-                        {
-                            "beta": clean_scalar(row.get("Beta")),
-                            "standardError": clean_scalar(row.get("SE")),
-                            "pValue": probability(row.get("p")),
-                        }
-                    )
-                elif sheet_name == "S2":
-                    base.update(
-                        {
-                            "linearBeta": clean_scalar(row.get("Beta CpG")),
-                            "linearStandardError": clean_scalar(row.get("SE CpG")),
-                            "linearPValue": probability(row.get("p CpG")),
-                            "quadraticBeta": clean_scalar(row.get("Beta CpG^2")),
-                            "quadraticStandardError": clean_scalar(row.get("SE CpG^2")),
-                            "pValue": probability(row.get("p CpG^2")),
-                        }
-                    )
-                else:
-                    base.update(
-                        {
-                            "logHazardRatio": clean_scalar(row.get("logHR")),
-                            "standardError": clean_scalar(row.get("SE")),
-                            "zStatistic": clean_scalar(row.get("Z")),
-                            "hazardRatio": clean_scalar(row.get("HR")),
-                            "hazardRatioCiLow": clean_scalar(row.get("HR_CI95_Low")),
-                            "hazardRatioCiHigh": clean_scalar(row.get("HR_CI95_High")),
-                            "pValue": probability(row.get("p")),
-                        }
-                    )
-                records[symbol].append(base)
-
-        table_report.append(
-            {
-                "sheet": sheet_name,
-                "rows": len(frame),
-                "mappedGeneAssignments": table_mapped,
-                **meta,
-            }
-        )
-
-    return records, {
-        "associationRows": sum(item["rows"] for item in table_report),
-        "rowsWithGeneAnnotation": rows_with_gene,
-        "mappedGeneAssignments": mapped_assignments,
-        "geneCountWithMappedEvidence": len(records),
-        "mappingCounts": dict(sorted(mapping_counts.items())),
-        "tables": table_report,
-    }
-
-
-def load_genage(
-    path: Path,
-    approved: dict[str, dict[str, Any]],
-    alias_map: dict[str, str],
-) -> tuple[dict[str, dict[str, Any]], dict[str, Any]]:
-    frame = pd.read_csv(path, encoding="utf-8-sig")
-    required = {"GenAge ID", "symbol", "name", "entrez gene id", "uniprot", "why"}
+    frame = pd.read_excel(path, sheet_name="tAge")
+    required = {"ID", "Entrez.ID", "Slope", "SE", "Pearson.corr", "P.Value", "P.Adjusted", "Include"}
     missing = required - set(frame.columns)
     if missing:
-        raise ValueError(f"GenAge file missing columns: {sorted(missing)}")
-
-    records: dict[str, dict[str, Any]] = {}
+        raise ValueError(f"tAge missing columns: {sorted(missing)}")
+    include = pd.to_numeric(frame["Include"], errors="coerce").eq(1)
+    criterion = pd.to_numeric(frame["P.Adjusted"], errors="coerce").lt(0.01)
+    records: defaultdict[str, list[dict[str, Any]]] = defaultdict(list)
     mapping_counts: defaultdict[str, int] = defaultdict(int)
-    for source_row, row in frame.iterrows():
-        symbol, method = resolve_symbol(row.get("symbol"), approved, alias_map)
+    mapped_rows = 0
+    for source_index, row in frame[include].iterrows():
+        symbol, method = resolve_symbol(row.get("ID"), approved, alias_map)
         mapping_counts[method] += 1
         if not symbol:
             continue
-        records[symbol] = {
-            "recordId": f"genage:{clean_scalar(row.get('GenAge ID'))}",
-            "sourceCollection": "GenAge human genes",
-            "sourceFile": path.name,
-            "sourceRow": int(source_row + 2),
-            "sourceSymbol": clean_scalar(row.get("symbol")),
-            "symbolMapping": method,
-            "genAgeId": clean_scalar(row.get("GenAge ID")),
-            "geneName": clean_scalar(row.get("name")),
-            "humanEntrezId": clean_scalar(row.get("entrez gene id")),
-            "uniprotEntry": clean_scalar(row.get("uniprot")),
-            "selectionBasis": split_pipe(str(row.get("why", "")).replace(",", "|")),
-            "selectionBasisRaw": clean_scalar(row.get("why")),
-        }
+        mapped_rows += 1
+        slope = numeric(row.get("Slope"))
+        records[symbol].append(
+            {
+                "recordId": f"tAge:{source_index + 2}",
+                "sourceCollection": "tAge",
+                "sourceFile": path.name,
+                "sourceSheet": "tAge",
+                "sourceRow": int(source_index + 2),
+                "sourceSymbol": clean_scalar(row.get("ID")),
+                "symbolMapping": method,
+                "include": 1,
+                "inclusionBasis": "Workbook Include = 1; formula P.Adjusted < 0.01",
+                "sourceEntrezId": clean_scalar(row.get("Entrez.ID")),
+                "sourceEntrezIdNote": "Mouse-ortholog identifier as reported in the consolidated workbook",
+                "endpoint": "Chronological age",
+                "slope": slope,
+                "direction": "Positive" if slope and slope > 0 else "Negative" if slope and slope < 0 else "Zero",
+                "standardError": clean_scalar(row.get("SE")),
+                "pearsonCorrelation": clean_scalar(row.get("Pearson.corr")),
+                "pValue": probability(row.get("P.Value")),
+                "adjustedPValue": probability(row.get("P.Adjusted")),
+            }
+        )
     return records, {
         "rows": len(frame),
+        "includeFlaggedRows": int(include.sum()),
+        "excludedRows": int((~include).sum()),
+        "formulaCriterionRows": int(criterion.sum()),
+        "includeMatchesFormulaCriterion": bool(include.equals(criterion)),
+        "mappedIncludedRows": mapped_rows,
         "mappedGenes": len(records),
         "mappingCounts": dict(sorted(mapping_counts.items())),
     }
 
 
-def load_longevity(
+def load_curated_epigenetic(
+    path: Path,
+    sheet_name: str,
+    approved: dict[str, dict[str, Any]],
+    alias_map: dict[str, str],
+) -> tuple[defaultdict[str, list[dict[str, Any]]], dict[str, Any]]:
+    frame = pd.read_excel(path, sheet_name=sheet_name)
+    common = {"Gene", "CpG", "Chrom", "Position", "SE", "p"}
+    specific = {"Beta"} if sheet_name == "cAge" else {"logHR", "Z", "HR", "HR_CI95_Low", "HR_CI95_High"}
+    missing = (common | specific) - set(frame.columns)
+    if missing:
+        raise ValueError(f"{sheet_name} missing columns: {sorted(missing)}")
+    records: defaultdict[str, list[dict[str, Any]]] = defaultdict(list)
+    mapping_counts: defaultdict[str, int] = defaultdict(int)
+    rows_with_gene = 0
+    mapped_assignments = 0
+    for source_index, row in frame.iterrows():
+        if gene_tokens(row.get("Gene")):
+            rows_with_gene += 1
+        resolved = resolved_row_symbols(row.get("Gene"), approved, alias_map, mapping_counts)
+        for symbol, source_mappings in resolved.items():
+            mapped_assignments += 1
+            record = {
+                "recordId": f"{sheet_name}:{source_index + 2}:{clean_scalar(row.get('CpG'))}:{symbol}",
+                "sourceCollection": sheet_name,
+                "sourceFile": path.name,
+                "sourceSheet": sheet_name,
+                "sourceRow": int(source_index + 2),
+                **mapping_fields(source_mappings),
+                "include": None,
+                "inclusionBasis": "All populated workbook rows; gene-level records require a mappable Gene annotation",
+                "endpoint": "Chronological age" if sheet_name == "cAge" else "All-cause mortality",
+                "cpg": clean_scalar(row.get("CpG")),
+                "cpgChromosome": clean_scalar(row.get("Chrom")),
+                "cpgPosition": clean_scalar(row.get("Position")),
+                "coordinateNote": "Chromosome and position refer to the CpG locus, not the gene locus",
+                "standardError": clean_scalar(row.get("SE")),
+                "pValue": probability(row.get("p")),
+            }
+            if sheet_name == "cAge":
+                record["beta"] = clean_scalar(row.get("Beta"))
+            else:
+                record.update(
+                    {
+                        "logHazardRatio": clean_scalar(row.get("logHR")),
+                        "zStatistic": clean_scalar(row.get("Z")),
+                        "hazardRatio": clean_scalar(row.get("HR")),
+                        "hazardRatioCiLow": clean_scalar(row.get("HR_CI95_Low")),
+                        "hazardRatioCiHigh": clean_scalar(row.get("HR_CI95_High")),
+                    }
+                )
+            records[symbol].append(record)
+    return records, {
+        "rows": len(frame),
+        "rowsWithGeneAnnotation": rows_with_gene,
+        "rowsWithoutGeneAnnotation": len(frame) - rows_with_gene,
+        "mappedGeneAssignments": mapped_assignments,
+        "mappedGenes": len(records),
+        "mappingCounts": dict(sorted(mapping_counts.items())),
+    }
+
+
+def load_curated_integrative(
     path: Path,
     approved: dict[str, dict[str, Any]],
     alias_map: dict[str, str],
 ) -> tuple[defaultdict[str, list[dict[str, Any]]], dict[str, Any]]:
-    frame = pd.read_csv(path, encoding="utf-8-sig")
-    required = {"id", "Association", "Population", "Variant(s)", "Gene(s)", "PubMed"}
+    frame = pd.read_excel(path, sheet_name="Integrative")
+    required = {"ID", "CpG ID", "Chromosome", "Position (hg38)", "Distance to TSS", "Correlation with Age (MGB500)"}
     missing = required - set(frame.columns)
     if missing:
-        raise ValueError(f"LongevityMap file missing columns: {sorted(missing)}")
-
+        raise ValueError(f"Integrative missing columns: {sorted(missing)}")
     records: defaultdict[str, list[dict[str, Any]]] = defaultdict(list)
     mapping_counts: defaultdict[str, int] = defaultdict(int)
-    association_counts: defaultdict[str, int] = defaultdict(int)
-    for source_row, row in frame.iterrows():
-        association_raw = clean_scalar(row.get("Association"))
-        association = str(association_raw).lower() if association_raw else "unreported"
-        if association == "non-significant":
-            association_label = "Non-significant"
-        elif association == "significant":
-            association_label = "Significant"
-        else:
-            association_label = "Unreported"
-        association_counts[association_label] += 1
-        resolved_in_row: defaultdict[str, list[tuple[str, str]]] = defaultdict(list)
-        for raw_symbol in gene_tokens(row.get("Gene(s)")):
-            symbol, method = resolve_symbol(raw_symbol, approved, alias_map)
-            mapping_counts[method] += 1
-            if not symbol:
-                continue
-            resolved_in_row[symbol].append((raw_symbol, method))
-        for symbol, source_mappings in resolved_in_row.items():
-            source_symbols = [item[0] for item in source_mappings]
-            mapping_methods = sorted({item[1] for item in source_mappings})
-            pubmed = clean_scalar(row.get("PubMed"))
-            records[symbol].append(
-                {
-                    "recordId": f"longevity:{clean_scalar(row.get('id'))}:{symbol}",
-                    "sourceCollection": "LongevityMap",
-                    "sourceFile": path.name,
-                    "sourceRow": int(source_row + 2),
-                    "sourceSymbol": source_symbols[0],
-                    "sourceSymbols": source_symbols,
-                    "symbolMapping": mapping_methods[0] if len(mapping_methods) == 1 else "multiple",
-                    "symbolMappings": [
-                        {"sourceSymbol": raw, "method": mapping_method}
-                        for raw, mapping_method in source_mappings
-                    ],
-                    "longevityMapId": clean_scalar(row.get("id")),
-                    "association": association_label,
-                    "population": clean_scalar(row.get("Population")),
-                    "variants": clean_scalar(row.get("Variant(s)")),
-                    "pubmedId": pubmed,
-                    "pubmedUrl": f"https://pubmed.ncbi.nlm.nih.gov/{pubmed}/" if pubmed else None,
-                }
-            )
+    mapped_rows = 0
+    for source_index, row in frame.iterrows():
+        symbol, method = resolve_symbol(row.get("ID"), approved, alias_map)
+        mapping_counts[method] += 1
+        if not symbol:
+            continue
+        mapped_rows += 1
+        records[symbol].append(
+            {
+                "recordId": f"integrative:{source_index + 2}",
+                "sourceCollection": "Integrative",
+                "sourceFile": path.name,
+                "sourceSheet": "Integrative",
+                "sourceRow": int(source_index + 2),
+                "sourceSymbol": clean_scalar(row.get("ID")),
+                "symbolMapping": method,
+                "include": None,
+                "inclusionBasis": "All populated rows in the Integrative sheet",
+                "cpg": clean_scalar(row.get("CpG ID")),
+                "cpgChromosome": clean_scalar(row.get("Chromosome")),
+                "cpgPositionHg38": clean_scalar(row.get("Position (hg38)")),
+                "distanceToTss": clean_scalar(row.get("Distance to TSS")),
+                "ageCorrelation": clean_scalar(row.get("Correlation with Age (MGB500)")),
+                "coordinateNote": "Chromosome and position refer to the CpG locus in hg38",
+            }
+        )
     return records, {
         "rows": len(frame),
-        "associationCounts": dict(sorted(association_counts.items())),
+        "mappedRows": mapped_rows,
+        "mappedGenes": len(records),
+        "mappingCounts": dict(sorted(mapping_counts.items())),
+    }
+
+
+def load_curated_genage(
+    path: Path,
+    approved: dict[str, dict[str, Any]],
+    alias_map: dict[str, str],
+) -> tuple[dict[str, dict[str, Any]], dict[str, Any]]:
+    frame = pd.read_excel(path, sheet_name="GenAge")
+    required = {"Gene", "name", "entrez gene id", "uniprot", "why", "Count of suporting references", "Pubmed", "Include"}
+    missing = required - set(frame.columns)
+    if missing:
+        raise ValueError(f"GenAge missing columns: {sorted(missing)}")
+    include = pd.to_numeric(frame["Include"], errors="coerce").eq(1)
+    records: dict[str, dict[str, Any]] = {}
+    mapping_counts: defaultdict[str, int] = defaultdict(int)
+    for source_index, row in frame[include].iterrows():
+        symbol, method = resolve_symbol(row.get("Gene"), approved, alias_map)
+        mapping_counts[method] += 1
+        if not symbol:
+            continue
+        pubmed = clean_scalar(row.get("Pubmed"))
+        records[symbol] = {
+            "recordId": f"genAge:{source_index + 2}",
+            "sourceCollection": "GenAge",
+            "sourceFile": path.name,
+            "sourceSheet": "GenAge",
+            "sourceRow": int(source_index + 2),
+            "sourceSymbol": clean_scalar(row.get("Gene")),
+            "symbolMapping": method,
+            "include": 1,
+            "inclusionBasis": "Final workbook Include = 1",
+            "geneName": clean_scalar(row.get("name")),
+            "humanEntrezId": clean_scalar(row.get("entrez gene id")),
+            "uniprotEntry": clean_scalar(row.get("uniprot")),
+            "selectionBasis": split_pipe(str(row.get("why", "")).replace(",", "|")),
+            "selectionBasisRaw": clean_scalar(row.get("why")),
+            "supportingReferenceCount": clean_scalar(row.get("Count of suporting references")),
+            "pubmedId": pubmed,
+            "pubmedUrl": f"https://pubmed.ncbi.nlm.nih.gov/{pubmed}/" if pubmed else None,
+        }
+    return records, {
+        "rows": len(frame),
+        "includeFlaggedRows": int(include.sum()),
+        "excludedRows": int((~include).sum()),
+        "mappedIncludedRows": len(records),
+        "mappedGenes": len(records),
+        "mappingCounts": dict(sorted(mapping_counts.items())),
+    }
+
+
+def load_curated_longevity(
+    path: Path,
+    approved: dict[str, dict[str, Any]],
+    alias_map: dict[str, str],
+) -> tuple[defaultdict[str, list[dict[str, Any]]], dict[str, Any]]:
+    frame = pd.read_excel(path, sheet_name="LongevityMap")
+    required = {"Gene", "Association", "Population", "Variant(s)", "Link", "PubMed", "Is significant?", "Is one gene?", "Gene name starts with letter?", "Include"}
+    missing = required - set(frame.columns)
+    if missing:
+        raise ValueError(f"LongevityMap missing columns: {sorted(missing)}")
+    include = pd.to_numeric(frame["Include"], errors="coerce").eq(1)
+    helper_rule = (
+        pd.to_numeric(frame["Is significant?"], errors="coerce").eq(1)
+        & pd.to_numeric(frame["Is one gene?"], errors="coerce").eq(1)
+        & pd.to_numeric(frame["Gene name starts with letter?"], errors="coerce").eq(1)
+    )
+    records: defaultdict[str, list[dict[str, Any]]] = defaultdict(list)
+    mapping_counts: defaultdict[str, int] = defaultdict(int)
+    mapped_rows = 0
+    for source_index, row in frame[include].iterrows():
+        symbol, method = resolve_symbol(row.get("Gene"), approved, alias_map)
+        mapping_counts[method] += 1
+        if not symbol:
+            continue
+        mapped_rows += 1
+        pubmed = clean_scalar(row.get("PubMed"))
+        records[symbol].append(
+            {
+                "recordId": f"longevity:{source_index + 2}",
+                "sourceCollection": "LongevityMap",
+                "sourceFile": path.name,
+                "sourceSheet": "LongevityMap",
+                "sourceRow": int(source_index + 2),
+                "sourceSymbol": clean_scalar(row.get("Gene")),
+                "symbolMapping": method,
+                "include": 1,
+                "inclusionBasis": "Workbook Include = 1; significant, single-gene record, and valid helper flags",
+                "association": "Significant",
+                "population": clean_scalar(row.get("Population")),
+                "variants": clean_scalar(row.get("Variant(s)")),
+                "sourceLink": clean_scalar(row.get("Link")),
+                "pubmedId": pubmed,
+                "pubmedUrl": f"https://pubmed.ncbi.nlm.nih.gov/{pubmed}/" if pubmed else None,
+                "helperFlags": {
+                    "significant": clean_scalar(row.get("Is significant?")),
+                    "oneGene": clean_scalar(row.get("Is one gene?")),
+                    "geneNameStartsWithLetter": clean_scalar(row.get("Gene name starts with letter?")),
+                },
+            }
+        )
+    corrected_gene_rule = (
+        frame["Association"].astype(str).str.lower().eq("significant")
+        & ~frame["Gene"].fillna("").astype(str).str.contains(",", regex=False)
+        & frame["Gene"].fillna("").astype(str).str.match(r"^[A-Za-z]")
+    )
+    return records, {
+        "rows": len(frame),
+        "includeFlaggedRows": int(include.sum()),
+        "excludedRows": int((~include).sum()),
+        "includeMatchesHelperFlags": bool(include.equals(helper_rule)),
+        "correctedGeneLabelRuleRows": int(corrected_gene_rule.sum()),
+        "correctedGeneLabelRuleDiffers": int((include != corrected_gene_rule).sum()),
+        "mappedIncludedRows": mapped_rows,
         "mappedGenes": len(records),
         "mappingCounts": dict(sorted(mapping_counts.items())),
     }
@@ -568,41 +532,34 @@ def p_sort_value(prob: dict[str, Any] | None) -> float:
     return 1e-320 if value == 0 else value
 
 
-def build_gene_record(
+def build_curated_gene_record(
     symbol: str,
     hgnc: dict[str, Any],
-    transcript: list[dict[str, Any]],
-    epigenetic: list[dict[str, Any]],
+    tage: list[dict[str, Any]],
+    cage: list[dict[str, Any]],
+    bage: list[dict[str, Any]],
+    integrative: list[dict[str, Any]],
     longevity: list[dict[str, Any]],
     genage: dict[str, Any] | None,
 ) -> dict[str, Any]:
-    transcript_tables = sorted({record["sourceSheet"] for record in transcript})
-    epigenetic_tables = sorted({record["sourceSheet"] for record in epigenetic})
-    longevity_pubmed = sorted(
-        {str(record["pubmedId"]) for record in longevity if record.get("pubmedId")}
-    )
-    significant_longevity = [record for record in longevity if record["association"] == "Significant"]
-    non_significant_longevity = [
-        record for record in longevity if record["association"] == "Non-significant"
-    ]
-    human_transcript = [record for record in transcript if record["family"] == "Human"]
     source_flags = {
-        "transcriptomic": bool(transcript),
-        "epigenetic": bool(epigenetic),
+        "tAge": bool(tage),
+        "cAge": bool(cage),
+        "bAge": bool(bage),
+        "integrative": bool(integrative),
         "longevity": bool(longevity),
         "genAge": genage is not None,
     }
-    human_flags = {
-        "humanTranscriptomic": bool(human_transcript),
-        "humanEpigenetic": bool(epigenetic),
-        "humanLongevityAssociation": bool(longevity),
-        "humanCuratedGenAge": genage is not None,
+    curated_flags = {
+        "longevity": bool(longevity),
+        "genAge": genage is not None,
     }
-    best_fdr_record = min(transcript, key=lambda item: p_sort_value(item["adjustedPValue"])) if transcript else None
-    best_epigenetic_record = min(epigenetic, key=lambda item: p_sort_value(item["pValue"])) if epigenetic else None
-    positive = sum(1 for record in transcript if record["direction"] == "Positive")
-    negative = sum(1 for record in transcript if record["direction"] == "Negative")
-    analysis_units = len(transcript_tables) + len(epigenetic_tables) + len(longevity_pubmed) + int(genage is not None)
+    best_tage = min(tage, key=lambda item: p_sort_value(item["adjustedPValue"])) if tage else None
+    best_cage = min(cage, key=lambda item: p_sort_value(item["pValue"])) if cage else None
+    best_bage = min(bage, key=lambda item: p_sort_value(item["pValue"])) if bage else None
+    positive = sum(1 for record in tage if record["direction"] == "Positive")
+    negative = sum(1 for record in tage if record["direction"] == "Negative")
+    total_records = len(tage) + len(cage) + len(bage) + len(integrative) + len(longevity) + int(genage is not None)
     return {
         "symbol": symbol,
         "annotation": {
@@ -624,66 +581,55 @@ def build_gene_record(
         "summary": None,
         "summarySource": None,
         "sourceFlags": source_flags,
-        "humanEvidenceFlags": human_flags,
         "evidenceProfile": {
             "sourceBreadth": sum(source_flags.values()),
             "sourceCollectionsAvailable": [key for key, present in source_flags.items() if present],
-            "analysisUnits": analysis_units,
-            "transcriptomicTables": len(transcript_tables),
-            "epigeneticTables": len(epigenetic_tables),
-            "longevityPublications": len(longevity_pubmed),
-            "humanEvidenceTypes": sum(human_flags.values()),
+            "curatedBreadth": sum(curated_flags.values()),
+            "curatedCollectionsAvailable": [key for key, present in curated_flags.items() if present],
+            "integrativeConvergence": bool(integrative),
+            "supportingRecords": total_records,
             "curatedInGenAge": genage is not None,
         },
         "statistics": {
-            "transcriptomicRecords": len(transcript),
-            "transcriptomicPositive": positive,
-            "transcriptomicNegative": negative,
-            "bestTranscriptomicAdjustedP": best_fdr_record["adjustedPValue"] if best_fdr_record else None,
-            "bestTranscriptomicSource": best_fdr_record["sourceSheet"] if best_fdr_record else None,
-            "epigeneticRecords": len(epigenetic),
-            "epigeneticCpGs": len({record["cpg"] for record in epigenetic}),
-            "bestEpigeneticP": best_epigenetic_record["pValue"] if best_epigenetic_record else None,
-            "bestEpigeneticSource": best_epigenetic_record["sourceSheet"] if best_epigenetic_record else None,
+            "tAgeRecords": len(tage),
+            "tAgePositive": positive,
+            "tAgeNegative": negative,
+            "bestTAgeAdjustedP": best_tage["adjustedPValue"] if best_tage else None,
+            "cAgeRecords": len(cage),
+            "cAgeCpGs": len({record["cpg"] for record in cage}),
+            "bestCAgeP": best_cage["pValue"] if best_cage else None,
+            "bAgeRecords": len(bage),
+            "bAgeCpGs": len({record["cpg"] for record in bage}),
+            "bestBAgeP": best_bage["pValue"] if best_bage else None,
+            "integrativeRecords": len(integrative),
+            "integrativeCpGs": len({record["cpg"] for record in integrative}),
             "longevityRecords": len(longevity),
-            "longevitySignificant": len(significant_longevity),
-            "longevityNonSignificant": len(non_significant_longevity),
+            "genAgeRecords": int(genage is not None),
+            "totalRecords": total_records,
         },
-        "transcriptomicRecords": sorted(
-            transcript,
-            key=lambda item: (p_sort_value(item["adjustedPValue"]), item["sourceSheet"]),
-        ),
-        "epigeneticRecords": sorted(
-            epigenetic,
-            key=lambda item: (p_sort_value(item["pValue"]), item["sourceSheet"], item["cpg"] or ""),
-        ),
-        "longevityRecords": sorted(
-            longevity,
-            key=lambda item: (item["association"] != "Significant", str(item.get("pubmedId") or "")),
-        ),
+        "tAgeRecords": sorted(tage, key=lambda item: p_sort_value(item["adjustedPValue"])),
+        "cAgeRecords": sorted(cage, key=lambda item: (p_sort_value(item["pValue"]), item["cpg"] or "")),
+        "bAgeRecords": sorted(bage, key=lambda item: (p_sort_value(item["pValue"]), item["cpg"] or "")),
+        "integrativeRecords": sorted(integrative, key=lambda item: (-(abs(numeric(item["ageCorrelation"]) or 0)), item["cpg"] or "")),
+        "longevityRecords": sorted(longevity, key=lambda item: (str(item.get("pubmedId") or ""), item["sourceRow"])),
         "genAgeRecord": genage,
     }
 
 
-def selection_key(gene: dict[str, Any]) -> tuple[Any, ...]:
+def curated_selection_key(gene: dict[str, Any]) -> tuple[Any, ...]:
     profile = gene["evidenceProfile"]
     stats = gene["statistics"]
-    best_fdr = p_sort_value(stats.get("bestTranscriptomicAdjustedP"))
-    best_epi = p_sort_value(stats.get("bestEpigeneticP"))
-    significant_records = (
-        stats["transcriptomicRecords"]
-        + stats["epigeneticRecords"]
-        + stats["longevitySignificant"]
+    best_p = min(
+        p_sort_value(stats.get("bestTAgeAdjustedP")),
+        p_sort_value(stats.get("bestCAgeP")),
+        p_sort_value(stats.get("bestBAgeP")),
     )
     return (
         -profile["sourceBreadth"],
-        -profile["humanEvidenceTypes"],
-        -int(profile["curatedInGenAge"]),
-        -stats["longevitySignificant"],
-        -profile["analysisUnits"],
-        -significant_records,
-        best_fdr,
-        best_epi,
+        -profile["curatedBreadth"],
+        -int(profile["integrativeConvergence"]),
+        -stats["totalRecords"],
+        best_p,
         gene["symbol"],
     )
 
@@ -772,42 +718,49 @@ def source_file_record(path: Path, kind: str) -> dict[str, Any]:
     }
 
 
-def main() -> None:
+def curated_main() -> None:
     args = parse_args()
-    source_paths = [
-        args.transcriptomic,
-        args.epigenetic,
-        args.genage,
-        args.longevity,
-        args.hgnc,
-    ]
+    source_paths = [args.atlas_workbook, args.hgnc]
     missing = [str(path) for path in source_paths if not path.exists()]
     if missing:
         raise FileNotFoundError(f"Missing required source files: {missing}")
     if args.gene_limit <= 0 or args.chunk_size <= 0:
         raise ValueError("gene-limit and chunk-size must be positive")
 
-    build_time = datetime.now(UTC).isoformat(timespec="seconds")
-    approved, alias_map, hgnc_report = load_hgnc(args.hgnc)
-    transcript, transcript_report = load_transcriptomic(args.transcriptomic, approved, alias_map)
-    epigenetic, epigenetic_report = load_epigenetic(args.epigenetic, approved, alias_map)
-    genage, genage_report = load_genage(args.genage, approved, alias_map)
-    longevity, longevity_report = load_longevity(args.longevity, approved, alias_map)
+    workbook = pd.ExcelFile(args.atlas_workbook)
+    expected_sheets = {"Datasets", *MODULE_SHEETS}
+    missing_sheets = sorted(expected_sheets - set(workbook.sheet_names))
+    if missing_sheets:
+        raise ValueError(f"Consolidated workbook missing sheets: {missing_sheets}")
 
-    all_symbols = sorted(set(transcript) | set(epigenetic) | set(genage) | set(longevity))
+    build_time = datetime.now(UTC).isoformat(timespec="seconds")
+    summaries = load_atlas_summaries(args.atlas_workbook)
+    approved, alias_map, hgnc_report = load_hgnc(args.hgnc)
+    tage, tage_report = load_curated_tage(args.atlas_workbook, approved, alias_map)
+    cage, cage_report = load_curated_epigenetic(args.atlas_workbook, "cAge", approved, alias_map)
+    bage, bage_report = load_curated_epigenetic(args.atlas_workbook, "bAge", approved, alias_map)
+    integrative, integrative_report = load_curated_integrative(args.atlas_workbook, approved, alias_map)
+    longevity, longevity_report = load_curated_longevity(args.atlas_workbook, approved, alias_map)
+    genage, genage_report = load_curated_genage(args.atlas_workbook, approved, alias_map)
+
+    all_symbols = sorted(
+        set(tage) | set(cage) | set(bage) | set(integrative) | set(longevity) | set(genage)
+    )
     all_genes = [
-        build_gene_record(
+        build_curated_gene_record(
             symbol,
             approved[symbol.upper()],
-            transcript.get(symbol, []),
-            epigenetic.get(symbol, []),
+            tage.get(symbol, []),
+            cage.get(symbol, []),
+            bage.get(symbol, []),
+            integrative.get(symbol, []),
             longevity.get(symbol, []),
             genage.get(symbol),
         )
         for symbol in all_symbols
         if symbol.upper() in approved
     ]
-    all_genes.sort(key=selection_key)
+    all_genes.sort(key=curated_selection_key)
     selected = all_genes[: args.gene_limit]
 
     ncbi_ids = [gene["annotation"].get("humanEntrezId") for gene in selected]
@@ -827,14 +780,16 @@ def main() -> None:
     for rank, gene in enumerate(selected, start=1):
         gene["rank"] = rank
         gene["selectionNote"] = (
-            "Hierarchical evidence ordering: source breadth, human evidence types, GenAge curation, "
-            "significant LongevityMap reports, analysis units, record count, then statistical support. "
-            "This rank is not a biological importance or causal-effect score."
+            "Deterministic browsing order: module breadth, curated-module breadth, integrative "
+            "convergence, supporting-record count, then source statistical support. The rank is "
+            "not a causal, clinical, or biological-importance score."
         )
 
     search_index = []
     for index, gene in enumerate(selected):
         chunk = index // args.chunk_size
+        stats = gene["statistics"]
+        profile = gene["evidenceProfile"]
         search_index.append(
             {
                 "symbol": gene["symbol"],
@@ -842,13 +797,16 @@ def main() -> None:
                 "location": gene["annotation"].get("chromosomeLocation"),
                 "rank": gene["rank"],
                 "chunk": chunk,
-                "sourceBreadth": gene["evidenceProfile"]["sourceBreadth"],
-                "analysisUnits": gene["evidenceProfile"]["analysisUnits"],
-                "transcriptomicRecords": gene["statistics"]["transcriptomicRecords"],
-                "epigeneticRecords": gene["statistics"]["epigeneticRecords"],
-                "longevitySignificant": gene["statistics"]["longevitySignificant"],
-                "curatedInGenAge": gene["evidenceProfile"]["curatedInGenAge"],
-                "sources": gene["evidenceProfile"]["sourceCollectionsAvailable"],
+                "sourceBreadth": profile["sourceBreadth"],
+                "curatedBreadth": profile["curatedBreadth"],
+                "supportingRecords": profile["supportingRecords"],
+                "tAgeRecords": stats["tAgeRecords"],
+                "cAgeRecords": stats["cAgeRecords"],
+                "bAgeRecords": stats["bAgeRecords"],
+                "integrativeRecords": stats["integrativeRecords"],
+                "longevityRecords": stats["longevityRecords"],
+                "curatedInGenAge": profile["curatedInGenAge"],
+                "sources": profile["sourceCollectionsAvailable"],
             }
         )
 
@@ -858,114 +816,178 @@ def main() -> None:
         payload = {gene["symbol"]: gene for gene in selected[start : start + args.chunk_size]}
         write_json(output / f"genes-{chunk}.json", payload, compact=True)
 
+    module_reports = {
+        "tAge": tage_report,
+        "cAge": cage_report,
+        "bAge": bage_report,
+        "integrative": integrative_report,
+        "longevity": longevity_report,
+        "genAge": genage_report,
+    }
+    quality_notes = [
+        (
+            "tAge Datasets summary reports "
+            f"{summaries.get('tAge', {}).get('reportedGenesIncluded')} included genes; the row-level "
+            f"Include column contains {tage_report['includeFlaggedRows']} rows and is authoritative."
+        ),
+        (
+            "bAge Datasets summary reports "
+            f"{summaries.get('bAge', {}).get('reportedAnalyteCount')} analytes; the populated bAge "
+            f"sheet contains {bage_report['rows']} rows and is authoritative."
+        ),
+        (
+            "LongevityMap's helper-column formula label was independently checked against the Gene "
+            f"field; the corrected rule changes {longevity_report['correctedGeneLabelRuleDiffers']} Include values."
+        ),
+    ]
     source_records = [
-        source_file_record(args.transcriptomic, "transcriptomic workbook"),
-        source_file_record(args.epigenetic, "epigenetic workbook"),
-        source_file_record(args.genage, "curated gene CSV"),
-        source_file_record(args.longevity, "longevity association CSV"),
+        source_file_record(args.atlas_workbook, "Dr. Mahdi consolidated evidence workbook"),
         source_file_record(args.hgnc, "HGNC annotation reference"),
+    ]
+    if args.ncbi_cache.exists():
+        source_records.append(source_file_record(args.ncbi_cache, "NCBI Gene summary cache"))
+
+    module_definitions = [
+        (
+            "tAge",
+            "Transcriptomic age associations",
+            "tAge",
+            "Human multi-tissue transcriptomic associations with chronological age",
+            "Final workbook Include = 1; the sheet formula is P.Adjusted < 0.01",
+            TRANSCRIPTOMIC_DOI,
+        ),
+        (
+            "cAge",
+            "Chronological-age CpG associations",
+            "cAge",
+            "Gene-annotated blood CpGs associated with chronological age",
+            "All populated cAge rows; gene pages require a mappable Gene annotation",
+            EPIGENETIC_DOI,
+        ),
+        (
+            "bAge",
+            "Mortality-associated CpGs",
+            "bAge",
+            "Gene-annotated blood CpGs associated with all-cause mortality",
+            "All populated bAge rows; gene pages require a mappable Gene annotation",
+            summaries.get("bAge", {}).get("paperUrl") or EPIGENETIC_DOI,
+        ),
+        (
+            "integrative",
+            "Integrative transcriptomic-epigenetic evidence",
+            "Integrative",
+            "Gene-linked CpGs with age correlations and distance to transcription start site",
+            "All populated rows in the Integrative sheet",
+            summaries.get("Integrative", {}).get("paperUrl"),
+        ),
+        (
+            "longevity",
+            "LongevityMap significant single-gene associations",
+            "LongevityMap",
+            "Curated human genetic association reports for longevity",
+            "Final workbook Include = 1: significant, single-gene records satisfying all helper flags",
+            LONGEVITY_URL,
+        ),
+        (
+            "genAge",
+            "GenAge curated human ageing genes",
+            "GenAge",
+            "Curated human genes retained by Dr. Mahdi's final inclusion decision",
+            "Final workbook Include = 1",
+            GENAGE_URL,
+        ),
     ]
     datasets = [
         {
-            "id": "transcriptomic",
-            "name": "Universal transcriptomic hallmarks of mammalian ageing and mortality",
-            "shortName": "Transcriptomic signatures",
-            "sourceFile": args.transcriptomic.name,
-            "publicationUrl": TRANSCRIPTOMIC_DOI,
-            "scope": "18 gene-level analyses spanning ITP, rodent, mouse, rat, macaque, and human data",
-            "inclusionRule": "Benjamini-Hochberg adjusted P <= 0.05 in the source sheet",
-            "report": transcript_report,
-        },
-        {
-            "id": "epigenetic",
-            "name": "Refining epigenetic prediction of chronological and biological age",
-            "shortName": "Epigenetic age and mortality",
-            "sourceFile": args.epigenetic.name,
-            "publicationUrl": EPIGENETIC_DOI,
-            "scope": "Gene-annotated CpGs from four epigenome-wide significant age and mortality tables",
-            "inclusionRule": "All records in source Tables S1-S4; source tables report P < 3.6 x 10^-8",
-            "report": epigenetic_report,
-        },
-        {
-            "id": "genage",
-            "name": "GenAge human genes",
-            "shortName": "GenAge",
-            "sourceFile": args.genage.name,
-            "publicationUrl": GENAGE_URL,
-            "scope": "Manually curated candidate human ageing-associated genes",
-            "inclusionRule": "All rows in the supplied GenAge human-gene file",
-            "report": genage_report,
-        },
-        {
-            "id": "longevity",
-            "name": "LongevityMap genetic association studies of longevity",
-            "shortName": "LongevityMap",
-            "sourceFile": args.longevity.name,
-            "publicationUrl": LONGEVITY_URL,
-            "scope": "Human longevity association reports, including significant and non-significant findings",
-            "inclusionRule": "All rows in the supplied LongevityMap Build 3 file",
-            "report": longevity_report,
-        },
-        {
-            "id": "hgnc",
-            "name": "HGNC complete approved gene set",
-            "shortName": "HGNC",
-            "sourceFile": args.hgnc.name,
-            "publicationUrl": HGNC_URL,
-            "scope": "Approved human gene symbols, names, identifiers, and cytogenetic locations",
-            "inclusionRule": "Approved HGNC records; ambiguous aliases excluded",
-            "report": hgnc_report,
-        },
-        {
-            "id": "ncbi",
-            "name": "NCBI Gene summaries",
-            "shortName": "NCBI Gene",
-            "sourceFile": args.ncbi_cache.name,
-            "publicationUrl": NCBI_GENE_URL,
-            "scope": "Human gene summaries matched by HGNC Entrez Gene ID and approved symbol",
-            "inclusionRule": "Summary attached only when NCBI symbol matches the selected HGNC symbol",
-            "report": ncbi_report,
-        },
+            "id": module_id,
+            "name": name,
+            "shortName": short_name,
+            "sourceFile": args.atlas_workbook.name,
+            "sourceSheet": short_name,
+            "publicationUrl": publication_url,
+            "scope": scope,
+            "inclusionRule": inclusion_rule,
+            "summaryMetadata": summaries.get(short_name, {}),
+            "report": module_reports[module_id],
+        }
+        for module_id, name, short_name, scope, inclusion_rule, publication_url in module_definitions
     ]
+    datasets.extend(
+        [
+            {
+                "id": "hgnc",
+                "name": "HGNC complete approved gene set",
+                "shortName": "HGNC",
+                "sourceFile": args.hgnc.name,
+                "sourceSheet": None,
+                "publicationUrl": HGNC_URL,
+                "scope": "Approved human gene symbols, names, identifiers, and cytogenetic locations",
+                "inclusionRule": "Approved HGNC records; ambiguous aliases excluded",
+                "report": hgnc_report,
+            },
+            {
+                "id": "ncbi",
+                "name": "NCBI Gene summaries",
+                "shortName": "NCBI Gene",
+                "sourceFile": args.ncbi_cache.name,
+                "sourceSheet": None,
+                "publicationUrl": NCBI_GENE_URL,
+                "scope": "Human gene summaries matched by HGNC Entrez Gene ID and approved symbol",
+                "inclusionRule": "Summary attached only when NCBI symbol matches the selected HGNC symbol",
+                "report": ncbi_report,
+            },
+        ]
+    )
 
-    breadth_counts = defaultdict(int)
+    breadth_counts: defaultdict[str, int] = defaultdict(int)
     for gene in selected:
         breadth_counts[str(gene["evidenceProfile"]["sourceBreadth"])] += 1
-    featured = [gene["symbol"] for gene in selected if gene["evidenceProfile"]["sourceBreadth"] == 4][:16]
+    maximum_breadth = max((gene["evidenceProfile"]["sourceBreadth"] for gene in selected), default=0)
+    featured = [
+        gene["symbol"]
+        for gene in selected
+        if gene["evidenceProfile"]["sourceBreadth"] == maximum_breadth
+    ][:16]
     if len(featured) < 12:
         featured = [gene["symbol"] for gene in selected[:16]]
 
     manifest = {
         "atlasName": "Aging Evidence Atlas",
-        "version": "0.1.0",
+        "version": "0.2.0",
         "generatedAt": build_time,
         "geneCount": len(selected),
         "candidateGeneCount": len(all_genes),
         "chunkSize": args.chunk_size,
         "chunkCount": chunk_count,
         "featuredGenes": featured,
-        "evidenceCollections": 4,
+        "evidenceCollections": 6,
+        "maximumBreadth": maximum_breadth,
         "breadthCounts": dict(sorted(breadth_counts.items())),
-        "transcriptomicSignificantRecords": transcript_report["fdrSignificantRows"],
-        "epigeneticGeneAssignments": epigenetic_report["mappedGeneAssignments"],
-        "genAgeGenes": genage_report["mappedGenes"],
-        "longevityRows": longevity_report["rows"],
+        "includedRows": {
+            "tAge": tage_report["includeFlaggedRows"],
+            "cAge": cage_report["rows"],
+            "bAge": bage_report["rows"],
+            "integrative": integrative_report["rows"],
+            "longevity": longevity_report["includeFlaggedRows"],
+            "genAge": genage_report["includeFlaggedRows"],
+        },
         "methodStatement": (
-            "The atlas reports evidence components separately. The rank is a deterministic browsing aid, "
-            "not a causal, clinical, or biological-importance score."
+            "Dr. Mahdi's final workbook Include flags are authoritative for tAge, LongevityMap, "
+            "and GenAge. Evidence components remain separate; rank is a browsing aid, not a score."
         ),
     }
     build_report = {
         "generatedAt": build_time,
         "parameters": {"geneLimit": args.gene_limit, "chunkSize": args.chunk_size},
         "sourceFiles": source_records,
+        "workbookSheets": workbook.sheet_names,
+        "datasetSummaries": summaries,
+        "qualityNotes": quality_notes,
         "hgnc": hgnc_report,
-        "transcriptomic": transcript_report,
-        "epigenetic": epigenetic_report,
-        "genAge": genage_report,
-        "longevity": longevity_report,
+        **module_reports,
         "ncbi": ncbi_report,
         "selectedGeneCount": len(selected),
+        "candidateGeneCount": len(all_genes),
         "featuredGenes": featured,
         "selectedSymbols": [gene["symbol"] for gene in selected],
     }
@@ -978,4 +1000,4 @@ def main() -> None:
 
 
 if __name__ == "__main__":
-    main()
+    curated_main()

@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
-"""Reconcile generated gene records against the original source rows."""
+"""Reconcile every published gene record with Dr. Mahdi's source workbook."""
 
 from __future__ import annotations
 
 import hashlib
 import json
 import math
+import re
 from pathlib import Path
 from typing import Any
 
@@ -18,12 +19,11 @@ SOURCE_ROOT = Path(
     "/Users/ReyZafarnejad/Documents/Harvard University/Internship/FAST PROSPR/Data"
 )
 SOURCES = {
-    "transcriptomic": SOURCE_ROOT / "41586_2026_10542_MOESM4_ESM.xlsx",
-    "epigenetic": SOURCE_ROOT / "13073_2023_1161_MOESM4_ESM.xlsx",
-    "genage": SOURCE_ROOT / "human_genes/genage_human.csv",
-    "longevity": SOURCE_ROOT / "longevity_genes/longevity.csv",
+    "atlas": SOURCE_ROOT / "Human Aging and Longevity Atlas Datasets.xlsx",
     "hgnc": ROOT / "build/cache/hgnc_complete_set.txt",
+    "ncbi": ROOT / "build/cache/ncbi_gene_summaries.json",
 }
+MODULES = ("tAge", "cAge", "bAge", "Integrative", "LongevityMap", "GenAge")
 
 
 def load(path: Path) -> Any:
@@ -48,32 +48,48 @@ def same_number(left: Any, right: Any) -> bool:
         return str(left) == str(right)
 
 
-def p_sort(prob: dict[str, Any] | None) -> float:
-    if not prob or prob.get("value") is None:
+def same_probability(source_value: Any, published: dict[str, Any]) -> bool:
+    source_text = str(source_value).strip()
+    if source_text.startswith("<"):
+        return (
+            published.get("qualifier") == "upper_bound"
+            and published.get("display") == source_text
+            and same_number(source_text[1:], published.get("value"))
+        )
+    return published.get("qualifier") == "exact" and same_number(
+        source_value, published.get("value")
+    )
+
+
+def p_sort(probability: dict[str, Any] | None) -> float:
+    if not probability or probability.get("value") is None:
         return 1.0
-    value = float(prob["value"])
+    value = float(probability["value"])
     return 1e-320 if value == 0 else value
 
 
 def rank_key(gene: dict[str, Any]) -> tuple[Any, ...]:
     profile = gene["evidenceProfile"]
     stats = gene["statistics"]
-    significant_records = (
-        stats["transcriptomicRecords"]
-        + stats["epigeneticRecords"]
-        + stats["longevitySignificant"]
+    best_p = min(
+        p_sort(stats.get("bestTAgeAdjustedP")),
+        p_sort(stats.get("bestCAgeP")),
+        p_sort(stats.get("bestBAgeP")),
     )
     return (
         -profile["sourceBreadth"],
-        -profile["humanEvidenceTypes"],
-        -int(profile["curatedInGenAge"]),
-        -stats["longevitySignificant"],
-        -profile["analysisUnits"],
-        -significant_records,
-        p_sort(stats.get("bestTranscriptomicAdjustedP")),
-        p_sort(stats.get("bestEpigeneticP")),
+        -profile["curatedBreadth"],
+        -int(profile["integrativeConvergence"]),
+        -stats["totalRecords"],
+        best_p,
         gene["symbol"],
     )
+
+
+def source_tokens(value: Any) -> set[str]:
+    if value is None or pd.isna(value):
+        return set()
+    return {item.strip() for item in re.split(r"[;,]", str(value)) if item.strip()}
 
 
 def main() -> None:
@@ -83,84 +99,129 @@ def main() -> None:
     for chunk in range(manifest["chunkCount"]):
         genes.update(load(DATA / f"genes-{chunk}.json"))
 
-    # File identity: verify the published audit points to the exact local inputs.
     expected_hashes = {item["name"]: item["sha256"] for item in report["sourceFiles"]}
     for source in SOURCES.values():
         assert source.exists(), source
         assert sha256(source) == expected_hashes[source.name], source.name
 
-    transcript_workbook = pd.ExcelFile(SOURCES["transcriptomic"])
-    transcript_sheet_names = [item["sheet"] for item in report["transcriptomic"]["sheets"]]
-    transcript_sheets = {
-        sheet: transcript_workbook.parse(sheet_name=sheet) for sheet in transcript_sheet_names
+    sheets = {
+        sheet: pd.read_excel(SOURCES["atlas"], sheet_name=sheet) for sheet in MODULES
     }
-    epigenetic_sheets = {
-        sheet: pd.read_excel(SOURCES["epigenetic"], sheet_name=sheet, header=2)
-        for sheet in ("S1", "S2", "S3", "S4")
-    }
-    genage = pd.read_csv(SOURCES["genage"], encoding="utf-8-sig")
-    longevity = pd.read_csv(SOURCES["longevity"], encoding="utf-8-sig")
 
-    counts = {"transcriptomic": 0, "epigenetic": 0, "genAge": 0, "longevity": 0}
+    # Recompute the workbook's final inclusion decisions independently.
+    tage_flag = pd.to_numeric(sheets["tAge"]["Include"], errors="coerce").fillna(0).eq(1)
+    tage_rule = pd.to_numeric(sheets["tAge"]["P.Adjusted"], errors="coerce").lt(0.01)
+    assert tage_flag.equals(tage_rule)
+    assert int(tage_flag.sum()) == report["tAge"]["includeFlaggedRows"]
+
+    longevity = sheets["LongevityMap"]
+    longevity_flag = pd.to_numeric(longevity["Include"], errors="coerce").fillna(0).eq(1)
+    helper_rule = (
+        pd.to_numeric(longevity["Is significant?"], errors="coerce").fillna(0).eq(1)
+        & pd.to_numeric(longevity["Is one gene?"], errors="coerce").fillna(0).eq(1)
+        & pd.to_numeric(longevity["Gene name starts with letter?"], errors="coerce").fillna(0).eq(1)
+    )
+    corrected_rule = (
+        pd.to_numeric(longevity["Is significant?"], errors="coerce").fillna(0).eq(1)
+        & pd.to_numeric(longevity["Is one gene?"], errors="coerce").fillna(0).eq(1)
+        & longevity["Gene"].fillna("").astype(str).str.match(r"^[A-Za-z]")
+    )
+    assert longevity_flag.equals(helper_rule)
+    assert longevity_flag.equals(corrected_rule)
+    assert int(longevity_flag.sum()) == report["longevity"]["includeFlaggedRows"]
+
+    genage_flag = pd.to_numeric(sheets["GenAge"]["Include"], errors="coerce").fillna(0).eq(1)
+    assert int(genage_flag.sum()) == report["genAge"]["includeFlaggedRows"]
+
+    counts = {"tAge": 0, "cAge": 0, "bAge": 0, "integrative": 0, "longevity": 0, "genAge": 0}
     for symbol, gene in genes.items():
-        record_ids = []
-        for record in gene["transcriptomicRecords"]:
-            row = transcript_sheets[record["sourceSheet"]].iloc[record["sourceRow"] - 2]
-            assert str(row["Gene.symbol"]) == record["sourceSymbol"]
+        record_ids: list[str] = []
+
+        for record in gene["tAgeRecords"]:
+            row = sheets["tAge"].iloc[record["sourceRow"] - 2]
+            assert int(row["Include"]) == 1
+            assert str(row["ID"]) == record["sourceSymbol"]
             assert same_number(row["Slope"], record["slope"])
             assert same_number(row["P.Adjusted"], record["adjustedPValue"]["value"])
-            assert float(row["P.Adjusted"]) <= 0.05
+            assert float(row["P.Adjusted"]) < 0.01
             record_ids.append(record["recordId"])
-            counts["transcriptomic"] += 1
+            counts["tAge"] += 1
 
-        for record in gene["epigeneticRecords"]:
-            row = epigenetic_sheets[record["sourceSheet"]].iloc[record["sourceRow"] - 4]
-            assert str(row["CpG"]) == record["cpg"]
-            assert all(symbol in str(row["Gene"]).split(";") for symbol in record["sourceSymbols"])
-            assert same_number(row["Chrom"], record["cpgChromosome"])
-            assert same_number(row["Position"], record["cpgPosition"])
+        for module, key in (("cAge", "cAgeRecords"), ("bAge", "bAgeRecords")):
+            for record in gene[key]:
+                row = sheets[module].iloc[record["sourceRow"] - 2]
+                assert str(row["CpG"]) == record["cpg"]
+                assert set(record["sourceSymbols"]).issubset(source_tokens(row["Gene"]))
+                assert same_number(row["Chrom"], record["cpgChromosome"])
+                assert same_number(row["Position"], record["cpgPosition"])
+                assert same_probability(row["p"], record["pValue"]), (
+                    module,
+                    symbol,
+                    record["sourceRow"],
+                    row["p"],
+                    record["pValue"],
+                )
+                record_ids.append(record["recordId"])
+                counts[module] += 1
+
+        for record in gene["integrativeRecords"]:
+            row = sheets["Integrative"].iloc[record["sourceRow"] - 2]
+            assert str(row["ID"]) == record["sourceSymbol"]
+            assert str(row["CpG ID"]) == record["cpg"]
+            assert same_number(row["Position (hg38)"], record["cpgPositionHg38"])
+            assert same_number(row["Distance to TSS"], record["distanceToTss"])
+            assert same_number(row["Correlation with Age (MGB500)"], record["ageCorrelation"])
             record_ids.append(record["recordId"])
-            counts["epigenetic"] += 1
+            counts["integrative"] += 1
 
         for record in gene["longevityRecords"]:
-            row = longevity.iloc[record["sourceRow"] - 2]
-            assert same_number(row["id"], record["longevityMapId"])
-            assert all(symbol in str(row["Gene(s)"]).split(",") for symbol in record["sourceSymbols"])
+            row = sheets["LongevityMap"].iloc[record["sourceRow"] - 2]
+            assert int(row["Include"]) == 1
+            assert str(row["Gene"]) == record["sourceSymbol"]
             assert str(row["Association"]).lower() == record["association"].lower()
+            assert same_number(row["PubMed"], record["pubmedId"])
+            assert all(int(value) == 1 for value in record["helperFlags"].values())
             record_ids.append(record["recordId"])
             counts["longevity"] += 1
 
         if gene["genAgeRecord"]:
             record = gene["genAgeRecord"]
-            row = genage.iloc[record["sourceRow"] - 2]
-            assert same_number(row["GenAge ID"], record["genAgeId"])
-            assert str(row["symbol"]) == record["sourceSymbol"]
+            row = sheets["GenAge"].iloc[record["sourceRow"] - 2]
+            assert int(row["Include"]) == 1
+            assert str(row["Gene"]) == record["sourceSymbol"]
+            assert same_number(row["entrez gene id"], record["humanEntrezId"])
+            assert same_number(row["Count of suporting references"], record["supportingReferenceCount"])
             record_ids.append(record["recordId"])
             counts["genAge"] += 1
 
+        stats = gene["statistics"]
         assert len(record_ids) == len(set(record_ids)), f"Duplicate record for {symbol}"
-        assert gene["statistics"]["transcriptomicRecords"] == len(gene["transcriptomicRecords"])
-        assert gene["statistics"]["epigeneticRecords"] == len(gene["epigeneticRecords"])
-        assert gene["statistics"]["longevityRecords"] == len(gene["longevityRecords"])
+        assert stats["tAgeRecords"] == len(gene["tAgeRecords"])
+        assert stats["cAgeRecords"] == len(gene["cAgeRecords"])
+        assert stats["bAgeRecords"] == len(gene["bAgeRecords"])
+        assert stats["integrativeRecords"] == len(gene["integrativeRecords"])
+        assert stats["longevityRecords"] == len(gene["longevityRecords"])
+        assert stats["genAgeRecords"] == int(gene["genAgeRecord"] is not None)
+        assert stats["totalRecords"] == len(record_ids)
+        assert gene["evidenceProfile"]["sourceBreadth"] == sum(gene["sourceFlags"].values())
 
     ordered = sorted(genes.values(), key=lambda gene: gene["rank"])
     assert ordered == sorted(ordered, key=rank_key), "Published ranks do not match hierarchy"
 
-    ncbi_cache = load(ROOT / "build/cache/ncbi_gene_summaries.json")
+    ncbi_cache = load(SOURCES["ncbi"])
     for gene in ordered:
         entrez = str(gene["annotation"]["humanEntrezId"])
         ncbi = ncbi_cache[entrez]
         ncbi_symbol = ncbi.get("nomenclaturesymbol") or ncbi.get("name")
         assert str(ncbi_symbol).upper() == gene["symbol"].upper()
         if gene["summary"]:
-            assert gene["summary"] == ncbi.get("summary")
+            assert gene["summary"] == str(ncbi.get("summary") or "").strip(), gene["symbol"]
 
     output = {
         "status": "ok",
-        "selectedGenes": len(genes),
+        "publishedGenesAudited": len(genes),
         "sourceRecordsReconciled": counts,
-        "ncbiSymbolMatches": len(ordered),
-        "ncbiSummaries": sum(1 for gene in ordered if gene["summary"]),
+        "includeRulesRecomputed": ["tAge", "LongevityMap", "GenAge"],
         "rankHierarchyVerified": True,
         "sourceChecksumsVerified": len(SOURCES),
     }

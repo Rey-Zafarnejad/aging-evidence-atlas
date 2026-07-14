@@ -10,6 +10,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 DATA = ROOT / "data"
+MODULES = ("tAge", "cAge", "bAge", "integrative", "longevity", "genAge")
 
 
 def load(name: str):
@@ -34,16 +35,20 @@ def main() -> None:
     datasets = load("datasets.json")
     report = load("build-report.json")
 
-    assert manifest["geneCount"] == 1000, manifest["geneCount"]
-    assert len(search) == manifest["geneCount"]
+    assert manifest["version"] == "0.2.0"
+    assert manifest["evidenceCollections"] == len(MODULES)
+    assert manifest["geneCount"] == len(search) == report["selectedGeneCount"]
     assert len({row["symbol"] for row in search}) == len(search)
     assert [row["rank"] for row in search] == list(range(1, len(search) + 1))
-    assert len(datasets) == 6
-    assert report["selectedGeneCount"] == manifest["geneCount"]
+    assert {dataset["id"] for dataset in datasets} == {*MODULES, "hgnc", "ncbi"}
     assert report["ncbi"]["recordsMatchedByHumanEntrezAndSymbol"] == manifest["geneCount"]
     assert not report["ncbi"]["symbolMismatchesExcluded"]
+    assert report["tAge"]["includeMatchesFormulaCriterion"]
+    assert report["longevity"]["includeMatchesHelperFlags"]
+    assert report["longevity"]["correctedGeneLabelRuleDiffers"] == 0
 
     loaded_symbols = set()
+    observed_modules = set()
     for chunk in range(manifest["chunkCount"]):
         payload = load(f"genes-{chunk}.json")
         walk(payload)
@@ -51,26 +56,46 @@ def main() -> None:
         for symbol, gene in payload.items():
             assert symbol == gene["symbol"]
             assert gene["rank"] >= 1
-            assert 1 <= gene["evidenceProfile"]["sourceBreadth"] <= 4
+            assert 1 <= gene["evidenceProfile"]["sourceBreadth"] <= len(MODULES)
             assert gene["annotation"]["hgncId"].startswith("HGNC:")
-            for record in gene["transcriptomicRecords"]:
-                assert record["adjustedPValue"]["value"] <= 0.05
-            for record in gene["epigeneticRecords"]:
-                assert record["coordinateNote"].startswith("Chromosome and position refer to the CpG")
+            assert set(gene["sourceFlags"]) == set(MODULES)
+            assert gene["evidenceProfile"]["sourceBreadth"] == sum(gene["sourceFlags"].values())
+            observed_modules.update(source for source, present in gene["sourceFlags"].items() if present)
+
+            for record in gene["tAgeRecords"]:
+                assert record["include"] == 1
+                assert record["adjustedPValue"]["value"] < 0.01
+            for key in ("cAgeRecords", "bAgeRecords"):
+                for record in gene[key]:
+                    assert record["coordinateNote"].startswith("Chromosome and position refer to the CpG")
+                    assert record["cpg"]
+            for record in gene["integrativeRecords"]:
+                assert record["coordinateNote"].endswith("in hg38")
+            for record in gene["longevityRecords"]:
+                assert record["include"] == 1
+                assert record["association"].lower() == "significant"
+                assert all(value == 1 for value in record["helperFlags"].values())
+            if gene["genAgeRecord"]:
+                assert gene["genAgeRecord"]["include"] == 1
 
     assert loaded_symbols == {row["symbol"] for row in search}
+    assert observed_modules == set(MODULES)
     for row in search:
         assert row["symbol"] in load(f"genes-{row['chunk']}.json")
+        assert set(row["sources"]).issubset(MODULES)
 
-    broad = [row for row in search if row["sourceBreadth"] == 4]
-    assert broad, "Expected at least one gene represented in all four evidence collections"
+    maximum = max(row["sourceBreadth"] for row in search)
+    assert maximum == manifest["maximumBreadth"]
+    assert any(row["sourceBreadth"] == maximum for row in search)
+
     print(
         json.dumps(
             {
                 "status": "ok",
-                "genes": len(search),
+                "publishedGenes": len(search),
                 "chunks": manifest["chunkCount"],
-                "fourCollectionGenes": len(broad),
+                "evidenceModules": len(observed_modules),
+                "maximumModuleBreadth": maximum,
                 "featuredGenes": manifest["featuredGenes"],
             },
             indent=2,

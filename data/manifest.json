@@ -1,38 +1,41 @@
 {
   "atlasName": "Aging Evidence Atlas",
-  "version": "0.1.0",
-  "generatedAt": "2026-07-14T18:41:56+00:00",
+  "version": "0.2.0",
+  "generatedAt": "2026-07-14T19:35:23+00:00",
   "geneCount": 1000,
-  "candidateGeneCount": 14807,
+  "candidateGeneCount": 9182,
   "chunkSize": 20,
   "chunkCount": 50,
   "featuredGenes": [
-    "FOXO3",
-    "AKT1",
     "IGF1R",
+    "FOXO3",
     "FOXO1",
-    "UCP3",
-    "SERPINE1",
-    "NR3C1",
     "IRS2",
-    "CDKN1A",
-    "ESR1",
-    "PRKCA",
-    "SOCS2",
-    "PPARGC1A",
-    "INSR",
-    "SIRT6",
-    "IGF1"
+    "UCP3",
+    "AKT1",
+    "NR3C1",
+    "STK24",
+    "RB1",
+    "HTT",
+    "FLT1",
+    "NCOR2",
+    "PTK2",
+    "NRIP1"
   ],
-  "evidenceCollections": 4,
+  "evidenceCollections": 6,
+  "maximumBreadth": 4,
   "breadthCounts": {
-    "2": 557,
-    "3": 395,
-    "4": 48
+    "2": 706,
+    "3": 280,
+    "4": 14
   },
-  "transcriptomicSignificantRecords": 72788,
-  "epigeneticGeneAssignments": 17463,
-  "genAgeGenes": 307,
-  "longevityRows": 550,
-  "methodStatement": "The atlas reports evidence components separately. The rank is a deterministic browsing aid, not a causal, clinical, or biological-importance score."
+  "includedRows": {
+    "tAge": 6319,
+    "cAge": 10001,
+    "bAge": 1182,
+    "integrative": 721,
+    "longevity": 256,
+    "genAge": 286
+  },
+  "methodStatement": "Dr. Mahdi's final workbook Include flags are authoritative for tAge, LongevityMap, and GenAge. Evidence components remain separate; rank is a browsing aid, not a score."
 }

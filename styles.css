@@ -613,6 +613,8 @@ h3 {
 .collection-item:nth-child(2) .collection-dot { background: var(--navy-2); }
 .collection-item:nth-child(3) .collection-dot { background: var(--gold); }
 .collection-item:nth-child(4) .collection-dot { background: #7a8e95; }
+.collection-item:nth-child(5) .collection-dot { background: #47787b; }
+.collection-item:nth-child(6) .collection-dot { background: #9a7b47; }
 
 .collection-item strong {
   display: block;
@@ -627,9 +629,12 @@ h3 {
 }
 
 .collection-count {
-  color: var(--navy);
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: 18px;
+  padding: 3px 7px;
+  border: 1px solid #cdd7d6;
+  background: #f6f8f5;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 760;
   white-space: nowrap;
 }
 
@@ -707,7 +712,10 @@ h3 {
   font-weight: 700;
 }
 
-.source-mark.epigenetic { border-color: #b5c6d1; background: #e7eff3; color: #315769; }
+.source-mark.tage { border-color: #a9ccc9; background: var(--teal-soft); color: #245e5b; }
+.source-mark.cage { border-color: #b5c6d1; background: #e7eff3; color: #315769; }
+.source-mark.bage { border-color: #d7c49e; background: #f6eddc; color: #71582e; }
+.source-mark.integrative { border-color: #b5c8b8; background: #e8f0e8; color: #3d6246; }
 .source-mark.longevity { border-color: #dfc997; background: var(--gold-soft); color: #76561d; }
 .source-mark.genage { border-color: #c8ced0; background: #eef0ef; color: #4a5b61; }
 
@@ -883,6 +891,23 @@ h3 {
   line-height: 1.2;
 }
 
+.profile-stat-source,
+.profile-stat-value {
+  display: block;
+}
+
+.profile-stat-source {
+  margin-bottom: 3px;
+  color: var(--muted);
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 12px;
+  font-weight: 740;
+}
+
+.profile-stat-value {
+  overflow-wrap: anywhere;
+}
+
 .profile-component p {
   margin: 8px 0 0;
   color: var(--muted);
@@ -892,7 +917,7 @@ h3 {
 
 .modality-grid {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 12px;
 }
 
@@ -907,6 +932,8 @@ h3 {
 .modality-panel:nth-child(2) { border-top-color: var(--navy-2); }
 .modality-panel:nth-child(3) { border-top-color: var(--gold); }
 .modality-panel:nth-child(4) { border-top-color: #839399; }
+.modality-panel:nth-child(5) { border-top-color: #47787b; }
+.modality-panel:nth-child(6) { border-top-color: #9a7b47; }
 
 .modality-panel h3 {
   font-family: inherit;
