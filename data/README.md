@@ -1,7 +1,7 @@
 # Static data schema
 
-- `manifest.json`: release metadata, chunk index, release checks, and featured genes.
-- `search-index.json`: compact browser search index with human identity, mouse ortholog, source coverage, and chunk location.
+- `manifest.json`: release metadata, chunk index, release checks, and the top evidence-support order calculated before static selection.
+- `search-index.json`: compact browser search index with human identity, mouse ortholog, source coverage, top-rank metadata, and chunk location.
 - `genes-0.json` through `genes-49.json`: source-centric gene records, 20 per chunk.
 - `sources.json`: public source definitions used by the interface.
 - `datasets.json`: compatibility alias of `sources.json`.

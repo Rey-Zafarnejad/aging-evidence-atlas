@@ -868,6 +868,8 @@ def main() -> None:
     ]
     genes.sort(key=selection_key)
     genes_by_symbol = {gene["symbol"]: gene for gene in genes}
+    top_evidence_symbols = [gene["symbol"] for gene in genes[:30]]
+    evidence_rank = {symbol: rank for rank, symbol in enumerate(top_evidence_symbols, start=1)}
 
     mandatory = [genes_by_symbol[symbol] for symbol in mandatory_core if symbol in genes_by_symbol]
     mandatory.sort(key=selection_key)
@@ -880,6 +882,8 @@ def main() -> None:
 
     if len(selected) != min(args.gene_limit, len(genes)):
         raise AssertionError("Selected gene count does not match the requested limit")
+    if not set(top_evidence_symbols).issubset({gene["symbol"] for gene in selected}):
+        raise AssertionError("A full-universe top evidence gene is missing from the static release")
     missing_references = sorted(reference_genes - {gene["symbol"] for gene in selected})
     if missing_references:
         raise AssertionError(f"Reference ageing genes missing from release: {missing_references}")
@@ -917,11 +921,12 @@ def main() -> None:
                     "publicSourceCount": gene["coverage"]["publicSourceCount"],
                     "sources": gene["coverage"]["publicSources"],
                     "recordCount": gene["statistics"]["totalEvidenceRecords"],
+                    "evidenceRank": evidence_rank.get(gene["symbol"]),
                     "chunk": chunk_number,
                 }
             )
 
-    featured = [gene["symbol"] for gene in selected[:8]]
+    featured = top_evidence_symbols[:10]
     sources = source_definitions(selected)
     manifest = {
         "title": "Human Aging Atlas",
@@ -931,6 +936,8 @@ def main() -> None:
         "chunkSize": args.chunk_size,
         "chunks": chunks,
         "featuredGenes": featured,
+        "topEvidenceGenes": top_evidence_symbols,
+        "topEvidenceUniverseGeneCount": len(genes),
         "referenceGenesVerified": sorted(reference_genes),
         "metrics": {
             "publicSources": len(sources),
@@ -950,6 +957,7 @@ def main() -> None:
                 "Fill remaining places by public-source breadth, human evidence, transcriptomic context breadth, endpoint breadth, sensitivity support, capped record count, and statistical support",
                 "Use approved HGNC symbols and strict one-to-one human-mouse orthology",
             ],
+            "topEvidenceGenesDerivedBeforeStaticSelection": top_evidence_symbols,
             "referenceGenesVerified": sorted(reference_genes),
         },
         "reports": {
@@ -986,7 +994,7 @@ def main() -> None:
                 "publishedGenes": len(selected),
                 "mandatoryCore": len(mandatory),
                 "evidenceRecords": manifest["metrics"]["evidenceRecords"],
-                "featuredGenes": featured,
+                "topEvidenceGenes": top_evidence_symbols,
                 "ncbiSummaries": ncbi_report["summariesAttached"],
             },
             indent=2,

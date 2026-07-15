@@ -11,6 +11,7 @@
   --teal-soft: #dcecea;
   --cyan-soft: #eaf3f4;
   --gold: #bd8b3c;
+  --gold-dark: #76561d;
   --gold-soft: #f4ead7;
   --blue-gray: #d7e0e3;
   --line: #d9ddd9;
@@ -574,9 +575,13 @@ h3 {
   gap: 12px;
 }
 
+.ranked-gene-grid {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
 .gene-card {
   display: block;
-  min-height: 148px;
+  min-height: 178px;
   padding: 16px;
   border: 1px solid #d3d9d8;
   background: var(--white);
@@ -590,6 +595,30 @@ h3 {
   border-color: #90aaa9;
   box-shadow: var(--shadow);
   transform: translateY(-2px);
+}
+
+.evidence-rank-row {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin: -2px 0 13px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--line);
+}
+
+.evidence-rank {
+  color: var(--gold-dark);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 27px;
+  font-weight: 650;
+  line-height: 1;
+}
+
+.evidence-rank-label {
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 760;
+  text-transform: uppercase;
 }
 
 .gene-card-top {
@@ -628,6 +657,24 @@ h3 {
   -webkit-line-clamp: 2;
 }
 
+.ranked-gene-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  margin-top: 16px;
+}
+
+.ranking-note {
+  margin: 14px 0 0;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.ranked-gene-actions .ranking-note {
+  margin: 0;
+}
+
 .source-marks {
   display: flex;
   gap: 5px;
@@ -661,6 +708,40 @@ h3 {
   padding: 14px;
   border: 1px solid var(--line);
   background: #f6f7f3;
+}
+
+.gene-search-zone {
+  margin: 24px 0 46px;
+  padding: 25px 26px 27px;
+  border-top: 3px solid var(--navy);
+  border-bottom: 1px solid var(--line);
+  background: #f5f7f5;
+}
+
+.gene-search-heading h2 {
+  margin: 1px 0 0;
+}
+
+.gene-search-zone .filter-bar {
+  grid-template-columns: minmax(0, 2fr) minmax(190px, 0.65fr);
+  margin: 20px 0 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+
+.gene-search-zone input,
+.gene-search-zone select {
+  min-height: 48px;
+  background: var(--white);
+}
+
+.ranked-genes-section {
+  margin-bottom: 46px;
+}
+
+.gene-index-section {
+  padding-top: 3px;
 }
 
 .filter-control label {
@@ -1340,6 +1421,7 @@ h3 {
   .profile-component:nth-child(even) { border-right: 0; }
   .profile-component:nth-child(3) { border-right: 1px solid var(--line); }
   .filter-bar { grid-template-columns: 1fr; }
+  .gene-search-zone .filter-bar { grid-template-columns: 1fr; }
   .source-entry { grid-template-columns: 1fr; gap: 10px; }
   .ortholog-banner { grid-template-columns: minmax(90px, auto) 28px minmax(90px, auto); }
   .ortholog-banner p { grid-column: 1 / -1; text-align: left; }
@@ -1351,6 +1433,11 @@ h3 {
   h1 { font-size: 30px; }
   h2 { font-size: 22px; }
   .search-row { display: grid; }
+  .ranked-genes-section .section-heading-row,
+  #featured-genes .section-heading-row { display: grid; gap: 8px; }
+  .ranked-genes-section .section-heading-row p { margin: 0; }
+  .gene-search-zone { padding: 21px 18px 23px; }
+  .ranked-gene-actions { display: grid; }
   .metric-strip { grid-template-columns: 1fr; }
   .metric { border-right: 0; border-bottom: 1px solid var(--line); }
   .metric:last-child { border-bottom: 0; }

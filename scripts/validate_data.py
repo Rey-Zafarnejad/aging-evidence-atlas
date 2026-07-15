@@ -46,6 +46,20 @@ def main() -> None:
     assert manifest["metrics"]["publicSources"] == len(SOURCE_KEYS)
     assert manifest["chunks"]
 
+    top_evidence = manifest["topEvidenceGenes"]
+    assert len(top_evidence) == 30
+    assert len(set(top_evidence)) == 30
+    assert report["selection"]["topEvidenceGenesDerivedBeforeStaticSelection"] == top_evidence
+    assert manifest["topEvidenceUniverseGeneCount"] >= manifest["geneCount"]
+    search_by_symbol = {row["symbol"]: row for row in search}
+    assert set(top_evidence).issubset(search_by_symbol)
+    assert [search_by_symbol[symbol]["evidenceRank"] for symbol in top_evidence] == list(range(1, 31))
+    assert all(
+        row["evidenceRank"] is None
+        for row in search
+        if row["symbol"] not in set(top_evidence)
+    )
+
     genes: dict[str, dict[str, Any]] = {}
     for chunk in manifest["chunks"]:
         payload = load(chunk["file"])

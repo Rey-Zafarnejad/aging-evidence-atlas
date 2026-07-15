@@ -40,7 +40,9 @@ The consolidated workbook defines the eligible gene universe. Evidence displayed
 
 ## Gene selection
 
-The demonstration release preserves the curated GenAge and LongevityMap core. Remaining places are selected deterministically using public-source breadth, human evidence, transcriptomic context breadth, endpoint breadth, sensitivity support, capped record count, and statistical support. This selection supports useful search coverage; it is not a public rank.
+The current release preserves the curated GenAge and LongevityMap core. Remaining places are selected deterministically using public-source breadth, human evidence, transcriptomic context breadth, endpoint breadth, sensitivity support, capped record count, and statistical support.
+
+The displayed top-gene order is calculated across the complete eligible source release before the static publishing subset is selected. It is an evidence-support order, not a causal or biological-importance score.
 
 ## Reproducibility
 

@@ -159,9 +159,25 @@ function initializeSearch(panel, inputSelector, resultSelector, buttonSelector) 
   });
 }
 
+function rankedGenes(limit = 30) {
+  const bySymbol = new Map(state.searchIndex.map((gene) => [gene.symbol, gene]));
+  const symbols = state.manifest.topEvidenceGenes || state.manifest.featuredGenes || [];
+  return symbols
+    .slice(0, limit)
+    .map((symbol, index) => {
+      const gene = bySymbol.get(symbol);
+      return gene ? { ...gene, evidenceRank: gene.evidenceRank || index + 1 } : null;
+    })
+    .filter(Boolean);
+}
+
 function homeGeneCard(gene) {
   return `
     <a class="gene-card" href="#/gene/${encodeURIComponent(gene.symbol)}">
+      <div class="evidence-rank-row">
+        <span class="evidence-rank" aria-label="Evidence-support rank ${escapeHtml(gene.evidenceRank)}">${String(gene.evidenceRank).padStart(2, "0")}</span>
+        <span class="evidence-rank-label">Evidence support</span>
+      </div>
       <div class="gene-card-top">
         <span class="gene-card-symbol">${escapeHtml(gene.symbol)}</span>
         ${gene.mouseSymbol ? `<span class="ortholog-mini">Mouse ${escapeHtml(gene.mouseSymbol)}</span>` : ""}
@@ -172,9 +188,7 @@ function homeGeneCard(gene) {
 }
 
 function renderHome() {
-  const featured = state.manifest.featuredGenes
-    .map((symbol) => state.searchIndex.find((gene) => gene.symbol === symbol))
-    .filter(Boolean);
+  const topGenes = rankedGenes(30);
 
   main.innerHTML = `
     ${pageHeader(
@@ -204,43 +218,76 @@ function renderHome() {
 
     <section class="section-block" id="featured-genes">
       <div class="section-heading-row">
-        <h2>Evidence-rich examples</h2>
+        <div><p class="section-kicker">Complete eligible source release</p><h2>Top evidence-supported genes</h2></div>
         <a class="text-link" href="#/genes">Browse gene index</a>
       </div>
-      <div class="gene-grid">${featured.map(homeGeneCard).join("")}</div>
+      <div class="gene-grid ranked-gene-grid" id="home-ranked-genes"></div>
+      <div class="ranked-gene-actions">
+        <p class="ranking-note">Order reflects breadth and support across the source evidence; it is not a causal or biological-importance rank.</p>
+        <button class="secondary-button" id="toggle-ranked-genes" type="button">Show top 30</button>
+      </div>
     </section>`;
 
   initializeSearch(main, "#home-gene-search", "#home-search-results", "#home-search-button");
+  const rankedGrid = main.querySelector("#home-ranked-genes");
+  const rankedToggle = main.querySelector("#toggle-ranked-genes");
+  let rankedLimit = 10;
+  const drawRankedGenes = () => {
+    rankedGrid.innerHTML = topGenes.slice(0, rankedLimit).map(homeGeneCard).join("");
+    rankedToggle.textContent = rankedLimit === 10 ? "Show top 30" : "Show top 10";
+  };
+  rankedToggle.addEventListener("click", () => {
+    rankedLimit = rankedLimit === 10 ? 30 : 10;
+    drawRankedGenes();
+  });
+  drawRankedGenes();
   setSectionNav([
     { id: "overview", label: "Overview" },
     { id: "evidence-landscape", label: "Evidence landscape" },
-    { id: "featured-genes", label: "Example genes" },
+    { id: "featured-genes", label: "Top genes" },
   ]);
 }
 
 function renderGeneIndex() {
+  const topGenes = rankedGenes(10);
   main.innerHTML = `
     ${pageHeader(
       "Gene index",
       "Browse human genes",
       "Search approved human symbols, one-to-one mouse orthologs, or approved gene names.",
     )}
-    <section class="filter-bar" id="gene-browser">
-      <div class="filter-control grow">
-        <label for="browse-query">Gene</label>
-        <input id="browse-query" type="search" placeholder="TP53, Trp53, tumor protein p53" />
+    <section class="gene-search-zone" id="gene-browser">
+      <div class="gene-search-heading">
+        <p class="section-kicker">Gene lookup</p>
+        <h2>Search the atlas</h2>
       </div>
-      <div class="filter-control">
-        <label for="browse-source">Public source</label>
-        <select id="browse-source">
-          <option value="all">All sources</option>
-          ${Object.entries(SOURCE_LABELS).map(([key, label]) => `<option value="${key}">${label}</option>`).join("")}
-        </select>
+      <div class="filter-bar">
+        <div class="filter-control grow">
+          <label for="browse-query">Human symbol, mouse ortholog, or gene name</label>
+          <input id="browse-query" type="search" placeholder="TP53, Trp53, tumor protein p53" />
+        </div>
+        <div class="filter-control">
+          <label for="browse-source">Public source</label>
+          <select id="browse-source">
+            <option value="all">All sources</option>
+            ${Object.entries(SOURCE_LABELS).map(([key, label]) => `<option value="${key}">${label}</option>`).join("")}
+          </select>
+        </div>
       </div>
     </section>
-    <div class="result-summary" id="browse-summary"></div>
-    <div class="table-wrap" id="gene-table-wrap"></div>
-    <div class="pagination-row"><button class="secondary-button" id="show-more" type="button">Show more</button></div>`;
+    <section class="section-block ranked-genes-section" id="evidence-ranking">
+      <div class="section-heading-row">
+        <div><p class="section-kicker">Complete eligible source release</p><h2>Top evidence-supported genes</h2></div>
+        <p>Cross-source evidence-support order</p>
+      </div>
+      <div class="gene-grid ranked-gene-grid">${topGenes.map(homeGeneCard).join("")}</div>
+      <p class="ranking-note">Order reflects breadth and support across the source evidence; it is not a causal or biological-importance rank.</p>
+    </section>
+    <section class="gene-index-section" id="gene-index">
+      <div class="section-heading-row"><h2>Gene index</h2><p id="browse-summary">Filtered by the controls above</p></div>
+      <div class="table-wrap" id="gene-table-wrap"></div>
+      <div class="pagination-row"><button class="secondary-button" id="show-more" type="button">Show more</button></div>
+    </section>`;
 
   const query = main.querySelector("#browse-query");
   const source = main.querySelector("#browse-source");
@@ -251,17 +298,19 @@ function renderGeneIndex() {
   const draw = () => {
     const term = query.value.trim().toUpperCase();
     const sourceValue = source.value;
-    const matches = state.searchIndex.filter((gene) => {
-      const text = `${gene.symbol} ${gene.mouseSymbol || ""} ${gene.name || ""}`.toUpperCase();
-      return (!term || text.includes(term)) && (sourceValue === "all" || gene.sources.includes(sourceValue));
-    });
+    const matches = state.searchIndex
+      .filter((gene) => {
+        const text = `${gene.symbol} ${gene.mouseSymbol || ""} ${gene.name || ""}`.toUpperCase();
+        return (!term || text.includes(term)) && (sourceValue === "all" || gene.sources.includes(sourceValue));
+      })
+      .sort((left, right) => left.symbol.localeCompare(right.symbol));
     const visible = matches.slice(0, state.browseLimit);
-    summary.textContent = `${formatInteger(matches.length)} matching gene${matches.length === 1 ? "" : "s"}`;
+    summary.textContent = term || sourceValue !== "all" ? "Filtered by the controls above" : "Alphabetical reference";
     wrap.innerHTML = `
       <table class="data-table gene-index-table">
         <thead><tr><th>Human gene</th><th>Approved name</th><th>Human locus</th><th>Mouse ortholog</th><th>Evidence sources</th></tr></thead>
         <tbody>
-          ${visible
+          ${visible.length ? visible
             .map(
               (gene) => `<tr>
                 <td><a class="gene-link" href="#/gene/${encodeURIComponent(gene.symbol)}">${escapeHtml(gene.symbol)}</a></td>
@@ -271,7 +320,7 @@ function renderGeneIndex() {
                 <td><div class="source-marks">${sourceMarks(gene.sources)}</div></td>
               </tr>`,
             )
-            .join("")}
+            .join("") : `<tr><td colspan="5">No matching gene record. Try another symbol, ortholog, name, or source.</td></tr>`}
         </tbody>
       </table>`;
     showMore.hidden = visible.length >= matches.length;
@@ -292,7 +341,9 @@ function renderGeneIndex() {
   draw();
   setSectionNav([
     { id: "overview", label: "Overview" },
-    { id: "gene-browser", label: "Gene browser" },
+    { id: "gene-browser", label: "Search" },
+    { id: "evidence-ranking", label: "Top genes" },
+    { id: "gene-index", label: "Gene index" },
   ]);
 }
 
@@ -579,7 +630,7 @@ function renderMethods() {
     )}
     <section class="section-block" id="gene-selection">
       <h2>Gene selection</h2>
-      <p>The demonstration release preserves curated GenAge and significant LongevityMap genes, then prioritizes additional genes with broader support across public sources, human evidence, analysis contexts, endpoints, replication, and statistical support.</p>
+      <p>The atlas preserves curated GenAge and significant LongevityMap genes, then prioritizes additional genes with broader support across public sources, human evidence, analysis contexts, endpoints, replication, and statistical support.</p>
     </section>
     <section class="section-block" id="identity-mapping">
       <h2>Human–mouse identity</h2>
