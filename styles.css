@@ -215,6 +215,10 @@ summary {
   color: var(--navy);
 }
 
+#section-nav a:first-child {
+  font-weight: 700;
+}
+
 .rail-filter {
   width: 100%;
   padding: 7px 0 7px 14px;
@@ -237,7 +241,6 @@ summary {
 .rail-planned {
   display: grid;
   padding: 7px 0 7px 14px;
-  border-left: 2px solid #c7cfce;
   color: #77838a;
   font-size: 12px;
 }
