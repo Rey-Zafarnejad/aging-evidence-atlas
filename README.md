@@ -1,11 +1,13 @@
 # Human Aging Atlas
 
-A static, searchable scientific reference for gene-level evidence from four public evidence collections:
+A static, searchable scientific reference for gene-level evidence organized into four active omics layers:
 
-- cross-species transcriptomic signatures, including ITP mouse-cohort analyses;
-- human epigenetic associations with chronological age and all-cause mortality;
-- significant human longevity associations from LongevityMap; and
-- GenAge human curation and mouse lifespan evidence.
+- **Genomics:** GenAge human curation and mouse lifespan evidence, plus significant human LongevityMap associations;
+- **Epigenomics:** cAge chronological-age CpGs and bAge all-cause mortality CpGs;
+- **Transcriptomics:** tAge cross-species signatures, including ITP mouse-cohort analyses; and
+- **Proteomics:** OrganAge proteins selected by published organ-specific age models.
+
+Metabolomics and Integrative (IMM-AGE) are identified as planned layers and do not appear as gene evidence until source records are incorporated.
 
 Pages are anchored to approved HGNC human symbols. Mouse evidence is connected only through a strict one-to-one human-mouse relationship in the MGI/Alliance homology report. Evidence remains separated by source and study design; the atlas does not assign a universal causal or biological-importance score.
 
@@ -31,18 +33,22 @@ python3 scripts/scientific_qc.py
 
 The consolidated workbook defines the eligible gene universe. Evidence displayed on gene pages comes from the underlying public source files.
 
+The OrganAge cache is derived from the official package at a pinned commit. To reproduce that compact cache from an OrganAge checkout:
+
+```bash
+python3 build/extract_organage_features.py --organage-repo /path/to/organage
+```
+
 ## Evidence scope
 
-- **Transcriptomic:** all 18 source tables are evaluated; displayed records have FDR-adjusted P values at or below 0.05.
-- **Epigenetic:** primary chronological-age CpGs and primary mortality CpGs are shown. The relatedness-adjusted mortality model is attached as sensitivity evidence for the same CpG.
-- **LongevityMap:** significant, single-gene human association reports retained by the curation layer are shown from the public release.
-- **GenAge:** retained human candidate-gene records and mouse model-organism lifespan records are shown. Other model organisms are outside this human-mouse release.
+- **Genomics:** GenAge and LongevityMap remain distinguishable nested sources. Other GenAge model organisms are outside this human-mouse release.
+- **Epigenomics:** primary cAge and bAge CpGs are shown. The relatedness-adjusted bAge model is attached as sensitivity evidence for the same CpG.
+- **Transcriptomics:** all 18 tAge source tables are evaluated; displayed records have FDR-adjusted P values at or below 0.05.
+- **Proteomics:** unambiguous single-gene SomaScan targets with a non-zero coefficient in at least one of 500 OrganAge bootstrap models are shown with organ assignment and selection frequency. Organ-independent and cognition-optimized models are excluded.
 
 ## Gene selection
 
-The current release preserves the curated GenAge and LongevityMap core. Remaining places are selected deterministically using public-source breadth, human evidence, transcriptomic context breadth, endpoint breadth, sensitivity support, capped record count, and statistical support.
-
-The displayed top-gene order is calculated across the complete eligible source release before the static publishing subset is selected. It is an evidence-support order, not a causal or biological-importance score.
+The current release preserves the eligible GenAge, LongevityMap, and OrganAge core. Remaining entries are selected deterministically using omics-layer breadth, public-source breadth, human evidence, transcriptomic context breadth, endpoint breadth, sensitivity support, capped record count, and statistical support. The public table defaults to alphabetical order and can be sorted by the number of represented evidence layers; no biological-importance rank is assigned.
 
 ## Reproducibility
 
@@ -54,7 +60,7 @@ The displayed top-gene order is calculated across the complete eligible source r
 
 ## Database migration path
 
-The static schema is designed to map to a later relational backend without changing the scientific contract. Expected entities are `genes`, `orthologs`, `sources`, `evidence_records`, `transcriptomic_results`, `epigenetic_results`, `longevity_associations`, `genage_records`, and `provenance`. The browser search index can later be replaced by an API query while preserving the same gene-page response shape.
+The static schema is designed to map to a relational backend without changing the scientific contract. Expected entities are `genes`, `orthologs`, `evidence_layers`, `sources`, `evidence_records`, `transcriptomic_results`, `epigenetic_results`, `longevity_associations`, `genage_records`, `organage_features`, and `provenance`. The browser search index can later be replaced by an API query while preserving the same gene-page response shape.
 
 ## Public deployment
 
@@ -66,8 +72,10 @@ GitHub Pages deployment is defined in `.github/workflows/pages.yml`. The publish
 
 - Tyshkovskiy A, et al. *Universal transcriptomic hallmarks of mammalian ageing and mortality*. Nature (2026). https://doi.org/10.1038/s41586-026-10542-3
 - Bernabeu E, et al. *Refining epigenetic prediction of chronological and biological age*. Genome Medicine (2023). https://doi.org/10.1186/s13073-023-01161-y
+- Oh HS-H, et al. *Organ aging signatures in the plasma proteome track health and disease*. Nature (2023). https://doi.org/10.1038/s41586-023-06802-1
 - GenAge. https://genomics.senescence.info/genes/
 - LongevityMap. https://genomics.senescence.info/longevity/
+- Alpert A, et al. *A clinically meaningful metric of immune age derived from high-dimensional longitudinal monitoring*. Nature Medicine (2019). https://doi.org/10.1038/s41591-019-0381-y
 - MGI/Alliance homology report. https://www.informatics.jax.org/downloads/reports/HOM_MouseHumanSequence.rpt
 - HGNC approved gene set. https://www.genenames.org/download/
 - NCBI Gene. https://www.ncbi.nlm.nih.gov/gene/

@@ -46,12 +46,15 @@ DEFAULT_HGNC = DEFAULT_BUILD / "cache/hgnc_complete_set.txt"
 DEFAULT_NCBI = DEFAULT_BUILD / "cache/ncbi_gene_summaries.json"
 DEFAULT_ORTHOLOGY = DEFAULT_BUILD / "cache/HOM_MouseHumanSequence.rpt"
 DEFAULT_GENAGE_MODELS = DEFAULT_BUILD / "cache/genage_models/genage_models.csv"
+DEFAULT_ORGANAGE = DEFAULT_BUILD / "derived/organage_features.csv"
 DEFAULT_OUTPUT = DEFAULT_BUILD.parent / "data"
 
 TRANSCRIPTOMIC_DOI = "https://doi.org/10.1038/s41586-026-10542-3"
 EPIGENETIC_DOI = "https://doi.org/10.1186/s13073-023-01161-y"
 GENAGE_URL = "https://genomics.senescence.info/genes/"
 LONGEVITY_URL = "https://genomics.senescence.info/longevity/"
+ORGANAGE_DOI = "https://doi.org/10.1038/s41586-023-06802-1"
+ORGANAGE_URL = "https://github.com/hamiltonoh/organage"
 ORTHOLOGY_URL = "https://www.informatics.jax.org/downloads/reports/HOM_MouseHumanSequence.rpt"
 
 SOURCE_KEYS = (
@@ -59,7 +62,10 @@ SOURCE_KEYS = (
     "epigenetic",
     "longevityMap",
     "genAge",
+    "organAge",
 )
+
+LAYER_KEYS = ("genomics", "epigenomics", "transcriptomics", "proteomics")
 
 TRANSCRIPTOMIC_SHEETS = {
     "(A) ITP Chronological age": ("Mouse", "ITP", "Chronological age", "Unadjusted"),
@@ -91,6 +97,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--genage-human", type=Path, default=DEFAULT_GENAGE_HUMAN)
     parser.add_argument("--longevity", type=Path, default=DEFAULT_LONGEVITY)
     parser.add_argument("--genage-models", type=Path, default=DEFAULT_GENAGE_MODELS)
+    parser.add_argument("--organage", type=Path, default=DEFAULT_ORGANAGE)
     parser.add_argument("--orthology", type=Path, default=DEFAULT_ORTHOLOGY)
     parser.add_argument("--hgnc", type=Path, default=DEFAULT_HGNC)
     parser.add_argument("--ncbi-cache", type=Path, default=DEFAULT_NCBI)
@@ -619,6 +626,66 @@ def load_longevity_evidence(
     }
 
 
+def load_organage_evidence(
+    path: Path,
+    eligible: set[str],
+    approved: dict[str, dict[str, Any]],
+    alias_map: dict[str, str],
+) -> tuple[defaultdict[str, list[dict[str, Any]]], dict[str, Any]]:
+    frame = pd.read_csv(path)
+    records: defaultdict[str, list[dict[str, Any]]] = defaultdict(list)
+    unresolved = 0
+    outside_eligible_universe = 0
+    for source_index, row in frame.iterrows():
+        source_symbol = clean(row.get("gene_symbol"))
+        symbol, mapping = resolve_symbol(source_symbol, approved, alias_map)
+        if not symbol:
+            unresolved += 1
+            continue
+        if symbol not in eligible:
+            outside_eligible_universe += 1
+            continue
+        mean_coefficient = number(row.get("mean_nonzero_coefficient"))
+        records[symbol].append(
+            {
+                "recordId": f"organage:{clean(row.get('organ'))}:{clean(row.get('seq_id'))}",
+                "sourceKey": "organAge",
+                "sourceFile": path.name,
+                "sourceRow": int(source_index + 2),
+                "organism": "Human",
+                "organ": clean(row.get("organ")),
+                "seqId": clean(row.get("seq_id")),
+                "targetName": clean(row.get("target_name")),
+                "targetFullName": clean(row.get("target_full_name")),
+                "sourceSymbol": source_symbol,
+                "symbolMapping": mapping,
+                "entrezGeneId": clean(row.get("entrez_gene_id")),
+                "hgncId": clean(row.get("hgnc_id")),
+                "selectedModels": int(row.get("selected_models")),
+                "modelCount": int(row.get("model_count")),
+                "meanNonzeroCoefficient": mean_coefficient,
+                "coefficientDirection": clean(row.get("coefficient_direction")),
+                "modelFamily": clean(row.get("model_family")),
+                "sourceCommit": clean(row.get("source_commit")),
+            }
+        )
+    for symbol in records:
+        records[symbol].sort(
+            key=lambda item: (-item["selectedModels"], item["organ"] or "", item["seqId"] or "")
+        )
+    return records, {
+        "sourceProteinOrganRecords": len(frame),
+        "sourceGenes": int(frame["gene_symbol"].nunique()),
+        "sourceOrgans": int(frame["organ"].nunique()),
+        "recordsForEligibleGenes": sum(len(items) for items in records.values()),
+        "eligibleGenesWithEvidence": len(records),
+        "recordsOutsideEligibleUniverse": outside_eligible_universe,
+        "recordsWithoutApprovedGeneMapping": unresolved,
+        "scope": "Unambiguous single-gene SomaScan targets with a non-zero coefficient in at least one of 500 published bootstrap models; organ-independent and cognition-optimized models are excluded",
+        "sourceUrl": ORGANAGE_URL,
+    }
+
+
 def annotation_for(symbol: str, hgnc: dict[str, Any]) -> dict[str, Any]:
     location = clean(hgnc.get("location"))
     chromosome_match = re.match(r"^(\d+|X|Y|MT)", str(location or ""))
@@ -661,15 +728,50 @@ def build_gene(
     longevity: list[dict[str, Any]],
     genage_human: dict[str, Any] | None,
     genage_mouse: list[dict[str, Any]],
+    organage: list[dict[str, Any]],
 ) -> dict[str, Any]:
     source_flags = {
         "transcriptomic": bool(transcriptomic),
         "epigenetic": bool(epigenetic_age or epigenetic_mortality),
         "longevityMap": bool(longevity),
         "genAge": bool(genage_human or genage_mouse),
+        "organAge": bool(organage),
     }
+    evidence_layers = [
+        {
+            "key": "genomics",
+            "sources": [
+                label
+                for present, label in (
+                    (bool(genage_human or genage_mouse), "GenAge"),
+                    (bool(longevity), "LongevityMap"),
+                )
+                if present
+            ],
+        },
+        {
+            "key": "epigenomics",
+            "sources": [
+                label
+                for present, label in (
+                    (bool(epigenetic_age), "cAge"),
+                    (bool(epigenetic_mortality), "bAge"),
+                )
+                if present
+            ],
+        },
+        {
+            "key": "transcriptomics",
+            "sources": ["tAge"] if transcriptomic else [],
+        },
+        {
+            "key": "proteomics",
+            "sources": ["OrganAge"] if organage else [],
+        },
+    ]
+    evidence_layers = [layer for layer in evidence_layers if layer["sources"]]
     contexts = sorted({f"{item['organism']} | {item['cohort']}" for item in transcriptomic})
-    organisms = sorted({item["organism"] for item in transcriptomic} | ({"Human"} if epigenetic_age or epigenetic_mortality or longevity or genage_human else set()) | ({"Mouse"} if genage_mouse else set()))
+    organisms = sorted({item["organism"] for item in transcriptomic} | ({"Human"} if epigenetic_age or epigenetic_mortality or longevity or genage_human or organage else set()) | ({"Mouse"} if genage_mouse else set()))
     endpoints = sorted({item["endpoint"] for item in transcriptomic} | ({"Chronological age"} if epigenetic_age else set()) | ({"All-cause mortality"} if epigenetic_mortality else set()) | ({"Longevity"} if longevity or genage_human or genage_mouse else set()))
     all_groups = (transcriptomic, epigenetic_age, epigenetic_mortality, longevity)
     best_p = best_probability(all_groups)
@@ -686,6 +788,7 @@ def build_gene(
         + len(longevity)
         + int(genage_human is not None)
         + len(genage_mouse)
+        + len(organage)
     )
     positive = sum(1 for item in transcriptomic if item["direction"] == "Positive")
     negative = sum(1 for item in transcriptomic if item["direction"] == "Negative")
@@ -698,6 +801,8 @@ def build_gene(
         "coverage": {
             "publicSourceCount": sum(source_flags.values()),
             "publicSources": [key for key in SOURCE_KEYS if source_flags[key]],
+            "evidenceLayerCount": len(evidence_layers),
+            "evidenceLayers": evidence_layers,
             "organisms": organisms,
             "transcriptomicContexts": contexts,
             "endpoints": endpoints,
@@ -713,6 +818,8 @@ def build_gene(
             "longevityAssociations": len(longevity),
             "genAgeHumanRecords": int(genage_human is not None),
             "genAgeMouseRecords": len(genage_mouse),
+            "organAgeProteinOrganRecords": len(organage),
+            "organAgeOrgans": sorted({item["organ"] for item in organage}),
             "bestReportedP": best_p,
         },
         "evidence": {
@@ -722,6 +829,7 @@ def build_gene(
             "longevityMap": longevity,
             "genAgeHuman": genage_human,
             "genAgeMouse": genage_mouse,
+            "organAge": organage,
         },
     }
 
@@ -746,9 +854,11 @@ def selection_key(gene: dict[str, Any]) -> tuple[Any, ...]:
             stats["epigeneticMortalityCpGs"],
             stats["longevityAssociations"],
             stats["genAgeHumanRecords"] + stats["genAgeMouseRecords"],
+            stats["organAgeProteinOrganRecords"],
         )
     )
     return (
+        -coverage["evidenceLayerCount"],
         -coverage["publicSourceCount"],
         -human_evidence_breadth,
         -len(coverage["transcriptomicContexts"]),
@@ -764,8 +874,10 @@ def source_definitions(selected: list[dict[str, Any]]) -> list[dict[str, Any]]:
     return [
         {
             "key": "transcriptomic",
-            "title": "Cross-species transcriptomic signatures",
-            "shortTitle": "Transcriptomic",
+            "layerKey": "transcriptomics",
+            "layerTitle": "Transcriptomics",
+            "title": "tAge",
+            "shortTitle": "tAge",
             "description": "Age, mortality, normalized-age, and lifespan associations across ITP, rodent meta-analysis, and multi-tissue analyses.",
             "organisms": ["Mouse", "Rodents", "Rat", "Macaque", "Human"],
             "sourceUrl": TRANSCRIPTOMIC_DOI,
@@ -774,8 +886,10 @@ def source_definitions(selected: list[dict[str, Any]]) -> list[dict[str, Any]]:
         },
         {
             "key": "epigenetic",
-            "title": "Human epigenetic associations",
-            "shortTitle": "Epigenetic",
+            "layerKey": "epigenomics",
+            "layerTitle": "Epigenomics",
+            "title": "cAge and bAge",
+            "shortTitle": "cAge · bAge",
             "description": "Gene-annotated CpGs associated with chronological age or all-cause mortality, with relatedness-adjusted mortality sensitivity results.",
             "organisms": ["Human"],
             "sourceUrl": EPIGENETIC_DOI,
@@ -784,6 +898,8 @@ def source_definitions(selected: list[dict[str, Any]]) -> list[dict[str, Any]]:
         },
         {
             "key": "longevityMap",
+            "layerKey": "genomics",
+            "layerTitle": "Genomics",
             "title": "LongevityMap",
             "shortTitle": "LongevityMap",
             "description": "Curated human genetic association reports with significant longevity findings.",
@@ -794,6 +910,8 @@ def source_definitions(selected: list[dict[str, Any]]) -> list[dict[str, Any]]:
         },
         {
             "key": "genAge",
+            "layerKey": "genomics",
+            "layerTitle": "Genomics",
             "title": "GenAge",
             "shortTitle": "GenAge",
             "description": "Expert-curated human ageing genes and experimental mouse lifespan evidence linked by one-to-one orthology.",
@@ -801,6 +919,19 @@ def source_definitions(selected: list[dict[str, Any]]) -> list[dict[str, Any]]:
             "sourceUrl": GENAGE_URL,
             "geneCount": sum(bool(gene["evidence"]["genAgeHuman"] or gene["evidence"]["genAgeMouse"]) for gene in selected),
             "recordCount": sum(int(gene["evidence"]["genAgeHuman"] is not None) + len(gene["evidence"]["genAgeMouse"]) for gene in selected),
+        },
+        {
+            "key": "organAge",
+            "layerKey": "proteomics",
+            "layerTitle": "Proteomics",
+            "title": "OrganAge",
+            "shortTitle": "OrganAge",
+            "description": "Human plasma proteins selected by published bootstrapped organ-age models, with organ assignment and model-selection frequency.",
+            "organisms": ["Human"],
+            "sourceUrl": ORGANAGE_DOI,
+            "resourceUrl": ORGANAGE_URL,
+            "geneCount": sum(bool(gene["evidence"]["organAge"]) for gene in selected),
+            "recordCount": sum(len(gene["evidence"]["organAge"]) for gene in selected),
         },
     ]
 
@@ -814,6 +945,7 @@ def main() -> None:
         args.genage_human,
         args.longevity,
         args.genage_models,
+        args.organage,
         args.orthology,
         args.hgnc,
     ]
@@ -832,8 +964,6 @@ def main() -> None:
     reference_genes = {"TP53", "CDKN2A", "MTOR", "SIRT1", "APOE", "TERT", "FOXO3", "IGF1", "FKBP5"}
     reference_genes &= eligible
     mandatory_core = genage_core | longevity_core | reference_genes
-    if len(mandatory_core) > args.gene_limit:
-        raise ValueError("The mandatory curated core exceeds the requested gene limit")
 
     transcriptomic, transcriptomic_report = load_transcriptomic_evidence(
         args.transcriptomic, eligible, mouse_to_human
@@ -850,6 +980,12 @@ def main() -> None:
     longevity, longevity_report = load_longevity_evidence(
         args.longevity, args.atlas_workbook, longevity_core, approved, alias_map
     )
+    organage, organage_report = load_organage_evidence(
+        args.organage, eligible, approved, alias_map
+    )
+    mandatory_core |= set(organage)
+    if len(mandatory_core) > args.gene_limit:
+        raise ValueError("The mandatory source core exceeds the requested gene limit")
 
     genes = [
         build_gene(
@@ -862,14 +998,13 @@ def main() -> None:
             longevity.get(symbol, []),
             genage_human.get(symbol),
             genage_mouse.get(symbol, []),
+            organage.get(symbol, []),
         )
         for symbol in sorted(eligible)
         if symbol.upper() in approved
     ]
     genes.sort(key=selection_key)
     genes_by_symbol = {gene["symbol"]: gene for gene in genes}
-    top_evidence_symbols = [gene["symbol"] for gene in genes[:30]]
-    evidence_rank = {symbol: rank for rank, symbol in enumerate(top_evidence_symbols, start=1)}
 
     mandatory = [genes_by_symbol[symbol] for symbol in mandatory_core if symbol in genes_by_symbol]
     mandatory.sort(key=selection_key)
@@ -882,8 +1017,6 @@ def main() -> None:
 
     if len(selected) != min(args.gene_limit, len(genes)):
         raise AssertionError("Selected gene count does not match the requested limit")
-    if not set(top_evidence_symbols).issubset({gene["symbol"] for gene in selected}):
-        raise AssertionError("A full-universe top evidence gene is missing from the static release")
     missing_references = sorted(reference_genes - {gene["symbol"] for gene in selected})
     if missing_references:
         raise AssertionError(f"Reference ageing genes missing from release: {missing_references}")
@@ -920,44 +1053,41 @@ def main() -> None:
                     "mouseSymbol": ortholog.get("mouseSymbol"),
                     "publicSourceCount": gene["coverage"]["publicSourceCount"],
                     "sources": gene["coverage"]["publicSources"],
+                    "evidenceLayerCount": gene["coverage"]["evidenceLayerCount"],
+                    "evidenceLayers": gene["coverage"]["evidenceLayers"],
                     "recordCount": gene["statistics"]["totalEvidenceRecords"],
-                    "evidenceRank": evidence_rank.get(gene["symbol"]),
                     "chunk": chunk_number,
                 }
             )
 
-    featured = top_evidence_symbols[:10]
     sources = source_definitions(selected)
     manifest = {
         "title": "Human Aging Atlas",
-        "schemaVersion": 2,
+        "schemaVersion": 3,
         "generatedAt": build_time,
         "geneCount": len(selected),
         "chunkSize": args.chunk_size,
         "chunks": chunks,
-        "featuredGenes": featured,
-        "topEvidenceGenes": top_evidence_symbols,
-        "topEvidenceUniverseGeneCount": len(genes),
         "referenceGenesVerified": sorted(reference_genes),
         "metrics": {
             "publicSources": len(sources),
+            "activeEvidenceLayers": len(LAYER_KEYS),
             "evidenceRecords": sum(gene["statistics"]["totalEvidenceRecords"] for gene in selected),
             "genesWithHumanMouseOrtholog": sum(bool(gene.get("mouseOrtholog")) for gene in selected),
         },
     }
     build_report = {
         "generatedAt": build_time,
-        "schemaVersion": 2,
+        "schemaVersion": 3,
         "selection": {
             "eligibleGenes": len(genes),
             "mandatoryCuratedCoreGenes": len(mandatory),
             "publishedGenes": len(selected),
             "method": [
-                "Preserve every retained GenAge human and LongevityMap gene",
-                "Fill remaining places by public-source breadth, human evidence, transcriptomic context breadth, endpoint breadth, sensitivity support, capped record count, and statistical support",
+                "Preserve every retained GenAge human, LongevityMap, and eligible OrganAge gene",
+                "Fill remaining places by omics-layer breadth, public-source breadth, human evidence, transcriptomic context breadth, endpoint breadth, sensitivity support, capped record count, and statistical support",
                 "Use approved HGNC symbols and strict one-to-one human-mouse orthology",
             ],
-            "topEvidenceGenesDerivedBeforeStaticSelection": top_evidence_symbols,
             "referenceGenesVerified": sorted(reference_genes),
         },
         "reports": {
@@ -969,6 +1099,7 @@ def main() -> None:
             "genAgeHuman": genage_human_report,
             "genAgeMouse": genage_mouse_report,
             "longevityMap": longevity_report,
+            "organAge": organage_report,
             "ncbi": ncbi_report,
         },
         "sourceFiles": [
@@ -978,6 +1109,7 @@ def main() -> None:
             source_file(args.genage_human, "public GenAge human release"),
             source_file(args.genage_models, "public GenAge model-organism release"),
             source_file(args.longevity, "public LongevityMap release"),
+            source_file(args.organage, "derived public OrganAge model features"),
             source_file(args.orthology, "MGI/Alliance homology report"),
             source_file(args.hgnc, "HGNC reference"),
         ],
@@ -994,7 +1126,6 @@ def main() -> None:
                 "publishedGenes": len(selected),
                 "mandatoryCore": len(mandatory),
                 "evidenceRecords": manifest["metrics"]["evidenceRecords"],
-                "topEvidenceGenes": top_evidence_symbols,
                 "ncbiSummaries": ncbi_report["summariesAttached"],
             },
             indent=2,

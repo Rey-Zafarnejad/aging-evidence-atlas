@@ -26,6 +26,7 @@ SOURCES = {
     "genageHuman": SOURCE_ROOT / "human_genes/genage_human.csv",
     "longevity": SOURCE_ROOT / "longevity_genes/longevity.csv",
     "genageModels": ROOT / "build/cache/genage_models/genage_models.csv",
+    "organage": ROOT / "build/derived/organage_features.csv",
     "orthology": ROOT / "build/cache/HOM_MouseHumanSequence.rpt",
     "hgnc": ROOT / "build/cache/hgnc_complete_set.txt",
 }
@@ -96,6 +97,7 @@ def main() -> None:
     }
     genage_human = pd.read_csv(SOURCES["genageHuman"])
     genage_models = pd.read_csv(SOURCES["genageModels"])
+    organage = pd.read_csv(SOURCES["organage"])
     longevity = pd.read_csv(SOURCES["longevity"])
     orthology = pd.read_csv(SOURCES["orthology"], sep="\t", dtype=str)
 
@@ -127,6 +129,7 @@ def main() -> None:
         "longevityMap": 0,
         "genAgeHuman": 0,
         "genAgeMouse": 0,
+        "organAge": 0,
     }
 
     for symbol, gene in genes.items():
@@ -194,6 +197,17 @@ def main() -> None:
             assert same_number(row["entrez gene id"], record["mouseEntrezGeneId"])
             assert record["orthologyClassId"] in one_to_one_classes
             counts["genAgeMouse"] += 1
+
+        for record in evidence["organAge"]:
+            row = organage.iloc[record["sourceRow"] - 2]
+            assert str(row["seq_id"]) == record["seqId"]
+            assert str(row["gene_symbol"]) == record["sourceSymbol"]
+            assert str(row["organ"]) == record["organ"]
+            assert int(row["selected_models"]) == record["selectedModels"]
+            assert int(row["model_count"]) == record["modelCount"] == 500
+            assert same_number(row["mean_nonzero_coefficient"], record["meanNonzeroCoefficient"])
+            assert str(row["source_commit"]) == record["sourceCommit"]
+            counts["organAge"] += 1
 
     expected_records = sum(
         value for key, value in counts.items() if key != "epigeneticSensitivity"

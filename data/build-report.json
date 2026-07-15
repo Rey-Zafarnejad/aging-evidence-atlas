@@ -1,46 +1,14 @@
 {
-  "generatedAt": "2026-07-15T15:37:51+00:00",
-  "schemaVersion": 2,
+  "generatedAt": "2026-07-15T18:57:53+00:00",
+  "schemaVersion": 3,
   "selection": {
     "eligibleGenes": 6490,
-    "mandatoryCuratedCoreGenes": 382,
+    "mandatoryCuratedCoreGenes": 469,
     "publishedGenes": 1000,
     "method": [
-      "Preserve every retained GenAge human and LongevityMap gene",
-      "Fill remaining places by public-source breadth, human evidence, transcriptomic context breadth, endpoint breadth, sensitivity support, capped record count, and statistical support",
+      "Preserve every retained GenAge human, LongevityMap, and eligible OrganAge gene",
+      "Fill remaining places by omics-layer breadth, public-source breadth, human evidence, transcriptomic context breadth, endpoint breadth, sensitivity support, capped record count, and statistical support",
       "Use approved HGNC symbols and strict one-to-one human-mouse orthology"
-    ],
-    "topEvidenceGenesDerivedBeforeStaticSelection": [
-      "AKT1",
-      "FOXO3",
-      "IGF1R",
-      "FOXO1",
-      "IRS2",
-      "NR3C1",
-      "UCP3",
-      "SERPINE1",
-      "GPX1",
-      "PPARG",
-      "RAD52",
-      "FLT1",
-      "NCOR2",
-      "HTT",
-      "RB1",
-      "STK24",
-      "PTK2",
-      "SOD2",
-      "NGFR",
-      "HTRA2",
-      "IGF1",
-      "TOP1",
-      "STAT3",
-      "CDKN1A",
-      "UCP2",
-      "CREBBP",
-      "MDM2",
-      "FOS",
-      "PRKDC",
-      "SOCS2"
     ],
     "referenceGenesVerified": [
       "APOE",
@@ -221,9 +189,20 @@
       "genesWithRetainedAssociations": 143,
       "retainedAssociationRecords": 252
     },
+    "organAge": {
+      "sourceProteinOrganRecords": 611,
+      "sourceGenes": 571,
+      "sourceOrgans": 11,
+      "recordsForEligibleGenes": 117,
+      "eligibleGenesWithEvidence": 110,
+      "recordsOutsideEligibleUniverse": 494,
+      "recordsWithoutApprovedGeneMapping": 0,
+      "scope": "Unambiguous single-gene SomaScan targets with a non-zero coefficient in at least one of 500 published bootstrap models; organ-independent and cognition-optimized models are excluded",
+      "sourceUrl": "https://github.com/hamiltonoh/organage"
+    },
     "ncbi": {
-      "recordsMatchedByHumanEntrezAndSymbol": 1000,
-      "summariesAttached": 990,
+      "recordsMatchedByHumanEntrezAndSymbol": 935,
+      "summariesAttached": 926,
       "symbolMismatchesExcluded": [],
       "locationDifferences": [
         {
@@ -325,6 +304,12 @@
       "kind": "public LongevityMap release",
       "bytes": 66288,
       "sha256": "1202393b6bc02c63115ef5b39fb7e438ef7252a9dbaf8721e101a2893abf013c"
+    },
+    {
+      "name": "organage_features.csv",
+      "kind": "derived public OrganAge model features",
+      "bytes": 110742,
+      "sha256": "4f56f88a1b85cde97504f245c473251efbe89d8b8aa9ddefe62803e61c2c48b2"
     },
     {
       "name": "HOM_MouseHumanSequence.rpt",

@@ -1,0 +1,612 @@
+organ,seq_id,target_name,target_full_name,gene_symbol,entrez_gene_id,hgnc_id,selected_models,model_count,mean_nonzero_coefficient,coefficient_direction,model_family,source_commit
+Liver,16561-9,Alpha-1B-glycoprotein,Alpha-1B-glycoprotein,A1BG,1,HGNC:5,56,500,0.11037566202740046,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Liver,12423-38,A1CF,APOBEC1 complementation factor,A1CF,29974,HGNC:24086,150,500,-0.16175175135552025,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Liver,8935-22,MRP6,Multidrug resistance-associated protein 6,ABCC6,368,HGNC:57,127,500,0.11330153823101934,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Artery,3280-49,Aggrecan,Aggrecan core protein,ACAN,176,HGNC:319,184,500,0.2291175698573881,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,13563-259,ACBD7,Acyl-CoA-binding domain-containing protein 7,ACBD7,414149,HGNC:17715,145,500,-0.06988473349661696,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,6586-19,ADA11,Disintegrin and metalloproteinase domain-containing protein 11,ADAM11,4185,HGNC:189,215,500,0.1749100793376926,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,7933-75,ADA22,Disintegrin and metalloproteinase domain-containing protein 22,ADAM22,53616,HGNC:201,168,500,-0.17243400505036138,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Intestine,9115-78,ADEC1,ADAM DEC1,ADAMDEC1,27299,HGNC:16299,415,500,0.4363418981558979,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,8285-64,PACA,Pituitary adenylate cyclase-activating polypeptide,ADCYAP1,116,HGNC:241,215,500,-0.17838482826768853,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,8446-4,PACAP-27,Pituitary adenylate cyclase-activating polypeptide 27,ADCYAP1,116,HGNC:241,129,500,0.14247298315569745,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,8450-36,PACAP-38,Pituitary adenylate cyclase-activating polypeptide 38,ADCYAP1,116,HGNC:241,190,500,0.15006826844101415,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,4546-27,EMR2,Adhesion G protein-coupled receptor E2,ADGRE2,30817,HGNC:3337,500,500,0.9420685612517196,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Liver,17396-23,ADH1A,Alcohol dehydrogenase 1A,ADH1A,124,HGNC:249,28,500,0.22798208151624447,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Liver,8325-37,ADH4,Alcohol dehydrogenase 4,ADH4,127,HGNC:252,484,500,-0.5961006094177229,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Liver,18206-18,ADH6,Alcohol dehydrogenase 6,ADH6,130,HGNC:255,495,500,-0.6282361014154532,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Adipose,3554-24,Adiponectin,Adiponectin,ADIPOQ,9370,HGNC:13633,500,500,1.0996048504584242,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Muscle,13998-26,PURA1,Adenylosuccinate synthetase isozyme 1,ADSS1,122622,HGNC:20093,398,500,-0.31003448409843637,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Liver,4763-31,Afamin,Afamin,AFM,173,HGNC:316,168,500,0.2045825351267201,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,14291-53,AGAP2,"Arf-GAP with GTPase, ANK repeat and PH domain-containing protein 2",AGAP2,116986,HGNC:16921,496,500,-0.5515795230543253,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Lung,4125-52,sRAGE,"Advanced glycosylation end product-specific receptor, soluble",AGER,177,HGNC:320,49,500,-0.14320122629267767,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Liver,3484-60,Angiotensinogen,Angiotensinogen,AGT,183,HGNC:333,401,500,0.28249757505221307,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Liver,3581-53,a2-HS-Glycoprotein,Alpha-2-HS-glycoprotein,AHSG,197,HGNC:349,500,500,-0.886262286977563,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,2849-49,AIF1,Allograft inflammatory factor 1,AIF1,199,HGNC:352,27,500,-0.05580146245704847,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,13613-23,Adenylate kinase isoenzyme 5,Adenylate kinase isoenzyme 5,AK5,26289,HGNC:365,147,500,0.12574482590829072,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Liver,18397-5,AK1C4,Aldo-keto reductase family 1 member C4,AKR1C4,1109,HGNC:387,23,500,0.11983431171855707,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Liver,18398-1,AK1D1,3-oxo-5-beta-steroid 4-dehydrogenase,AKR1D1,6718,HGNC:388,158,500,0.1970708974068442,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Liver,18380-78,Albumin,Serum albumin,ALB,213,HGNC:399,414,500,0.31818877344922686,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,9876-20,aldolase C,Fructose-bisphosphate aldolase C,ALDOC,230,HGNC:418,500,500,-2.454687908259787,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Intestine,17441-4,"Alkaline phosphatase, intestine",Intestinal-type alkaline phosphatase,ALPI,248,HGNC:437,157,500,0.20356177786195973,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,16926-44,"Alkaline phosphatase, liver","Alkaline phosphatase, tissue-nonspecific isozyme",ALPL,249,HGNC:438,25,500,0.05899868961480861,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Lung,7813-6,"Alkaline phosphatase, placental","Alkaline phosphatase, placental type",ALPP,250,HGNC:439,55,500,-0.14588676830566216,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Liver,15453-3,a1-Microglobulin,Alpha-1-microglobulin,AMBP,259,HGNC:453,396,500,0.29386804688128043,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Pancreas,7918-114,"Amylase, alpha 1A",Alpha-amylase 1,AMY1A,276,HGNC:474,469,500,0.4440056614039165,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Pancreas,18917-53,Pancreatic alpha-amylase,Pancreatic alpha-amylase,AMY2A,279,HGNC:477,12,500,0.08030800480954871,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Pancreas,15556-49,Alpha-amylase 2B,Alpha-amylase 2B,AMY2B,280,HGNC:478,151,500,0.2902542933884728,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Liver,4874-3,Angiogenin,Angiogenin,ANG,283,HGNC:483,361,500,-0.314591999103748,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Liver,10391-1,ANGL3,Angiopoietin-related protein 3,ANGPTL3,27329,HGNC:491,89,500,0.11773635621652433,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,6371-50,ANGL7,Angiopoietin-related protein 7,ANGPTL7,10218,HGNC:24078,127,500,0.011095405949473768,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Liver,7183-102,TD26,Angiopoietin-like protein 8,ANGPTL8,55908,HGNC:24933,38,500,0.044927969476461445,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Heart,15361-37,ANKR1,Ankyrin repeat domain-containing protein 1,ANKRD1,27063,HGNC:15819,4,500,-0.08312588927527943,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Intestine,17835-28,ANX13,Annexin A13,ANXA13,312,HGNC:536,312,500,-0.25439780596130135,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Liver,2474-54,SAP,Serum amyloid P-component,APCS,325,HGNC:584,337,500,-0.2859514782677259,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,7210-25,Amyloid-like protein 1,Amyloid-like protein 1,APLP1,333,HGNC:597,262,500,-0.28508110704592965,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Liver,2750-3,Apo A-I,Apolipoprotein A-I,APOA1,335,HGNC:600,27,500,-0.043092564400287935,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Liver,7127-3,Apo A-II,Apolipoprotein A-II,APOA2,336,HGNC:601,56,500,0.11561635082798678,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Intestine,17685-9,Apo A-IV,Apolipoprotein A-IV,APOA4,337,HGNC:602,469,500,-0.5429924823611995,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Liver,15363-32,Apo A-V,Apolipoprotein A-V,APOA5,116519,HGNC:17288,133,500,0.1521922971840177,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Liver,15364-101,Apo C-I,Apolipoprotein C-I,APOC1,341,HGNC:607,125,500,-0.1981306699974601,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Liver,6350-43,Apo C-II,Apolipoprotein C-II,APOC2,344,HGNC:609,91,500,0.09407555433947055,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Liver,6461-54,Apo C-III,Apolipoprotein C-III,APOC3,345,HGNC:610,38,500,0.0956698874296752,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,4712-28,Apo D,Apolipoprotein D,APOD,347,HGNC:612,41,500,-0.1817125847051336,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Liver,12370-30,Apo F,Apolipoprotein F,APOF,319,HGNC:615,497,500,0.8698108773215535,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,11363-58,AQP4,Aquaporin-4,AQP4,361,HGNC:637,165,500,0.1326510774459483,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,12807-89,RHG30,Rho GTPase-activating protein 30,ARHGAP30,257106,HGNC:27414,148,500,-0.1467482020970987,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,9846-32,Rho-GDI beta,Rho GDP-dissociation inhibitor 2,ARHGDIB,397,HGNC:679,2,500,0.3386426554189489,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,12433-8,ARL11,ADP-ribosylation factor-like protein 11,ARL11,115761,HGNC:24046,57,500,-0.07772987863418426,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,12860-7,cAMP-regulated phosphoprotein 21,cAMP-regulated phosphoprotein 21,ARPP21,10777,HGNC:16968,192,500,0.13703168345283906,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Liver,5452-71,ASGR1,Asialoglycoprotein receptor 1,ASGR1,432,HGNC:742,13,500,0.10039132141402983,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Liver,9474-22,ASGR2,Asialoglycoprotein receptor 2,ASGR2,433,HGNC:743,38,500,0.007247815432244141,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Liver,11241-8,ARLY,Argininosuccinate lyase,ASL,435,HGNC:746,462,500,-0.5479394176400217,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,7218-87,AT1B2,Sodium/potassium-transporting ATPase subunit beta-2,ATP1B2,482,HGNC:805,357,500,-0.37091217232653917,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Muscle,9933-49,AT1B4,Protein ATP1B4,ATP1B4,23439,HGNC:808,28,500,0.07352610847906373,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,14713-46,Azurocidin,Azurocidin,AZU1,566,HGNC:913,163,500,0.15914545659504342,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,8976-13,B4GN1,"Beta-1,4 N-acetylgalactosaminyltransferase 1",B4GALNT1,2583,HGNC:4117,87,500,0.04330181487117301,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,3461-58,PGCB,Brevican core protein,BCAN,63827,HGNC:23059,379,500,-0.3170861996885136,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Artery,3284-75,BGN,Biglycan,BGN,633,HGNC:1044,63,500,0.16533198006593802,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Muscle,9574-11,BIN1,Myc box-dependent-interacting protein 1,BIN1,274,HGNC:1052,76,500,-0.13610971131238747,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,15412-40,KIAP,Baculoviral IAP repeat-containing protein 7,BIRC7,79444,HGNC:13702,91,500,-0.06815343120626598,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,15504-39,Livin B,Baculoviral IAP repeat-containing protein 7 Isoform beta,BIRC7,79444,HGNC:13702,129,500,-0.09758637160117668,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Heart,3587-53,BMP10,Bone morphogenetic protein 10,BMP10,27302,HGNC:20869,3,500,-0.09007696596539189,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,15668-19,BMP-8,Bone morphogenetic protein 8B,BMP8B,656,HGNC:1075,178,500,0.3169383203886752,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,4535-50,BST1,ADP-ribosyl cyclase/cyclic ADP-ribose hydrolase 2,BST1,683,HGNC:1118,228,500,-0.18158716024723762,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Intestine,10848-137,BTNL3,Butyrophilin-like protein 3,BTNL3,10917,HGNC:1143,107,500,0.043851287032912745,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,11116-16,CK087,Uncharacterized protein C11orf87,C11orf87,399947,HGNC:33788,297,500,-0.20600121341885227,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,12394-53,CP054,Transmembrane protein C16orf54,C16orf54,283897,HGNC:26649,75,500,0.07192803905028515,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Intestine,6571-75,CQ078:N-term,Uncharacterized protein C17orf78:N-term,C17orf78,284099,HGNC:26831,133,500,0.08035824325220724,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,14100-63,C1QC,Complement C1q subcomponent subunit C,C1QC,714,HGNC:1245,209,500,-0.1767929777112246,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,15670-15,C1QL2,Complement C1q-like protein 2,C1QL2,165257,HGNC:24181,376,500,-0.282104500091059,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,6896-3,CA162,Transmembrane protein C1orf162,C1orf162,128346,HGNC:28344,58,500,0.164867654767198,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Liver,3186-2,C2,Complement C2,C2,717,HGNC:1248,21,500,-0.0905197562448175,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Liver,9449-150,C4b-binding protein alpha chain,C4b-binding protein alpha chain,C4BPA,722,HGNC:1325,89,500,0.19229441676480827,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Liver,7155-46,C4b-binding protein beta chain,C4b-binding protein beta chain,C4BPB,725,HGNC:1328,163,500,0.16424032422940396,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Liver,2381-52,C5,Complement C5,C5,727,HGNC:1331,416,500,0.4571494757749765,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Liver,2851-63,C5a,C5a anaphylatoxin,C5,727,HGNC:1331,82,500,-0.15943888962969532,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Liver,14708-59,CO8G,Complement component C8 gamma chain,C8G,733,HGNC:1354,111,500,-0.19825138460125527,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Liver,3060-43,C9,Complement component C9,C9,735,HGNC:1358,275,500,0.24385136303707922,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,13666-222,Carbonic Anhydrase X,Carbonic anhydrase-related protein 10,CA10,56934,HGNC:1369,500,500,-0.7737205222144639,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,8859-51,CAH11,Carbonic anhydrase-related protein 11,CA11,770,HGNC:1370,457,500,0.4095520148388505,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Muscle,3799-11,Carbonic anhydrase III,Carbonic anhydrase 3,CA3,761,HGNC:1374,500,500,3.9643150101768456,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Liver,8791-151,Carbonic Anhydrase VA,"Carbonic anhydrase 5A, mitochondrial",CA5A,763,HGNC:1377,97,500,0.07191703628354688,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Intestine,3356-50,Carbonic anhydrase VII,Carbonic anhydrase 7,CA7,766,HGNC:1381,201,500,0.1784884201694367,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,7104-71,CABP7,Calcium-binding protein 7,CABP7,164633,HGNC:20834,156,500,-0.12739887003189737,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,11130-158,CACB4,Voltage-dependent L-type calcium channel subunit beta-4,CACNB4,785,HGNC:1404,247,500,-0.21818896222759407,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,16907-3,Nectin-like protein 3,Cell adhesion molecule 2,CADM2,253559,HGNC:29849,80,500,-0.23570967214846578,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,3630-27,Nectin-like protein 1,Cell adhesion molecule 3,CADM3,57863,HGNC:17601,360,500,-0.22683623174737258,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,10933-107,CABP8,Calcium-binding protein 8,CALN1,83698,HGNC:13248,106,500,0.14715729277840334,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,3350-53,CAMK2A,Calcium/calmodulin-dependent protein kinase type II subunit alpha,CAMK2A,815,HGNC:1460,14,500,-0.059662880268980194,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,3351-1,CAMK2B,Calcium/calmodulin-dependent protein kinase type II subunit beta,CAMK2B,816,HGNC:1461,32,500,-0.13338827870256184,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,18904-23,KCC4,Calcium/calmodulin-dependent protein kinase type IV,CAMK4,814,HGNC:1464,170,500,-0.1321901264410569,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,15481-45,LL-37,Antibacterial protein LL-37,CAMP,820,HGNC:1472,109,500,-0.10164643134850618,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,9384-17,Cathelicidin peptide,Cathelicidin antimicrobial peptide,CAMP,820,HGNC:1472,38,500,-0.041726622481647886,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,5743-82,CART,Cocaine- and amphetamine-regulated transcript protein,CARTPT,9607,HGNC:24323,160,500,-0.05177899437530248,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Muscle,11263-57,CASQ1,Calsequestrin-1,CASQ1,844,HGNC:1512,498,500,-0.7526415329580067,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,9313-27,CBLN1,Cerebellin-1,CBLN1,869,HGNC:1543,266,500,0.186587610115673,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,6918-183,CCKN,Cholecystokinin,CCK,885,HGNC:1569,434,500,0.3562732592127442,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Liver,4913-78,HCC-4,C-C motif chemokine 16,CCL16,6360,HGNC:10614,37,500,0.03737904143494984,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Lung,3044-3,PARC,C-C motif chemokine 18,CCL18,6362,HGNC:10616,500,500,1.9205443378848914,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Intestine,2705-5,TECK,C-C motif chemokine 25,CCL25,6370,HGNC:10624,500,500,-1.5461738666521614,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,5480-49,RANTES,C-C motif chemokine 5,CCL5,6352,HGNC:10632,171,500,-0.19458758215328384,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,13116-25,CD177,CD177 antigen,CD177,57126,HGNC:30072,227,500,0.15506576838505415,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,5063-12,CD244,Natural killer cell receptor 2B4,CD244,51744,HGNC:18171,14,500,-0.0325159453477656,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,15567-2,CD3-zeta,T-cell surface glycoprotein CD3 zeta chain,CD247,919,HGNC:1677,52,500,-0.053116538414367885,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,5630-48,CM35H,CMRF35-like molecule 8,CD300A,11314,HGNC:19319,499,500,0.8311484955769427,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,10713-151,CLM7,CMRF35-like molecule 7,CD300LB,124599,HGNC:30811,54,500,-0.012007205464646401,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,3293-2,CD5L,CD5 antigen-like,CD5L,922,HGNC:1690,498,500,0.6470720421316561,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,12008-3,CD7,T-cell antigen CD7,CD7,924,HGNC:1695,191,500,-0.22248976774995474,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,7009-8,CD72,B-cell differentiation antigen CD72,CD72,971,HGNC:1696,164,500,0.16032307402268967,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,15462-28,CD8A,T-cell surface glycoprotein CD8 alpha chain,CD8A,925,HGNC:1706,500,500,-1.6262904656263348,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Intestine,16613-3,CAD17,Cadherin-17,CDH17,1015,HGNC:1756,371,500,-0.3262675146242659,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,7959-34,CADH7,Cadherin-7,CDH7,1005,HGNC:1766,167,500,-0.17318808204820046,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Intestine,9962-1,MUCDL,Cadherin-related family member 5,CDHR5,53841,HGNC:7521,489,500,-0.6082352620958724,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Intestine,10453-7,CEA20,Carcinoembryonic antigen-related cell adhesion molecule 20,CEACAM20,125931,HGNC:24879,132,500,0.0949995637703997,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,7204-1,CEA21,Carcinoembryonic antigen-related cell adhesion molecule 21,CEACAM21,90273,HGNC:28834,46,500,-0.0980393320665464,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,8999-19,CEAM3,Carcinoembryonic antigen-related cell adhesion molecule 3,CEACAM3,1084,HGNC:1815,186,500,0.1920183177585385,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,10910-6,CEAM4,Carcinoembryonic antigen-related cell adhesion molecule 4,CEACAM4,1089,HGNC:1816,344,500,-0.25011482170095967,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Intestine,7184-13,CEAM7,Carcinoembryonic antigen-related cell adhesion molecule 7,CEACAM7,1087,HGNC:1819,81,500,-0.08640667909687684,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,18873-8,CEAM8,Carcinoembryonic antigen-related cell adhesion molecule 8,CEACAM8,1088,HGNC:1820,211,500,0.18125367101057047,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Pancreas,9796-4,CEL,Bile salt-activated lipase,CEL,,HGNC:1848,208,500,-0.20136065140817722,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Pancreas,7140-1,ELA2A,Chymotrypsin-like elastase family member 2A,CELA2A,63036,HGNC:24609,500,500,-1.7233783421817803,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Pancreas,6357-83,ELA3B,Chymotrypsin-like elastase family member 3B,CELA3B,23436,HGNC:15945,368,500,0.29291681376755163,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Liver,4129-72,Factor B,Complement factor B,CFB,629,HGNC:1037,500,500,-0.9639892710335916,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Liver,15468-14,FHR1,Complement factor H-related protein 1,CFHR1,3078,HGNC:4888,177,500,-0.18783576437183783,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Liver,15584-9,FHR2,Complement factor H-related protein 2,CFHR2,3080,HGNC:4890,71,500,-0.09680922338249913,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Liver,16836-1,FHR3,Complement factor H-related protein 3,CFHR3,10878,HGNC:16980,47,500,0.06680483712946841,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Liver,6471-53,FHR4,Complement factor H-related protein 4,CFHR4,10877,HGNC:16979,59,500,-0.03791221969310461,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Liver,16055-3,complement factor H-related 5,Complement factor H-related protein 5,CFHR5,81494,HGNC:24668,490,500,-0.6193490618457468,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,2960-66,Properdin,Properdin,CFP,5199,HGNC:8864,455,500,-0.3629176191503319,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Pancreas,7717-95,CFTR,Cystic fibrosis transmembrane conductance regulator,CFTR,1080,HGNC:1884,197,500,-0.18695782697041918,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,14005-2,CHD7,Chromodomain-helicase-DNA-binding protein 7,CHD7,55636,HGNC:20626,175,500,-0.1488502910693606,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Intestine,7020-13,CHST5,Carbohydrate sulfotransferase 5,CHST5,23563,HGNC:1973,153,500,-0.1413473025459938,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,11094-104,LPPL,Galectin-10,CLC,1178,HGNC:2014,80,500,0.10469071021841998,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Intestine,10496-11,CaCC,Calcium-activated chloride channel regulator 1,CLCA1,1179,HGNC:2015,58,500,0.05014505298121935,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,11187-11,CL12A,C-type lectin domain family 12 member A,CLEC12A,160364,HGNC:31713,70,500,0.05057532267255207,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,8242-9,CLC2L,C-type lectin domain family 2 member L,CLEC2L,154790,HGNC:21969,51,500,0.012926579291515972,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,7752-31,CLC4D,C-type lectin domain family 4 member D,CLEC4D,338339,HGNC:14554,29,500,-0.07921118175758884,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Liver,3030-3,DC-SIGNR,C-type lectin domain family 4 member M,CLEC4M,10332,HGNC:13523,319,500,-0.23660880607439275,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Pancreas,5749-53,COL,Colipase,CLPS,1208,HGNC:2085,233,500,-0.22612310797532706,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Pancreas,9526-3,COLL1,Colipase-like protein 1,CLPSL1,340204,HGNC:21251,351,500,0.2901279031461274,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Pancreas,7767-1,CF126,Colipase-like protein 2,CLPSL2,389383,HGNC:21250,497,500,-0.7320599998523953,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,5456-59,CNDP1,Beta-Ala-His dipeptidase,CNDP1,84735,HGNC:20675,500,500,-0.8797411214374447,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,6609-22,CN37,"2',3'-cyclic-nucleotide 3'-phosphodiesterase",CNP,1267,HGNC:2158,26,500,0.1882162714417901,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,3489-9,CNTF,Ciliary neurotrophic factor,CNTF,1270,HGNC:2169,149,500,-0.09273440400708985,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,2974-61,contactin-1,Contactin-1,CNTN1,1272,HGNC:2171,431,500,-0.41831330207998213,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,3296-92,CNTN2,Contactin-2,CNTN2,6900,HGNC:2172,499,500,0.7154865944495012,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,6965-19,CNTP2,Contactin-associated protein-like 2,CNTNAP2,26047,HGNC:13830,344,500,0.25318385405189126,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,9044-1,CNTP5,Contactin-associated protein-like 5,CNTNAP5,129684,HGNC:18748,140,500,0.012469200520382593,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Artery,4807-13,CO8A1,Collagen alpha-1(VIII) chain,COL8A1,1295,HGNC:2215,86,500,-0.16336249820343227,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Liver,6558-5,COL10,Collectin-10,COLEC10,10584,HGNC:2220,161,500,-0.15559141180329547,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,4905-63,Coactosin-like protein,Coactosin-like protein,COTL1,23406,HGNC:18304,50,500,0.06456934821797494,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Liver,17453-34,Ceruloplasmin,Ceruloplasmin,CP,1356,HGNC:2295,66,500,0.1141727716781043,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Pancreas,9276-7,CBPA2,Carboxypeptidase A2,CPA2,1358,HGNC:2297,443,500,-0.421348833511514,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Pancreas,15375-49,Carboxypeptidase B1,Carboxypeptidase B,CPB1,1360,HGNC:2299,49,500,-0.1809461648670069,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Liver,3518-54,TAFI,Carboxypeptidase B2,CPB2,1361,HGNC:2300,173,500,0.17917628173754782,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,18332-17,CPLX1,Complexin-1,CPLX1,10815,HGNC:2309,500,500,1.2553689019015544,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,15321-8,CPLX2,Complexin-2,CPLX2,10814,HGNC:2310,497,500,1.0483947445821606,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Liver,7142-5,CBPN,Carboxypeptidase N catalytic chain,CPN1,1369,HGNC:2312,89,500,-0.10041532281811084,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Liver,6415-90,CPN2,Carboxypeptidase N subunit 2,CPN2,1370,HGNC:2313,165,500,0.1840789354076058,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,19556-12,Complement receptor type 1,Complement receptor type 1,CR1,1378,HGNC:2334,264,500,-0.18632887541474227,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,19637-9,CRH,Corticoliberin,CRH,1392,HGNC:2355,223,500,-0.14580322967820322,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,5614-44,CRH,Corticoliberin,CRH,1392,HGNC:2355,82,500,-0.04159057603231851,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Artery,14747-9,CRLF1,Cytokine receptor-like factor 1,CRLF1,9244,HGNC:2364,216,500,0.21369235269431378,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Liver,4337-49,CRP,C-reactive protein,CRP,1401,HGNC:2367,19,500,0.11111509259899097,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,7968-15,CRTAM,Cytotoxic and regulatory T-cell molecule,CRTAM,56253,HGNC:24313,185,500,0.1562427789667131,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Kidney,10087-10,Alpha crystallin A chain,Alpha-crystallin A chain,CRYAA,102724652,HGNC:2388,220,500,-0.26151333533253485,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,13682-47,M-CSF R,Macrophage colony-stimulating factor 1 receptor,CSF1R,1436,HGNC:2433,416,500,0.38575397767392305,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Lung,4697-59,GM-CSF,Granulocyte-macrophage colony-stimulating factor,CSF2,1437,HGNC:2434,229,500,0.1988542022427519,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,10438-19,CSF2R,Granulocyte-macrophage colony-stimulating factor receptor subunit alpha,CSF2RA,1438,HGNC:2435,53,500,0.03220311252844862,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,10512-13,IL3RB:ECD,Cytokine receptor common subunit beta:Extracellular domain,CSF2RB,1439,HGNC:2436,205,500,0.1717218944466364,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,11137-43,IL3RB:CD,Cytokine receptor common subunit beta:Cytoplasmic domain,CSF2RB,1439,HGNC:2436,69,500,0.024098071910056845,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,2719-3,G-CSF-R,Granulocyte colony-stimulating factor receptor,CSF3R,1441,HGNC:2439,303,500,-0.2561515772005817,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,3302-58,CYTF,Cystatin-F,CST7,8530,HGNC:2479,34,500,-0.0655100305364772,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Pancreas,5671-1,Chymotrypsin,Chymotrypsinogen B,CTRB1,1504,HGNC:2521,395,500,-0.44330342933855416,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Pancreas,5648-28,CTRB2,Chymotrypsinogen B2,CTRB2,440387,HGNC:2522,500,500,-1.7927123704649017,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Pancreas,5626-20,CTRC,Chymotrypsin-C,CTRC,11330,HGNC:2523,61,500,0.1109898323431782,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Pancreas,7943-16,CUZD1,CUB and zona pellucida-like domain-containing protein 1,CUZD1,50624,HGNC:17937,225,500,-0.21125759480962172,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,2985-35,Gro-a,Growth-regulated alpha protein,CXCL1,2919,HGNC:4602,45,500,0.07750411644338036,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,3487-32,BLC,C-X-C motif chemokine 13,CXCL13,10563,HGNC:10639,500,500,0.9777783596352486,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,3495-15,GCP-2,C-X-C motif chemokine 6,CXCL6,6372,HGNC:10643,78,500,0.11365842612745798,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,12746-4,CYH4,Cytohesin-4,CYTH4,27128,HGNC:9505,220,500,0.16136868005172145,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,13612-7,CYTIP,Cytohesin-interacting protein,CYTIP,9595,HGNC:9506,130,500,-0.13241352942077123,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,7826-1,DCLK3,Serine/threonine-protein kinase DCLK3,DCLK3,85443,HGNC:19005,133,500,0.12456033288691673,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Liver,17758-79,DCXR,L-xylulose reductase,DCXR,51181,HGNC:18985,24,500,0.16066803791516207,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,19579-5,HNP-1,Neutrophil defensin 1,DEFA1,1667,HGNC:2761,58,500,-0.005322567443636404,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Intestine,16785-45,HD-5,Defensin-5,DEFA5,1670,HGNC:2764,499,500,0.658783769941392,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,5689-1,DB112,Beta-defensin 112,DEFB112,,HGNC:18093,233,500,-0.16172179923908506,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,12895-28,DGKB,Diacylglycerol kinase beta,DGKB,1607,HGNC:2850,112,500,-0.13987109142907697,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,8327-26,DPEP2,Dipeptidase 2,DPEP2,64174,HGNC:23028,50,500,0.12177817735541792,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,12683-156,DPYL5,Dihydropyrimidinase-related protein 5,DPYSL5,56896,HGNC:20637,308,500,-0.4205310896977615,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,2514-65,Ephrin-B3:ECD,Ephrin-B3:Extracellular domain,EFNB3,1949,HGNC:3228,218,500,0.25058507741497793,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,7785-1,Ephrin-B3:CD,Ephrin-B3:Cytoplasmic domain,EFNB3,1949,HGNC:3228,170,500,-0.12932109796544422,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Muscle,9901-28,EGLN1,Egl nine homolog 1,EGLN1,54583,HGNC:1232,64,500,-0.10278899404027107,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,13671-40,Elastase,Neutrophil elastase,ELANE,1991,HGNC:3309,182,500,-0.24980953184062013,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,10339-48,NSE,Gamma-enolase,ENO2,2026,HGNC:3353,13,500,0.17306666602932108,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Muscle,16616-137,ENOB,Beta-enolase,ENO3,2027,HGNC:3354,498,500,-0.7663599153720493,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,15579-26,ENPP6,Ectonucleotide pyrophosphatase/phosphodiesterase family member 6,ENPP6,133121,HGNC:23409,79,500,-0.0582632875803775,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Liver,5813-58,Epo,Erythropoietin,EPO,2056,HGNC:3415,67,500,0.073972644310289,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Pancreas,9333-59,ERP27,Endoplasmic reticulum resident protein 27,ERP27,121506,HGNC:26495,142,500,-0.1244691778336476,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Liver,2190-55,Coagulation Factor XI,Coagulation Factor XI,F11,2160,HGNC:3529,358,500,-0.2574260392850802,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Liver,5658-64,coagulation factor XIII B,Coagulation factor XIII B chain,F13B,2165,HGNC:3534,213,500,-0.1854081947957829,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Liver,4157-2,Thrombin,Thrombin,F2,2147,HGNC:3535,8,500,-0.0358180516044905,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Liver,3184-25,Coagulation Factor VII,Coagulation factor VII,F7,2155,HGNC:3544,37,500,0.08317629584091417,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Liver,4876-32,Coagulation Factor IX,Coagulation factor IX,F9,2158,HGNC:3551,215,500,0.19769025207336674,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Intestine,15385-116,FABP2,"Fatty acid-binding protein, intestinal",FABP2,2169,HGNC:3556,478,500,-0.5879693193749516,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Adipose,15386-7,FABPA,"Fatty acid-binding protein, adipocyte",FABP4,2167,HGNC:3559,500,500,5.010828622793928,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Intestine,6450-8,FABP6,Gastrotropin,FABP6,2172,HGNC:3561,450,500,0.4526126731092271,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,2760-2,DRR1,Protein FAM107A,FAM107A,11170,HGNC:30827,193,500,-0.2604161516433567,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,10880-38,F163B,Protein FAM163B,FAM163B,642968,HGNC:33277,42,500,-0.07935481621269366,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,3052-8,"Fas ligand, soluble","Tumor necrosis factor ligand superfamily member 6, soluble form",FASLG,356,HGNC:11936,199,500,-0.12559778346424427,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Muscle,9867-23,F16P2,"Fructose-1,6-bisphosphatase isozyme 2",FBP2,8789,HGNC:3607,95,500,0.1232993559174809,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,4987-17,FCAR,Immunoglobulin alpha Fc receptor,FCAR,2204,HGNC:3608,69,500,-0.1023679368617605,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,3312-64,FCGR1,High affinity immunoglobulin gamma Fc receptor I,FCGR1A,2209,HGNC:3613,306,500,0.2206522063735426,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,3309-2,FCG2A,Low affinity immunoglobulin gamma Fc region receptor II-a,FCGR2A,2212,HGNC:3616,118,500,0.13002436722042732,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,3311-27,FCG3B,Low affinity immunoglobulin gamma Fc region receptor III-B,FCGR3B,2215,HGNC:3620,458,500,0.40945448386833094,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,15582-25,FCN1,Ficolin-1,FCN1,2219,HGNC:3623,115,500,-0.13943462023483538,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Lung,5462-62,Ficolin-3,Ficolin-3,FCN3,8547,HGNC:3625,500,500,-1.197758331856727,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,6617-12,FCRL6,Fc receptor-like protein 6,FCRL6,343413,HGNC:31910,185,500,0.15266979585396653,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,12599-10,URP2,Fermitin family homolog 3,FERMT3,83706,HGNC:23151,3,500,0.18328362074908153,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Liver,3367-8,FETUB,Fetuin-B,FETUB,26998,HGNC:3658,116,500,-0.10636234534993586,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Liver,18890-227,Fibrinogen B,Fibrinogen beta chain,FGB,2244,HGNC:3662,154,500,-0.17899549139075488,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,3494-71,FGF-17,Fibroblast growth factor 17,FGF17,8822,HGNC:3673,79,500,-0.07524572457842536,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Intestine,13724-27,FGF-19,Fibroblast growth factor 19,FGF19,9965,HGNC:3675,500,500,1.230115648939157,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,7894-155,FGF-3,Fibroblast growth factor 3,FGF3,2248,HGNC:3681,218,500,0.17780510930121066,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,4123-60,FGF-4,Fibroblast growth factor 4,FGF4,2249,HGNC:3682,345,500,0.22863674808801562,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Muscle,4130-71,FGF-6,Fibroblast growth factor 6,FGF6,2251,HGNC:3684,153,500,-0.185663279705465,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Liver,5581-28,FGL1,Fibrinogen-like protein 1,FGL1,2267,HGNC:3695,492,500,0.6027623811978552,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,3810-50,FGR,Tyrosine-protein kinase Fgr,FGR,2268,HGNC:3697,58,500,-0.16789932174795708,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,11568-2,FKB1B,Peptidyl-prolyl cis-trans isomerase FKBP1B,FKBP1B,2281,HGNC:3712,117,500,0.15844640387890788,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,15495-9,FOLR3,Folate receptor gamma,FOLR3,2352,HGNC:3795,75,500,0.05699001279119394,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Artery,13740-51,sFRP-3,Secreted frizzled-related protein 3,FRZB,2487,HGNC:3959,128,500,0.16590176918374944,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,7099-33,FSTL5,Follistatin-related protein 5,FSTL5,56884,HGNC:21386,240,500,-0.16744829602215078,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,13948-50,GABR2:ECD,Gamma-aminobutyric acid type B receptor subunit 2:Extracellular domain,GABBR2,9568,HGNC:4507,124,500,-0.1117842358060886,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,9930-48,GABR2:CD,Gamma-aminobutyric acid type B receptor subunit 2:Cytoplasmic domain,GABBR2,9568,HGNC:4507,226,500,-0.1722628465327745,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,11280-6,DCE1,Glutamate decarboxylase 1,GAD1,2571,HGNC:4092,167,500,-0.15250655873683264,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,10908-2,GLT13,Polypeptide N-acetylgalactosaminyltransferase 13,GALNT13,114805,HGNC:23242,313,500,0.22920870702424576,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,15325-14,NEUM,Neuromodulin,GAP43,2596,HGNC:4140,163,500,-0.3164916719722455,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,17721-82,GAS7,Growth arrest-specific protein 7,GAS7,8522,HGNC:4169,168,500,-0.13997707135327545,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Liver,15589-1,"Gc-Globulin, Mixed Type",Vitamin D-binding protein,GC,2638,HGNC:4187,485,500,-0.5111469498389491,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,12594-5,GRAN,Grancalcin,GCA,25801,HGNC:15990,114,500,-0.1851831820390899,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Pancreas,4891-50,Glucagon,Glucagon,GCG,2641,HGNC:4191,413,500,0.3506164695796399,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Liver,5223-59,GCKR,Glucokinase regulatory protein,GCKR,2646,HGNC:4196,48,500,-0.005911373063322802,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Liver,4880-21,GDF2,Growth/differentiation factor 2,GDF2,2658,HGNC:4217,286,500,0.28710158607159914,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,3034-1,GFAP,Glial fibrillary acidic protein,GFAP,2670,HGNC:4235,116,500,-0.025470463992482508,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,16293-1,Growth hormone-releasing factor,Somatoliberin,GHRH,2691,HGNC:4265,104,500,0.001482537080405194,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,9487-60,Growth hormone-releasing factor,Somatoliberin,GHRH,2691,HGNC:4265,166,500,-0.12651291694434527,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,13062-4,GMFG,Glia maturation factor gamma,GMFG,9535,HGNC:4374,465,500,0.5871521167571289,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,3195-50,Granulysin,Granulysin,GNLY,10578,HGNC:4414,444,500,0.3143745170761783,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,4991-12,GPC5,Glypican-5,GPC5,2262,HGNC:4453,490,500,-0.47772333699171804,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,11371-1,GP101,Probable G-protein coupled receptor 101,GPR101,83550,HGNC:14963,185,500,-0.15409542563089754,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,13540-1,GPR26,G-protein coupled receptor 26,GPR26,2849,HGNC:4481,37,500,-0.053843149328230304,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,10760-107,GRIA4,Glutamate receptor 4,GRIA4,2893,HGNC:4574,54,500,0.04249466608135217,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Intestine,6223-5,GUC2B,Guanylate cyclase activator 2B,GUCA2B,2981,HGNC:4683,316,500,0.2922601282233371,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,3440-7,granzyme A,Granzyme A,GZMA,3001,HGNC:4708,64,500,0.15579163920413786,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,4133-54,Granzyme B,Granzyme B,GZMB,3002,HGNC:4709,53,500,0.0669305085765574,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,3373-5,Granzyme H,Granzyme H,GZMH,2999,HGNC:4710,156,500,-0.15810277901462738,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,5704-74,Granzyme M,Granzyme M,GZMM,3004,HGNC:4712,46,500,0.07052599016309022,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Liver,5861-78,3HAO,"3-hydroxyanthranilate 3,4-dioxygenase",HAAO,23498,HGNC:4796,155,500,-0.15368701634449172,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Liver,17768-50,HAOX1,Hydroxyacid oxidase 1,HAO1,54363,HGNC:4809,153,500,-0.13118784974074846,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,17137-160,Beta-globin,Hemoglobin subunit beta,HBB,3043,HGNC:4827,39,500,0.019157765865070574,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,6992-67,HBD,Hemoglobin subunit delta,HBD,3045,HGNC:4829,11,500,-0.01201684107325904,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,18198-51,HBAT,Hemoglobin subunit theta-1,HBQ1,3049,HGNC:4833,152,500,-0.11670238820549053,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,3374-49,HCK,Tyrosine-protein kinase HCK,HCK,3055,HGNC:4840,64,500,-0.05222274943511431,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,12774-12,HCN1,Potassium/sodium hyperpolarization-activated cyclic nucleotide-gated channel 1,HCN1,348980,HGNC:4845,234,500,-0.16471642926536895,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,12669-30,HECW1,E3 ubiquitin-protein ligase HECW1,HECW1,23072,HGNC:22195,365,500,0.22234250352057175,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,8810-26,HEPACAM,Hepatocyte cell adhesion molecule,HEPACAM,220296,HGNC:26361,68,500,-0.013538477444462153,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Liver,3617-80,HGFA,Hepatocyte growth factor activator,HGFAC,3083,HGNC:4894,93,500,-0.05378809645158151,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Intestine,14132-21,HHLA2,HERV-H LTR-associating protein 2,HHLA2,11148,HGNC:4905,308,500,-0.2653260258526678,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,19518-12,HXK3,Hexokinase-3,HK3,3101,HGNC:4925,258,500,0.21686096847129713,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,17398-55,HO-1,Heme oxygenase 1,HMOX1,3162,HGNC:5013,71,500,-0.086959886659998,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Liver,3054-3,"Haptoglobin, Mixed Type",Haptoglobin,HP,3240,HGNC:5141,32,500,0.09926618787760404,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Liver,7905-30,HPT,Haptoglobin isoform 2,HP,3240,HGNC:5141,56,500,-0.08326443864273955,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Liver,4996-66,HRG,Histidine-rich glycoprotein,HRG,3273,HGNC:5181,45,500,-0.01924909003617417,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,19370-30,HS3S4,Heparan sulfate glucosamine 3-O-sulfotransferase 4,HS3ST4,9951,HGNC:5200,213,500,0.18304161316021317,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,8998-15,HS3S4,Heparan sulfate glucosamine 3-O-sulfotransferase 4,HS3ST4,9951,HGNC:5200,225,500,-0.16784887990157724,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,10731-10,HS3S5,Heparan sulfate glucosamine 3-O-sulfotransferase 5,HS3ST5,222537,HGNC:19419,442,500,-0.404330796822543,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,13561-5,5HT6R,5-hydroxytryptamine receptor 6,HTR6,3362,HGNC:5301,406,500,-0.3226855281019341,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Pancreas,19639-53,IAPP,Islet amyloid polypeptide,IAPP,3375,HGNC:5329,500,500,1.8171501763991496,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,2649-77,sICAM-3,Intercellular adhesion molecule 3,ICAM3,3385,HGNC:5346,113,500,-0.13272612109590315,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Muscle,17832-12,IDI2,Isopentenyl-diphosphate delta-isomerase 2,IDI2,91734,HGNC:23487,120,500,0.15065803416588516,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,3198-4,IDS,Iduronate 2-sulfatase,IDS,3423,HGNC:5389,140,500,0.19547978687933196,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,15404-3,IFN21,Interferon alpha-21,IFNA21,3452,HGNC:5424,167,500,0.08032819699329508,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Kidney,14129-1,IFNA7,Interferon alpha-7,IFNA7,3444,HGNC:5428,93,500,0.10718012101627093,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,6214-84,IFNA8,Interferon alpha-8,IFNA8,3445,HGNC:5429,250,500,0.16069778087892544,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,12358-6,IGBP1,Immunoglobulin-binding protein 1,IGBP1,3476,HGNC:5461,2,500,-0.03237736211972236,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Liver,6605-17,IGFALS,Insulin-like growth factor-binding protein complex acid labile subunit,IGFALS,3483,HGNC:5468,500,500,-1.3311736683945168,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Liver,2771-35,IGFBP-1,Insulin-like growth factor-binding protein 1,IGFBP1,3484,HGNC:5469,147,500,0.17731854100613872,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,4916-2,IgD,Immunoglobulin D,IGHD,,HGNC:5480,500,500,-0.6396260550804029,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,4135-84,IgE,Immunoglobulin E,IGHE,,HGNC:5522,112,500,-0.11939576432650159,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,13230-174,"IgG2, Kappa","Ig gamma-2, Kappa",IGHG2,,HGNC:5526,123,500,-0.13222220430844372,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,13231-90,"IgG4, Kappa","Ig gamma-4, Kappa",IGHG4,,HGNC:5528,250,500,0.16983993413161283,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,3069-52,IgM,Immunoglobulin M,IGHM,,HGNC:5541,272,500,-0.19734092899979827,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,6485-59,IGLL1,Immunoglobulin lambda-like polypeptide 1,IGLL1,3543,HGNC:5870,500,500,-1.1508450422852696,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,6478-2,IGLO5,IgLON family member 5,IGLON5,402665,HGNC:34550,500,500,1.9797285006652636,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,2992-59,IL-17 sR,Interleukin-17 receptor A,IL17RA,23765,HGNC:5985,73,500,-0.1284160368752986,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,2993-1,IL-18 Rb,Interleukin-18 receptor accessory protein,IL18RAP,8807,HGNC:5989,110,500,-0.10650213082275124,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,14133-93,IL-1 sRII,Interleukin-1 receptor type 2,IL1R2,7850,HGNC:5994,500,500,-1.6018719381783537,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,9343-16,IL-2 sRb,Interleukin-2 receptor subunit beta,IL2RB,3560,HGNC:6009,13,500,-0.0654643724379556,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,2634-2,IL-2 sRg,Cytokine receptor common subunit gamma,IL2RG,3561,HGNC:6010,21,500,0.1459255541557351,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,5834-18,IL-9,Interleukin-9,IL9,3578,HGNC:6029,300,500,0.23250253449684347,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Liver,15686-49,INHBC,Inhibin beta C chain,INHBC,3626,HGNC:6068,277,500,0.20038014341021265,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Liver,6408-2,INHBC,Inhibin beta C chain,INHBC,3626,HGNC:6068,500,500,0.9499183823921915,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Pancreas,4883-56,Insulin,Insulin,INS,3630,HGNC:6081,413,500,-0.3634238103423112,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Liver,10663-42,INSI1,Insulin-induced gene 1 protein,INSIG1,3638,HGNC:6083,64,500,-0.012773684688426152,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Intestine,10462-14,INSL5,Insulin-like peptide INSL5,INSL5,10022,HGNC:6088,401,500,0.3299945238291401,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,12750-9,LFA-1 beta-2,Integrin beta-2,ITGB2,3689,HGNC:6155,294,500,-0.2435359875581513,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Kidney,7737-76,ITB6,Integrin beta-6,ITGB6,3694,HGNC:6161,98,500,0.1261876534280721,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Liver,7955-195,ITI heavy chain H1,Inter-alpha-trypsin inhibitor heavy chain H1,ITIH1,3697,HGNC:6166,183,500,-0.1588240898080093,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Liver,9326-33,ITI heavy chain H2,Inter-alpha-trypsin inhibitor heavy chain H2,ITIH2,3698,HGNC:6167,16,500,0.08831582439015763,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Liver,7145-1,ITIH3,Inter-alpha-trypsin inhibitor heavy chain H3,ITIH3,3699,HGNC:6168,500,500,0.9833106004854294,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Liver,4811-33,ITI heavy chain H4,Inter-alpha-trypsin inhibitor heavy chain H4,ITIH4,3700,HGNC:6169,16,500,0.11735491046470148,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Adipose,18830-1,Omentin,Intelectin-1,ITLN1,55600,HGNC:18259,500,500,0.9931417616062755,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,5094-62,JAML1,Junctional adhesion molecule-like,JAML,120425,HGNC:19084,37,500,0.011375461696151227,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,15306-20,IgJ,Immunoglobulin J chain,JCHAIN,3512,HGNC:5713,78,500,0.08671015900369991,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Muscle,6940-18,JPH1,Junctophilin-1,JPH1,56704,HGNC:14201,143,500,0.12409173238866426,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,9089-77,JPH3,Junctophilin-3,JPH3,57338,HGNC:14203,189,500,-0.16569003636366983,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Kidney,19492-5,KAAG1,Kidney-associated antigen 1,KAAG1,353219,HGNC:21031,500,500,-1.0032523751255773,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,8756-41,KCE1L:N-term,"Potassium voltage-gated channel subfamily E regulatory beta subunit 5:N-term, opposite side of membrane",KCNE5,23630,HGNC:6241,232,500,0.1577713809934221,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,8908-14,KCE1L:CD,Potassium voltage-gated channel subfamily E regulatory beta subunit 5:Cytoplasmic domain,KCNE5,23630,HGNC:6241,484,500,0.4708542065937783,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,13650-11,KCIP1,Kv channel-interacting protein 1,KCNIP1,30820,HGNC:15521,63,500,0.054258615680625566,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,13539-131,KCNN1,Small conductance calcium-activated potassium channel protein 1,KCNN1,3780,HGNC:6290,11,500,0.0032464366133381356,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,11145-72,K154L,UPF0606 protein KIAA1549L,KIAA1549L,25758,HGNC:24836,86,500,0.0046544434030040115,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,17200-50,KI2L1,Killer cell immunoglobulin-like receptor 2DL1,KIR2DL1,3802,HGNC:6329,42,500,-0.09681299641629282,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,17153-46,KI2L3,Killer cell immunoglobulin-like receptor 2DL3,KIR2DL3,3804,HGNC:6331,486,500,0.4384508499152249,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,5095-21,KI2L4,Killer cell immunoglobulin-like receptor 2DL4,KIR2DL4,3805,HGNC:6332,165,500,0.1399534411658312,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,17152-10,KI2S4,Killer cell immunoglobulin-like receptor 2DS4,KIR2DS4,3809,HGNC:6336,87,500,0.005896612475371863,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,18907-97,KI3L1,Killer cell immunoglobulin-like receptor 3DL1,KIR3DL1,3811,HGNC:6338,71,500,-0.10734346878016432,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,5096-51,KI3L2,Killer cell immunoglobulin-like receptor 3DL2,KIR3DL2,3812,HGNC:6339,76,500,0.04069737246219405,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Pancreas,16609-106,KIRR2,Kin of IRRE-like protein 2,KIRREL2,84063,HGNC:18816,63,500,-0.11116822804285045,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,4557-61,KIRR3,Kin of IRRE-like protein 3,KIRREL3,84623,HGNC:23204,111,500,0.0938245654042488,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Kidney,15384-15,KLOTHO,Klotho,KL,9365,HGNC:6344,464,500,-0.5494073651821567,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,12656-1,KLC1,Kinesin light chain 1,KLC1,3831,HGNC:6387,96,500,-0.24144424205780987,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Liver,4152-58,Prekallikrein,Plasma kallikrein,KLKB1,3818,HGNC:6371,469,500,-0.46007605536432994,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,5098-79,KLRF1,Killer cell lectin-like receptor subfamily F member 1,KLRF1,51348,HGNC:13342,89,500,-0.028231463597498608,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Intestine,12975-11,Keratin 20,"Keratin, type I cytoskeletal 20",KRT20,54474,HGNC:20412,500,500,1.7430410776551797,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,13986-6,LANC1,LanC-like protein 1,LANCL1,10314,HGNC:6508,491,500,-0.7475988042484744,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,5613-75,NTAL,Linker for activation of T-cells family member 2,LAT2,7462,HGNC:12749,84,500,-0.06701010673755563,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,5643-2,LCN8,Epididymal-specific lipocalin-8,LCN8,138307,HGNC:27038,280,500,-0.2082999470978557,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,17231-1,L-plastin,Plastin-2,LCP1,3936,HGNC:6528,500,500,-0.8208555508490778,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Intestine,9017-58,LPH,Lactase-phlorizin hydrolase,LCT,3938,HGNC:6530,431,500,-0.3741260695574427,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,10890-135,LCTL,Lactase-like protein,LCTL,197021,HGNC:15583,187,500,0.136449672411267,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Liver,5708-1,LEAP2,Liver-expressed antimicrobial peptide 2,LEAP2,116842,HGNC:29571,35,500,0.14385468931963072,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Liver,16763-11,LECT2,Leukocyte cell-derived chemotaxin-2,LECT2,3950,HGNC:6550,95,500,-0.12168911190017376,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Adipose,8484-24,Leptin,Leptin,LEP,3952,HGNC:6553,500,500,-2.235824129121885,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Intestine,2982-82,Galectin-4,Galectin-4,LGALS4,3960,HGNC:6565,305,500,0.24357705617743738,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,8003-57,LGI3,Leucine-rich repeat LGI family member 3,LGI3,203190,HGNC:18711,70,500,-0.03483563315279926,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,15614-168,LIRA2,Leukocyte immunoglobulin-like receptor subfamily A member 2,LILRA2,11027,HGNC:6603,39,500,0.037172022834391014,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,7787-25,LIRA5,Leukocyte immunoglobulin-like receptor subfamily A member 5,LILRA5,353514,HGNC:16309,235,500,-0.21462338310219825,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,8766-29,LIRA5,Leukocyte immunoglobulin-like receptor subfamily A member 5,LILRA5,353514,HGNC:16309,13,500,-0.07564324479722173,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,7059-14,LIRA6,Leukocyte immunoglobulin-like receptor subfamily A member 6,LILRA6,,HGNC:15495,67,500,0.05014022870643405,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,5090-49,ILT-2,Leukocyte immunoglobulin-like receptor subfamily B member 1,LILRB1,10859,HGNC:6605,191,500,0.15808244219399006,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,5091-28,ILT-4,Leukocyte immunoglobulin-like receptor subfamily B member 2,LILRB2,,HGNC:6606,447,500,0.37515909509271667,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,11334-7,LIRB3,Leukocyte immunoglobulin-like receptor subfamily B member 3,LILRB3,102725035,HGNC:6607,108,500,-0.11304896674599717,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,15615-8,LIRB3,Leukocyte immunoglobulin-like receptor subfamily B member 3,LILRB3,102725035,HGNC:6607,85,500,0.09069888706920488,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,6620-82,LIGO1,Leucine-rich repeat and immunoglobulin-like domain-containing nogo receptor-interacting protein 1,LINGO1,84894,HGNC:21205,443,500,0.3560075768056922,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,7200-4,LRFN2,Leucine-rich repeat and fibronectin type-III domain-containing protein 2,LRFN2,57497,HGNC:21226,105,500,0.02636051149950441,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,19360-22,LRRT1,Leucine-rich repeat transmembrane neuronal protein 1,LRRTM1,347730,HGNC:19408,410,500,0.2633997981400588,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,6904-14,LRRT2,Leucine-rich repeat transmembrane neuronal protein 2,LRRTM2,26045,HGNC:19409,495,500,-0.8174935891755689,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,6572-10,LRRT4:ECD,"Leucine-rich repeat transmembrane neuronal protein 4:Isoform 2, Extracellular domain",LRRTM4,80059,HGNC:19411,129,500,-0.06459729512732244,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,8646-61,LRRT4:CD,"Leucine-rich repeat transmembrane neuronal protein 4:Isoform 2, Cytoplasmic domain",LRRTM4,80059,HGNC:19411,104,500,0.10218945194729417,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,9368-64,LRTM1,Leucine-rich repeat and transmembrane domain-containing protein 1,LRTM1,57408,HGNC:25023,237,500,-0.21447818366464352,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,8906-60,LRTM2,Leucine-rich repeat and transmembrane domain-containing protein 2,LRTM2,654429,HGNC:32443,295,500,-0.18891559209090117,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,9531-24,LST1,Leukocyte-specific transcript 1 protein,LST1,7940,HGNC:14189,403,500,0.3532044370684079,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,3381-24,LYNB,"Tyrosine-protein kinase Lyn, isoform B",LYN,4067,HGNC:6735,9,500,0.18000278036141235,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,15604-18,JNK2,Mitogen-activated protein kinase 9,MAPK9,5601,HGNC:6886,257,500,0.1636492635082175,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Liver,3000-66,MBL,Mannose-binding protein C,MBL2,4153,HGNC:6922,261,500,-0.18823896832228457,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Kidney,8032-23,MCCD1,Mitochondrial coiled-coil domain protein 1,MCCD1,401250,HGNC:20668,142,500,0.16044856726005322,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,6283-60,MCEM1,Mast cell-expressed membrane protein 1,MCEMP1,199675,HGNC:27291,5,500,-0.0527043060766635,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,16900-29,MDGA1,MAM domain-containing glycosylphosphatidylinositol anchor protein 1,MDGA1,266727,HGNC:19267,81,500,0.03593462192958361,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,11168-3,MEG10,Multiple epidermal growth factor-like domains protein 10,MEGF10,84466,HGNC:29634,342,500,-0.20429255452590572,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,3209-69,MEPE,Matrix extracellular phosphoglycoprotein,MEPE,56955,HGNC:13361,101,500,-0.09011277065554718,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Artery,4455-89,MFGM,Lactadherin,MFGE8,4240,HGNC:7036,440,500,-0.477704833048528,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,3685-53,MFRP,Membrane frizzled-related protein,MFRP,83552,HGNC:18121,49,500,0.043035595434616235,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Artery,6520-87,MGP,Matrix Gla protein,MGP,4256,HGNC:7060,169,500,0.20831198258815886,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Kidney,13498-1,MIOX,Inositol oxygenase,MIOX,55586,HGNC:14522,129,500,0.16007934031065607,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Intestine,5631-83,MOTI,Promotilin,MLN,4295,HGNC:7141,500,500,1.7641435577631106,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,9172-69,MMP-8,Neutrophil collagenase,MMP8,4317,HGNC:7175,41,500,0.15025624305364343,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,2579-17,MMP-9,Matrix metalloproteinase-9,MMP9,4318,HGNC:7176,32,500,-0.13932703713877334,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,15619-49,MOG,Myelin-oligodendrocyte glycoprotein,MOG,4340,HGNC:7197,84,500,0.07978884477638613,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,2580-83,Myeloperoxidase,Myeloperoxidase,MPO,4353,HGNC:7218,98,500,-0.15186354164951285,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,10615-18,MYP0,Myelin protein P0,MPZ,4359,HGNC:7225,209,500,-0.26021091680239633,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Artery,10889-2,MRAP2,Melanocortin-2 receptor accessory protein 2,MRAP2,112609,HGNC:21232,224,500,-0.24668715472467184,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Liver,4407-10,MSP,Hepatocyte growth factor-like protein,MST1,4485,HGNC:7380,159,500,0.14714416433898966,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Muscle,7648-9,MYPC1,"Myosin-binding protein C, slow-type",MYBPC1,4604,HGNC:7549,66,500,0.18387480464785474,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Heart,19296-51,MLRA,"Myosin regulatory light chain 2, atrial isoform",MYL7,58498,HGNC:21719,416,500,-0.33314427936180446,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,16322-10,PACAP,Marginal zone B- and B1-cell-specific protein,MZB1,51237,HGNC:30125,52,500,0.13301251825595475,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Intestine,17505-125,NALDL,N-acetylated-alpha-linked acidic dipeptidase-like protein,NAALADL1,10004,HGNC:23536,238,500,-0.32891459329875233,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,13529-39,NP1L2,Nucleosome assembly protein 1-like 2,NAP1L2,4674,HGNC:7638,74,500,0.09700064657546117,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,12655-30,SNAB,Beta-soluble NSF attachment protein,NAPB,63908,HGNC:15751,77,500,-0.005320270030645074,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,15573-110,CSPG3,Neurocan core protein,NCAN,1463,HGNC:2465,132,500,-0.20458824648651663,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,17766-5,NCF-1,Neutrophil cytosol factor 1,NCF1,653361,HGNC:7660,5,500,0.18127901745079664,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,10047-12,NCF-2,Neutrophil cytosol factor 2,NCF2,4688,HGNC:7661,108,500,0.14391749096177106,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,14614-41,CA130,Noncompact myelin-associated protein,NCMAP,400746,HGNC:29332,83,500,-0.173452032326569,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,8360-169,NKp46,Natural cytotoxicity triggering receptor 1,NCR1,9437,HGNC:6731,34,500,-0.01509775154529793,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,10082-251,NFL,Neurofilament light polypeptide,NEFL,4747,HGNC:7739,500,500,0.9565398201048814,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,8374-5,NGF R,Tumor necrosis factor receptor superfamily member 16,NGFR,4804,HGNC:7809,352,500,-0.25864190557896105,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Heart,5443-62,ANP,Atrial natriuretic factor,NPPA,4878,HGNC:7939,1,500,-0.22050352218631727,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Heart,16751-15,BNP,Natriuretic peptides B,NPPB,4879,HGNC:7940,52,500,0.13683064634134462,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Heart,3723-1,BNP-32,Brain natriuretic peptide 32,NPPB,4879,HGNC:7940,2,500,-0.13813518924985485,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Heart,7655-11,N-terminal pro-BNP,N-terminal pro-BNP,NPPB,4879,HGNC:7940,500,500,4.253517302254245,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,6390-18,NPS,Neuropeptide S,NPS,594857,HGNC:33940,268,500,0.17706488210241697,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,9256-78,NPTX1,Neuronal pentraxin-1,NPTX1,4884,HGNC:7952,99,500,0.08441532852172388,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,15511-37,NPTXR,Neuronal pentraxin receptor,NPTXR,23467,HGNC:7954,500,500,-1.2874476228687666,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,10981-56,NRG3,"Pro-neuregulin-3, membrane-bound isoform",NRG3,10718,HGNC:7999,327,500,0.2524518285443503,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,18303-39,NEUG,Neurogranin,NRGN,4900,HGNC:8000,29,500,-0.1464193279863118,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,5110-84,NRX1B,Neurexin-1-beta,NRXN1,9378,HGNC:8008,126,500,-0.07400058201551314,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,8971-9,NRX1A,Neurexin-1,NRXN1,9378,HGNC:8008,94,500,-0.07465832439837401,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,8876-51,NRX2B,Neurexin-2-beta,NRXN2,9379,HGNC:8009,148,500,-0.13227420114265181,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,16323-8,NRX3A,Neurexin-3,NRXN3,9369,HGNC:8010,63,500,0.35484495104050634,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,5111-15,NRX3B,Neurexin-3-beta,NRXN3,9369,HGNC:8010,490,500,0.7326222609383,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,10907-116,NTRI,Neurotrimin,NTM,50863,HGNC:17941,8,500,-0.17584291501902805,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,8428-102,NTRI,Neurotrimin,NTM,50863,HGNC:17941,395,500,0.3795275195933797,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,5703-26,NOE1,Noelin,OLFM1,10439,HGNC:17187,498,500,0.7226020870443151,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,10643-16,NOE3:C-term,"Noelin-3:Isoform 2, C-term",OLFM3,118427,HGNC:17990,149,500,-0.09803603937163852,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,11143-32,NOE3:N-term,"Noelin-3:Isoform 2, N-term",OLFM3,118427,HGNC:17990,117,500,-0.021532855058712004,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,16908-5,OMGP,Oligodendrocyte-myelin glycoprotein,OMG,4974,HGNC:8135,239,500,-0.2428894198842082,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,7736-28,OPALI,Opalin,OPALIN,93377,HGNC:20707,116,500,0.07591608535084125,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,15622-13,OBCAM,Opioid-binding protein/cell adhesion molecule,OPCML,4978,HGNC:8143,197,500,0.299118891514268,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,14063-17,OSM,Oncostatin-M,OSM,5008,HGNC:8506,180,500,-0.13122301907703587,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,8356-88,NEU1,Oxytocin-neurophysin 1,OXT,5020,HGNC:8528,433,500,-0.3535755561833054,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,12676-1,PACN1,Protein kinase C and casein kinase substrate in neurons protein 1,PACSIN1,29993,HGNC:8570,115,500,0.19090125492396778,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,3388-58,PAK7,Serine/threonine-protein kinase PAK 5,PAK5,57144,HGNC:15916,446,500,-0.498442737222499,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,6280-11,PCDH8,Protocadherin-8,PCDH8,5100,HGNC:8660,13,500,-0.05330844938202943,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,3897-61,PLPP,Pyridoxal phosphate phosphatase,PDXP,57026,HGNC:30259,69,500,0.21094851222221084,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,19638-9,Dynorphin A (1-17),Dynorphin A (1-17),PDYN,5173,HGNC:8820,97,500,-0.1605601674554366,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Kidney,16852-10,NHRF3,Na(+)/H(+) exchange regulatory cofactor NHE-RF3,PDZK1,5174,HGNC:8821,134,500,-0.09865489675793732,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,18833-76,PEA15,Astrocytic phosphoprotein PEA-15,PEA15,8682,HGNC:8822,182,500,0.17152647485161335,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,2697-7,PF-4,Platelet factor 4,PF4,5196,HGNC:8861,3,500,-0.04553641861087346,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,5663-18,PF4V,Platelet factor 4 variant,PF4V1,5197,HGNC:8862,46,500,0.018823796760799694,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,3329-14,PGRP-S,Peptidoglycan recognition protein 1,PGLYRP1,8993,HGNC:8904,85,500,-0.07480103110235796,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Liver,5601-2,PGRP-L,N-acetylmuramoyl-L-alanine amidase,PGLYRP2,114770,HGNC:30013,153,500,0.153855833304598,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Muscle,9173-21,PGM1,Phosphoglucomutase-1,PGM1,5236,HGNC:8905,33,500,0.08978391055086163,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,14114-18,PIANP,PILR alpha-associated neural protein,PIANP,196500,HGNC:25338,489,500,0.6467191895094789,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,9599-6,PIANP,PILR alpha-associated neural protein,PIANP,196500,HGNC:25338,306,500,0.4196430412366504,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,10816-150,PILRA isoform FDF03-M14,Paired immunoglobulin-like type 2 receptor alpha isoform FDF03-M14,PILRA,29992,HGNC:20396,293,500,0.21082681274036516,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,6402-8,PILRA isoform FDF03-deltaTM,Paired immunoglobulin-like type 2 receptor alpha isoform FDF03-deltaTM,PILRA,29992,HGNC:20396,130,500,0.14913443054266437,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,8825-4,PILRA,Paired immunoglobulin-like type 2 receptor alpha,PILRA,29992,HGNC:20396,93,500,0.08649719532650961,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,12697-30,PI42A,Phosphatidylinositol 5-phosphate 4-kinase type-2 alpha,PIP4K2A,5305,HGNC:8997,178,500,0.34419853364448266,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Pancreas,4910-21,GIB,Phospholipase A2,PLA2G1B,5319,HGNC:9030,416,500,-0.37190726683039255,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Intestine,8850-5,PA2GC,Putative inactive group IIC secretory phospholipase A2,PLA2G2C,,HGNC:9032,166,500,-0.2972056352238058,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,6315-58,PLBL1,Phospholipase B-like 1,PLBD1,79887,HGNC:26215,497,500,0.6999537436622028,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,7875-86,PLEK,Pleckstrin,PLEK,5341,HGNC:9070,47,500,0.17933895212938905,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,10939-16,PKHA4,Pleckstrin homology domain-containing family A member 4,PLEKHA4,57664,HGNC:14339,248,500,-0.1649614012366407,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Liver,3710-49,Angiostatin,Angiostatin,PLG,5340,HGNC:9071,473,500,-0.5543357173857122,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Liver,4150-75,Plasmin,Plasmin,PLG,5340,HGNC:9071,33,500,-0.0871654360956121,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Liver,4151-6,Plasminogen,Plasminogen,PLG,5340,HGNC:9071,472,500,-0.4873709685466734,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Intestine,12737-12,PLSI,Plastin-1,PLS1,5357,HGNC:9090,127,500,0.09594181598482031,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,15422-12,MYP2,Myelin P2 protein,PMP2,5375,HGNC:9117,261,500,0.21940823165834092,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Pancreas,15613-16,LIPP,Pancreatic triacylglycerol lipase,PNLIP,5406,HGNC:9155,215,500,-0.28012435343143455,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Pancreas,6627-25,LIPR1,Inactive pancreatic lipase-related protein 1,PNLIPRP1,5407,HGNC:9156,46,500,0.1471773379556774,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Pancreas,15471-29,LIPR2,Pancreatic lipase-related protein 2,PNLIPRP2,5408,HGNC:9157,248,500,-0.21792254680206755,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Liver,4261-55,paraoxonase 1,Serum paraoxonase/arylesterase 1,PON1,5444,HGNC:9204,82,500,-0.09820802617506719,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,16765-52,PBP,Platelet basic protein,PPBP,5473,HGNC:9240,35,500,-0.12716160517000252,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,17165-1,BTG,Beta-thromboglobulin,PPBP,5473,HGNC:9240,4,500,-0.07784866359077783,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,2790-54,NAP-2,Neutrophil-activating peptide 2,PPBP,5473,HGNC:9240,1,500,0.029996875113933317,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,4544-4,CTAP-III,Connective tissue-activating peptide III,PPBP,5473,HGNC:9240,1,500,-0.026563574017131646,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,15545-13,Calcineurin B a,Calcineurin subunit B type 1,PPP3R1,5534,HGNC:9317,464,500,0.5520326853377113,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Pancreas,4588-1,PH,Pancreatic hormone,PPY,5539,HGNC:9327,500,500,1.3914821179182546,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,7258-5,EMBP,Bone marrow proteoglycan,PRG2,5553,HGNC:9362,41,500,0.07114333950172383,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,9015-1,PRG3,Proteoglycan 3,PRG3,10394,HGNC:9363,54,500,-0.06609328030273724,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,12479-50,KAP1,cAMP-dependent protein kinase type I-beta regulatory subunit,PRKAR1B,5575,HGNC:9390,317,500,-0.255538843376024,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,5476-66,PKC-G,Protein kinase C gamma type,PRKCG,5582,HGNC:9402,400,500,-0.2949962556001563,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,6543-182,PRRP,Prolactin-releasing peptide,PRLH,51052,HGNC:17945,93,500,-0.10326610662001463,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Liver,2961-1,Protein C,Vitamin K-dependent protein C,PROC,5624,HGNC:9451,469,500,-0.5484670010610034,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Liver,3758-68,Activated Protein C,Activated Protein C,PROC,5624,HGNC:9451,82,500,0.0917858613763975,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,10754-113,Prokineticin-2,Prokineticin-2,PROK2,60675,HGNC:18455,500,500,-0.9351494731083999,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,8306-54,TMG1:CD,Transmembrane gamma-carboxyglutamic acid protein 1:Cytoplasmic domain,PRRG1,5638,HGNC:9469,173,500,-0.1577149987295821,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,9008-6,"TMG1:Pro-form, ECD","Transmembrane gamma-carboxyglutamic acid protein 1:Pro-form, Extracellular domain",PRRG1,5638,HGNC:9469,117,500,0.0723566271406279,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Pancreas,3049-61,Trypsin,Trypsin-1,PRSS1,5644,HGNC:9475,56,500,-0.27036548615721856,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Pancreas,5034-79,Trypsin 2,Trypsin-2,PRSS2,5645,HGNC:9483,500,500,2.0948803793156143,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Pancreas,18864-7,TRY3,Trypsin-3,PRSS3,5646,HGNC:9486,46,500,0.09229883821320826,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,8351-17,PRS57,Serine protease 57,PRSS57,400668,HGNC:31397,167,500,-0.17860798268259218,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,13720-95,Proteinase-3,Myeloblastin,PRTN3,5657,HGNC:9495,48,500,0.11164696848392884,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,9118-7,PSD2,PH and SEC7 domain-containing protein 2,PSD2,84249,HGNC:19092,469,500,-0.392014415428953,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,19168-71,PPIP1,Proline-serine-threonine phosphatase-interacting protein 1,PSTPIP1,9051,HGNC:9580,118,500,0.14460025704640225,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Kidney,13470-43,PTH1R,Parathyroid hormone/parathyroid hormone-related peptide receptor,PTH1R,5745,HGNC:9608,178,500,-0.21004126799181305,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,6361-49,PTPRR,Receptor-type tyrosine-protein phosphatase R,PTPRR,5801,HGNC:9680,154,500,-0.15233339396360143,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Heart,11324-3,PXDNL,Peroxidasin-like protein,PXDNL,137902,HGNC:26359,39,500,-0.14493649498330094,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,11441-11,PYGL,"Glycogen phosphorylase, liver form",PYGL,5836,HGNC:9725,130,500,-0.1904849737116303,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Intestine,3727-35,PYY,Peptide YY,PYY,5697,HGNC:9748,500,500,1.231712872990484,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Liver,6580-29,Pregnancy zone protein,Pregnancy zone protein,PZP,,HGNC:9750,490,500,0.5520981280802898,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,11257-1,DHPR,Dihydropteridine reductase,QDPR,5860,HGNC:9752,130,500,-0.24985182103181536,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,14271-23,RAB6B,Ras-related protein Rab-6B,RAB6B,51560,HGNC:14902,159,500,-0.2687402678306826,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,18950-13,RAC2,Ras-related C3 botulinum toxin substrate 2,RAC2,5880,HGNC:9802,460,500,-0.6012456517918252,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Muscle,10058-1,RD23A,UV excision repair protein RAD23 homolog A,RAD23A,5886,HGNC:9812,491,500,-0.6155680355863432,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,9059-14,RPGF5,Rap guanine nucleotide exchange factor 5,RAPGEF5,9771,HGNC:16862,102,500,-0.15380367983989793,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Liver,15633-6,RBP,Retinol-binding protein 4,RBP4,5950,HGNC:9922,500,500,1.6889641848829502,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Liver,12881-17,RDH16,Retinol dehydrogenase 16,RDH16,8608,HGNC:29674,76,500,0.053146910838404185,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Pancreas,13095-51,PSP,Lithostathine-1-alpha,REG1A,5967,HGNC:9951,425,500,0.825336638428643,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Pancreas,16770-3,REG1B,Lithostathine-1-beta,REG1B,5968,HGNC:9952,395,500,0.6399942119353154,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Pancreas,15476-6,REG3G,Regenerating islet-derived protein 3-gamma,REG3G,130120,HGNC:29595,101,500,-0.1381064015656476,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Intestine,11102-22,REG4,Regenerating islet-derived protein 4,REG4,83998,HGNC:22977,483,500,0.7677614312911779,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Kidney,3396-54,Renin,Renin,REN,5972,HGNC:9958,500,500,1.9571643328776587,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,3046-31,resistin,Resistin,RETN,56729,HGNC:20389,228,500,0.2023787351407909,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,13982-33,RGS18,Regulator of G-protein signaling 18,RGS18,64407,HGNC:14261,248,500,-0.21402538141713198,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,12713-365,RGS19,Regulator of G-protein signaling 19,RGS19,10287,HGNC:13735,265,500,-0.2913947741880574,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,17855-28,RGS4,Regulator of G-protein signaling 4,RGS4,5999,HGNC:10000,59,500,-0.028169622665419992,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,12538-19,RGS7,Regulator of G-protein signaling 7,RGS7,6000,HGNC:10003,353,500,-0.19599988714691027,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,11666-72,RGS8,Regulator of G-protein signaling 8,RGS8,85397,HGNC:16810,21,500,0.17984621022049646,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,12540-25,RHOG,Rho-related GTP-binding protein RhoG,RHOG,391,HGNC:672,121,500,-0.13647557226917392,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,8394-56,RNase 2,Non-secretory ribonuclease,RNASE2,6036,HGNC:10045,69,500,0.04605003599871387,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,15576-158,ECP,Eosinophil cationic protein,RNASE3,6037,HGNC:10046,9,500,-0.04181603398463941,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Lung,9032-30,ROS1,Proto-oncogene tyrosine-protein kinase ROS,ROS1,6098,HGNC:10261,111,500,-0.18870638279053534,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,5105-2,Nogo Receptor,Reticulon-4 receptor,RTN4R,65078,HGNC:18601,460,500,0.41991620227949056,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,5852-6,S100A12,Protein S100-A12,S100A12,6283,HGNC:10489,16,500,0.1250420343156214,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,18928-10,S100Z,Protein S100-Z,S100Z,170591,HGNC:30367,125,500,-0.10549068212328822,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Liver,15515-2,SAA,Serum amyloid A-1 protein,SAA1,6288,HGNC:10513,217,500,0.19914805994409637,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Liver,18832-65,SAA2,Serum amyloid A-2 protein,SAA2,6289,HGNC:10514,38,500,-0.1153253970093697,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Liver,15516-12,SAA-4,Serum amyloid A-4 protein,SAA4,6291,HGNC:10516,26,500,0.00622913118843505,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,8353-15,SCN2B,Sodium channel subunit beta-2,SCN2B,6327,HGNC:10589,261,500,-0.17921056178404413,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,4831-4,sL-Selectin,L-Selectin,SELL,6402,HGNC:10720,499,500,-0.8458903699430627,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,11266-8,SELPL:ECD,P-selectin glycoprotein ligand 1:Extracellular domain,SELPLG,6404,HGNC:10722,443,500,-0.4355396335017895,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,18316-75,SEPT3,Neuronal-specific septin-3,SEPTIN3,55964,HGNC:10750,288,500,0.21110191852465304,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Liver,3580-25,a1-Antitrypsin,Alpha-1-antitrypsin,SERPINA1,5265,HGNC:8941,474,500,0.41092355804989716,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Liver,13119-26,protein Z inhibitor,Protein Z-dependent protease inhibitor,SERPINA10,51156,HGNC:15996,118,500,-0.13954548531158478,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Liver,9002-36,SPA11,Serpin A11,SERPINA11,256394,HGNC:19193,349,500,0.28599854798776486,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Liver,4785-30,CBG,Corticosteroid-binding globulin,SERPINA6,866,HGNC:1540,188,500,-0.14851651788595494,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Liver,2706-69,Thyroxine-Binding Globulin,Thyroxine-binding globulin,SERPINA7,6906,HGNC:11583,348,500,-0.2594450010259891,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Liver,3344-60,Antithrombin III,Antithrombin-III,SERPINC1,462,HGNC:775,398,500,-0.37863792212003683,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Liver,3316-58,Heparin cofactor II,Heparin cofactor 2,SERPIND1,3053,HGNC:4838,33,500,0.09174463129821334,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Liver,3024-18,a2-Antiplasmin,Alpha-2-antiplasmin,SERPINF2,5345,HGNC:9075,500,500,-3.3951939926840384,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Pancreas,7117-21,SPI2,Serpin I2,SERPINI2,5276,HGNC:8945,363,500,0.2744355799129093,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,19563-3,SEZ6L,Seizure 6-like protein,SEZ6L,23544,HGNC:10763,296,500,-0.47867202000656467,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Lung,10580-14,SFTA2,Surfactant-associated protein 2,SFTA2,389376,HGNC:18386,82,500,-0.12243617190196436,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Lung,10672-75,SP-B,Pulmonary surfactant-associated protein B,SFTPB,6439,HGNC:10801,500,500,1.367144385429641,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Lung,19590-46,SP-D,Pulmonary surfactant-associated protein D,SFTPD,6441,HGNC:10803,500,500,1.6448552708044644,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,12499-108,SH3G2,Endophilin-A1,SH3GL2,6456,HGNC:10831,31,500,0.2389627122037856,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,13240-170,SHAN1,SH3 and multiple ankyrin repeat domains protein 1,SHANK1,50944,HGNC:15474,212,500,0.13803046326087143,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,10037-98,SIG12:Ig-like V-type 2,"Sialic acid-binding Ig-like lectin 12:Ig-like V-type 2 domain, Isoform long",SIGLEC12,89858,HGNC:15482,97,500,-0.05702944343177066,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,8352-26,SIG12:Ig-like C2-type 2,"Sialic acid-binding Ig-like lectin 12:Ig-like C2-type 2 domain, Isoform short",SIGLEC12,89858,HGNC:15482,420,500,-0.45646554198641665,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,8248-222,SIG14,Sialic acid-binding Ig-like lectin 14,SIGLEC14,100049587,HGNC:32926,17,500,0.05145143570129664,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,16792-4,Siglec-5,Sialic acid-binding Ig-like lectin 5,SIGLEC5,8778,HGNC:10874,123,500,0.12740699697854352,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,9275-2,Siglec-5,Sialic acid-binding Ig-like lectin 5,SIGLEC5,8778,HGNC:10874,8,500,0.0011716197871621667,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,2742-68,Siglec-7,Sialic acid-binding Ig-like lectin 7,SIGLEC7,27036,HGNC:10876,70,500,0.10677446723955229,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,3007-7,Siglec-9,Sialic acid-binding Ig-like lectin 9,SIGLEC9,27180,HGNC:10878,89,500,-0.08064124849540825,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,6247-9,SIRB1,Signal-regulatory protein beta-1,SIRPB1,10326,HGNC:15928,52,500,0.0692808651443105,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,5669-26,SIRB2,Signal-regulatory protein beta-2,SIRPB2,284759,HGNC:16247,19,500,-0.07318450557578422,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,13452-113,SIM13,Small integral membrane protein 13,SMIM13,221710,HGNC:27356,245,500,0.1815644853210327,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,13105-7,SNP25,Synaptosomal-associated protein 25,SNAP25,6616,HGNC:11132,68,500,0.07050660073880796,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,17343-6,SNPH,Syntaphilin,SNPH,9751,HGNC:15931,181,500,0.11578503882859549,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Muscle,5008-51,Mn SOD,"Superoxide dismutase [Mn], mitochondrial",SOD2,6648,HGNC:11180,500,500,-1.1316815397205877,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Artery,13101-60,SOST,Sclerostin,SOST,50964,HGNC:13771,500,500,1.2640886570744687,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Pancreas,8243-55,TATI,Serine protease inhibitor Kazal-type 1,SPINK1,6690,HGNC:11244,450,500,0.37110254953097,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Intestine,19213-1,ISK4,Serine protease inhibitor Kazal-type 4,SPINK4,27290,HGNC:16646,169,500,0.25501718634287984,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,5490-53,Testican-1,Testican-1,SPOCK1,6695,HGNC:11251,36,500,-0.07115032604771578,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,9906-21,TICN3,Testican-3,SPOCK3,50859,HGNC:13565,111,500,0.09833959948665215,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,19251-56,Platelet proteoglycan,Serglycin,SRGN,5552,HGNC:9361,133,500,-0.13528688421950796,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,10900-272,STMN2,Stathmin-2,STMN2,11075,HGNC:10577,432,500,0.5771971909264433,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,6267-51,STMN4,Stathmin-4,STMN4,81551,HGNC:16078,73,500,0.1837380910642345,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,6966-144,STX1B,Syntaxin-1B,STX1B,112755,HGNC:18539,174,500,0.14562698261297705,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,8357-43,ST4A1,Sulfotransferase 4A1,SULT4A1,25830,HGNC:14903,99,500,-0.14622355937312173,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,12880-1,SV2A,Synaptic vesicle glycoprotein 2A,SV2A,9900,HGNC:20566,46,500,-0.019065559933124174,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,13375-48,SNG3,Synaptogyrin-3,SYNGR3,9143,HGNC:11501,264,500,-0.2497925407471298,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,9577-26,SYT2,Synaptotagmin-2,SYT2,127833,HGNC:11510,141,500,0.11921223099545733,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,17355-56,SYT4,Synaptotagmin-4,SYT4,6860,HGNC:11512,283,500,-0.24421562145735565,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,8066-38,SYT9,Synaptotagmin-9,SYT9,143425,HGNC:19265,434,500,0.3261338534170837,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,17775-8,TAGL3,Transgelin-3,TAGLN3,29114,HGNC:29868,162,500,-0.16112236296071755,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,8098-37,THAS,Thromboxane-A synthase,TBXAS1,6916,HGNC:11609,54,500,0.08004202856653173,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Liver,9880-33,T23O,"Tryptophan 2,3-dioxygenase",TDO2,6999,HGNC:11708,67,500,-0.14531119838884285,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Liver,11537-12,TFR2,Transferrin receptor protein 2,TFR2,7036,HGNC:11762,47,500,-0.026124387830880006,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Artery,14111-15,TSP2,Thrombospondin-2,THBS2,7058,HGNC:11786,98,500,-0.13976188713604842,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Artery,3339-33,TSP2,Thrombospondin-2,THBS2,7058,HGNC:11786,289,500,0.2801235944023636,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,14035-13,TIAM1,T-lymphoma invasion and metastasis-inducing protein 1,TIAM1,7074,HGNC:11805,96,500,0.05743123627052787,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,11149-3,TLR1:CD,Toll-like receptor 1:Cytoplasmic domain,TLR1,7096,HGNC:11847,368,500,-0.28479895237635555,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,16324-38,TLR1:ECD,Toll-like receptor 1:Extracellular domain,TLR1,7096,HGNC:11847,195,500,0.11251593793359718,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,15641-20,TEFF1,Tomoregulin-1,TMEFF1,100526694,HGNC:11866,284,500,-0.18750610773096973,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,8890-9,T132B,Transmembrane protein 132B,TMEM132B,114795,HGNC:29397,450,500,-0.6329008006127813,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,13416-8,T132D,Transmembrane protein 132D,TMEM132D,121256,HGNC:29411,237,500,0.2499894216334097,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Kidney,9778-45,TM52B,Transmembrane protein 52B,TMEM52B,120939,HGNC:26438,138,500,0.16973334280846475,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,12853-112,TMOD2,Tropomodulin-2,TMOD2,29767,HGNC:11872,125,500,0.12770678868069046,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Intestine,3189-61,Enterokinase,Enteropeptidase,TMPRSS15,5651,HGNC:9490,128,500,0.21861615965177142,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,8002-27,Spinesin,Transmembrane protease serine 5,TMPRSS5,80975,HGNC:14908,319,500,-0.2076591231533476,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Liver,11239-49,TMPS6,Transmembrane protease serine 6,TMPRSS6,164656,HGNC:16517,20,500,0.01839511511051704,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Artery,8304-50,OPG,Tumor necrosis factor receptor superfamily member 11B,TNFRSF11B,4982,HGNC:11909,500,500,4.209795790330803,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,3152-57,TNF sR-II,Tumor necrosis factor receptor superfamily member 1B,TNFRSF1B,7133,HGNC:11917,8,500,0.03460839102420249,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,8368-102,TNF sR-II,Tumor necrosis factor receptor superfamily member 1B,TNFRSF1B,7133,HGNC:11917,495,500,0.6309188165700432,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Adipose,6578-29,TNMD,Tenomodulin,TNMD,64102,HGNC:17757,47,500,0.16650099824393025,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Muscle,5440-26,"Troponin I, skeletal, fast twitch","Troponin I, fast skeletal muscle",TNNI2,7136,HGNC:11946,378,500,0.3324340306192907,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Heart,5315-22,Troponin T,"Troponin T, cardiac muscle",TNNT2,7139,HGNC:11949,500,500,1.5951447485510435,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Muscle,16807-35,TNNT3,"Troponin T, fast skeletal muscle",TNNT3,7140,HGNC:11950,66,500,-0.15445755726932164,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,11302-237,TENR,Tenascin-R,TNR,7143,HGNC:11953,472,500,-0.35437146696401073,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,9266-1,sTREM-1,Triggering receptor expressed on myeloid cells 1,TREM1,54210,HGNC:17760,500,500,3.792512661680501,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,11147-17,TRML1:ITIM,Trem-like transcript 1 protein:immunoreceptor tyrosine-based inhibition motif,TREML1,340205,HGNC:20434,96,500,0.08214445806057216,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,9329-28,TRML1:ECD,"Trem-like transcript 1 protein:Extracellular domain, Ig-like V-type domain",TREML1,340205,HGNC:20434,216,500,-0.16120931931797547,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,5736-1,TRML2,Trem-like transcript 2 protein,TREML2,79865,HGNC:21092,25,500,-0.004823834653269129,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,5659-11,TRH,Pro-Thyrotropin-releasing hormone,TRH,7200,HGNC:12298,69,500,0.040455044264383615,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,6527-1,TRIL:ECD,TLR4 interactor with leucine rich repeats:Extracellular domain,TRIL,9865,HGNC:22200,44,500,0.04651155396137486,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,9386-42,TTC9B,Tetratricopeptide repeat protein 9B,TTC9B,148014,HGNC:26395,209,500,-0.17498637345899126,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Muscle,11352-42,TITIN,Titin,TTN,7273,HGNC:12403,28,500,0.12342962079031751,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Liver,17702-53,UGT 1A1,UDP-glucuronosyltransferase 1-1,UGT1A1,54658,HGNC:12530,46,500,-0.048583507581331495,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Kidney,9451-20,Uromodulin,Uromodulin,UMOD,7369,HGNC:12559,500,500,0.7771057494149379,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,5275-28,VAV,Proto-oncogene vav,VAV1,7409,HGNC:12657,80,500,-0.16062410285181788,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Artery,9561-21,CSPG2,Versican core protein,VCAN,1462,HGNC:2464,2,500,-0.04181301249825814,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,15480-2,VNN2,Vascular non-inflammatory molecule 2,VNN2,8875,HGNC:12706,107,500,0.138989923299735,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,11531-24,GI24:CD,V-type immunoglobulin domain-containing suppressor of T-cell activation:Cytoplasmic domain,VSIR,64115,HGNC:30085,176,500,-0.2525712915793753,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,14123-34,GI24:ECD,V-type immunoglobulin domain-containing suppressor of T-cell activation:Extracellular domain,VSIR,64115,HGNC:30085,83,500,-0.16115414454840238,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,13522-20,VISL1,Visinin-like protein 1,VSNL1,7447,HGNC:12722,92,500,0.001043242581210263,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Liver,13125-45,Vitronectin,Vitronectin,VTN,7448,HGNC:12724,180,500,-0.14016758925265654,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,7995-16,VWC2L,von Willebrand factor C domain-containing protein 2-like,VWC2L,402117,HGNC:37203,91,500,-0.009756489270301975,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,6274-15,WSCD2,WSC domain-containing protein 2,WSCD2,9671,HGNC:29117,223,500,0.29558612565699693,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Immune,15617-8,lymphotactin beta,Cytokine SCM-1 beta,XCL2,6846,HGNC:10646,261,500,-0.2405705168148342,Negative,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Intestine,8219-14,ZG16,Zymogen granule membrane protein 16,ZG16,653808,HGNC:30961,104,500,0.135653864119105,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a
+Brain,14616-16,ZN382,Zinc finger protein 382,ZNF382,84911,HGNC:17409,332,500,0.2294807821181577,Positive,Zprot_stableassayps_perf95,59303fd0dccc191be1ff34bf0bbf5efd8b90387a

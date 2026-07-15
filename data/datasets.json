@@ -1,8 +1,10 @@
 [
   {
     "key": "transcriptomic",
-    "title": "Cross-species transcriptomic signatures",
-    "shortTitle": "Transcriptomic",
+    "layerKey": "transcriptomics",
+    "layerTitle": "Transcriptomics",
+    "title": "tAge",
+    "shortTitle": "tAge",
     "description": "Age, mortality, normalized-age, and lifespan associations across ITP, rodent meta-analysis, and multi-tissue analyses.",
     "organisms": [
       "Mouse",
@@ -13,22 +15,26 @@
     ],
     "sourceUrl": "https://doi.org/10.1038/s41586-026-10542-3",
     "geneCount": 929,
-    "recordCount": 6984
+    "recordCount": 6844
   },
   {
     "key": "epigenetic",
-    "title": "Human epigenetic associations",
-    "shortTitle": "Epigenetic",
+    "layerKey": "epigenomics",
+    "layerTitle": "Epigenomics",
+    "title": "cAge and bAge",
+    "shortTitle": "cAge \u00b7 bAge",
     "description": "Gene-annotated CpGs associated with chronological age or all-cause mortality, with relatedness-adjusted mortality sensitivity results.",
     "organisms": [
       "Human"
     ],
     "sourceUrl": "https://doi.org/10.1186/s13073-023-01161-y",
-    "geneCount": 726,
-    "recordCount": 1894
+    "geneCount": 673,
+    "recordCount": 1831
   },
   {
     "key": "longevityMap",
+    "layerKey": "genomics",
+    "layerTitle": "Genomics",
     "title": "LongevityMap",
     "shortTitle": "LongevityMap",
     "description": "Curated human genetic association reports with significant longevity findings.",
@@ -41,6 +47,8 @@
   },
   {
     "key": "genAge",
+    "layerKey": "genomics",
+    "layerTitle": "Genomics",
     "title": "GenAge",
     "shortTitle": "GenAge",
     "description": "Expert-curated human ageing genes and experimental mouse lifespan evidence linked by one-to-one orthology.",
@@ -51,5 +59,20 @@
     "sourceUrl": "https://genomics.senescence.info/genes/",
     "geneCount": 292,
     "recordCount": 373
+  },
+  {
+    "key": "organAge",
+    "layerKey": "proteomics",
+    "layerTitle": "Proteomics",
+    "title": "OrganAge",
+    "shortTitle": "OrganAge",
+    "description": "Human plasma proteins selected by published bootstrapped organ-age models, with organ assignment and model-selection frequency.",
+    "organisms": [
+      "Human"
+    ],
+    "sourceUrl": "https://doi.org/10.1038/s41586-023-06802-1",
+    "resourceUrl": "https://github.com/hamiltonoh/organage",
+    "geneCount": 110,
+    "recordCount": 117
   }
 ]

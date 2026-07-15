@@ -5,13 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="A searchable atlas of transcriptomic, epigenetic, longevity-association, and curated ageing-gene evidence."
+      content="A searchable atlas of genomic, epigenomic, transcriptomic, and proteomic evidence related to human ageing."
     />
     <meta name="theme-color" content="#0b3042" />
     <title>Human Aging Atlas</title>
     <link rel="icon" type="image/png" href="assets/atlas-logo.png" />
-    <link rel="stylesheet" href="styles.css?v=20260715-1" />
-    <script type="module" src="app.js?v=20260715-1"></script>
+    <link rel="stylesheet" href="styles.css?v=20260715-2" />
+    <script type="module" src="app.js?v=20260715-2"></script>
   </head>
   <body>
     <a class="skip-link" href="#main-content">Skip to content</a>
@@ -24,22 +24,16 @@
       </a>
       <nav class="primary-nav" aria-label="Primary navigation">
         <a href="#/" data-nav="home">Atlas</a>
-        <a href="#/genes" data-nav="genes">Gene index</a>
         <a href="#/methods" data-nav="methods">Methods</a>
         <a href="#/sources" data-nav="sources">Sources</a>
       </nav>
-      <a class="header-search" href="#/genes" aria-label="Search genes">Search genes</a>
+      <a class="header-search" href="#/" data-focus-search aria-label="Search genes">Search genes</a>
     </header>
 
     <div class="page-shell">
       <aside class="contents-rail" aria-label="Page contents">
         <div class="rail-label">Contents</div>
         <nav id="section-nav"></nav>
-        <div class="rail-note">
-          <span class="rail-logo" aria-hidden="true"><img src="assets/atlas-logo.png" alt="" /></span>
-          <strong>Gene-level</strong>
-          <span>source-backed evidence</span>
-        </div>
       </aside>
 
       <main id="main-content" tabindex="-1">

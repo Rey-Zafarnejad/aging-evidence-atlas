@@ -171,7 +171,7 @@ summary {
 .page-shell {
   display: grid;
   grid-template-columns: 220px minmax(0, 1fr);
-  max-width: 1500px;
+  max-width: 1680px;
   min-height: calc(100vh - var(--header-height));
   margin: 0 auto;
 }
@@ -215,33 +215,41 @@ summary {
   color: var(--navy);
 }
 
-.rail-note {
-  display: grid;
-  margin-top: 34px;
-  padding-top: 18px;
-  border-top: 1px solid var(--line);
-  color: var(--muted);
-  font-size: 13px;
+.rail-filter {
+  width: 100%;
+  padding: 7px 0 7px 14px;
+  border: 0;
+  border-left: 2px solid transparent;
+  background: transparent;
+  color: #40515a;
+  cursor: pointer;
+  font-size: 14px;
+  text-align: left;
 }
 
-.rail-logo {
-  display: block;
-  width: 48px;
-  height: 48px;
-  margin-bottom: 7px;
-  overflow: hidden;
-}
-
-.rail-note strong {
+.rail-filter:hover,
+.rail-filter.active {
+  border-left-color: var(--teal);
   color: var(--navy);
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: 23px;
-  line-height: 1.2;
+  font-weight: 700;
+}
+
+.rail-planned {
+  display: grid;
+  padding: 7px 0 7px 14px;
+  border-left: 2px solid #c7cfce;
+  color: #77838a;
+  font-size: 12px;
+}
+
+.rail-planned strong {
+  color: #52646c;
+  font-size: 13px;
 }
 
 #main-content {
   min-width: 0;
-  padding: 42px clamp(28px, 5vw, 74px) 72px;
+  padding: 42px clamp(24px, 3.5vw, 56px) 72px;
 }
 
 .page-header {
@@ -317,6 +325,40 @@ h3 {
   border: 1px solid #cbd5d6;
   background: var(--white);
   box-shadow: var(--shadow);
+}
+
+.atlas-search-zone {
+  margin: 30px 0 44px;
+  padding: 26px;
+  border-top: 3px solid var(--navy);
+  border-bottom: 1px solid var(--line);
+  background: #f4f7f5;
+}
+
+.atlas-search-heading h2 {
+  margin: 2px 0 18px;
+  font-size: 22px;
+}
+
+.atlas-search-row {
+  display: grid;
+  grid-template-columns: minmax(320px, 1fr) minmax(190px, 0.3fr) auto;
+  gap: 12px;
+  align-items: end;
+}
+
+.atlas-search-row input,
+.atlas-search-row select {
+  min-height: 50px;
+  background: var(--white);
+}
+
+.atlas-search-row .primary-button {
+  min-height: 50px;
+}
+
+.atlas-index-section {
+  scroll-margin-top: calc(var(--header-height) + 24px);
 }
 
 .search-label {
@@ -695,10 +737,10 @@ h3 {
   font-weight: 700;
 }
 
-.source-mark.transcriptomic { border-color: #a9ccc9; background: var(--teal-soft); color: #245e5b; }
-.source-mark.epigenetic { border-color: #b5c6d1; background: #e7eff3; color: #315769; }
-.source-mark.longevityMap { border-color: #dfc997; background: var(--gold-soft); color: #76561d; }
-.source-mark.genAge { border-color: #c8ced0; background: #eef0ef; color: #4a5b61; }
+.source-mark.genomics { border-color: #dfc997; background: var(--gold-soft); color: #6d501e; }
+.source-mark.epigenomics { border-color: #b5c6d1; background: #e7eff3; color: #315769; }
+.source-mark.transcriptomics { border-color: #a9ccc9; background: var(--teal-soft); color: #245e5b; }
+.source-mark.proteomics { border-color: #c3cbcd; background: #edf0ef; color: #44575f; }
 
 .filter-bar {
   display: grid;
@@ -783,6 +825,23 @@ h3 {
   white-space: nowrap;
 }
 
+.sort-button {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  font: inherit;
+  font-weight: inherit;
+}
+
+.sort-button:hover,
+.sort-button:focus-visible {
+  color: var(--navy);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
 .data-table td {
   padding: 10px 11px;
   border-bottom: 1px solid #e6e9e7;
@@ -798,6 +857,51 @@ h3 {
 .data-table .numeric {
   text-align: right;
   font-variant-numeric: tabular-nums;
+}
+
+.atlas-table {
+  min-width: 1580px;
+  table-layout: fixed;
+}
+
+.atlas-table td {
+  overflow-wrap: normal;
+  word-break: normal;
+}
+
+.atlas-table th:first-child,
+.atlas-table td:first-child {
+  width: 125px;
+}
+
+.atlas-table th:nth-child(2),
+.atlas-table td:nth-child(2) {
+  width: 450px;
+}
+
+.atlas-table td:nth-child(2) {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.atlas-table th:nth-child(3),
+.atlas-table td:nth-child(3) {
+  width: 120px;
+}
+
+.atlas-table th:nth-child(4),
+.atlas-table td:nth-child(4) {
+  width: 130px;
+}
+
+.atlas-table td:last-child .source-marks {
+  flex-wrap: nowrap;
+}
+
+.atlas-table td:last-child .source-mark {
+  flex: 0 0 auto;
+  white-space: nowrap;
 }
 
 .gene-link {
@@ -913,9 +1017,13 @@ h3 {
   padding: 18px 0;
   border-top: 1px solid var(--line);
   border-bottom: 1px solid var(--line);
-  font-size: 16px;
+  font-size: 17px;
   line-height: 1.7;
   scroll-margin-top: calc(var(--header-height) + 24px);
+}
+
+.gene-summary .section-kicker {
+  font-size: 11px !important;
 }
 
 .gene-summary p {
@@ -1081,7 +1189,7 @@ h3 {
 
 .source-overview-grid {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
   border-top: 1px solid var(--line);
   border-bottom: 1px solid var(--line);
 }
@@ -1098,9 +1206,10 @@ h3 {
   border-right: 0;
 }
 
-.source-overview-card.epigenetic { border-top-color: var(--navy-2); }
-.source-overview-card.longevityMap { border-top-color: var(--gold); }
-.source-overview-card.genAge { border-top-color: #7a8e95; }
+.source-overview-card.genomics { border-top-color: var(--gold); }
+.source-overview-card.epigenomics { border-top-color: var(--navy-2); }
+.source-overview-card.transcriptomics { border-top-color: var(--teal); }
+.source-overview-card.proteomics { border-top-color: #7a8e95; }
 
 .source-overview-label {
   display: block;
@@ -1166,6 +1275,24 @@ h3 {
 
 .evidence-subsection {
   margin-top: 24px;
+}
+
+.source-subsection {
+  padding-top: 18px;
+  border-top: 1px solid var(--line);
+}
+
+.source-subsection:first-of-type {
+  margin-top: 0;
+  padding-top: 0;
+  border-top: 0;
+}
+
+.subsection-heading-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 18px;
 }
 
 .evidence-subsection h3 {
@@ -1251,15 +1378,55 @@ h3 {
   font-weight: 760;
 }
 
+.method-step-content {
+  min-width: 0;
+}
+
 .method-step p {
   margin: 0;
   color: #45565e;
 }
 
+.method-step.planned::before {
+  border-style: dashed;
+  color: #607179;
+}
+
+.method-step.planned p {
+  color: var(--muted);
+}
+
+.prose-section > p {
+  max-width: 900px;
+}
+
+.planned-methods,
+.planned-sources {
+  max-width: 950px;
+}
+
+.planned-layer-row {
+  display: grid;
+  grid-template-columns: minmax(150px, 0.35fr) minmax(0, 1fr);
+  gap: 18px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--line);
+  color: var(--muted);
+}
+
+.planned-layer-row strong {
+  color: var(--navy);
+}
+
 .source-entry {
-  display: block;
-  max-width: 1050px;
-  padding: 22px 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 24px;
+  align-items: start;
+  max-width: 928px;
+  margin-left: 22px;
+  padding: 18px 0 18px 20px;
+  border-left: 2px solid #d9dfdd;
   border-bottom: 1px solid var(--line);
 }
 
@@ -1267,13 +1434,40 @@ h3 {
   max-width: 780px;
 }
 
-.source-entry h2 {
+.source-entry h3 {
   margin-bottom: 5px;
-  font-size: 20px;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 17px;
+  font-weight: 760;
 }
 
 .source-entry p {
   margin: 0 0 8px;
+}
+
+.source-layer-group {
+  max-width: 1050px;
+  margin-top: 42px;
+  scroll-margin-top: calc(var(--header-height) + 24px);
+}
+
+.source-layer-group + .source-layer-group {
+  padding-top: 12px;
+}
+
+.planned-status {
+  margin-left: 8px;
+  color: var(--muted);
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.source-organisms {
+  color: var(--teal);
+  font-size: 11px;
+  font-weight: 730;
+  text-transform: uppercase;
 }
 
 .source-file {
@@ -1422,6 +1616,7 @@ h3 {
   .profile-component:nth-child(3) { border-right: 1px solid var(--line); }
   .filter-bar { grid-template-columns: 1fr; }
   .gene-search-zone .filter-bar { grid-template-columns: 1fr; }
+  .atlas-search-row { grid-template-columns: 1fr; }
   .source-entry { grid-template-columns: 1fr; gap: 10px; }
   .ortholog-banner { grid-template-columns: minmax(90px, auto) 28px minmax(90px, auto); }
   .ortholog-banner p { grid-column: 1 / -1; text-align: left; }
@@ -1437,6 +1632,7 @@ h3 {
   #featured-genes .section-heading-row { display: grid; gap: 8px; }
   .ranked-genes-section .section-heading-row p { margin: 0; }
   .gene-search-zone { padding: 21px 18px 23px; }
+  .atlas-search-zone { padding: 21px 18px 23px; }
   .ranked-gene-actions { display: grid; }
   .metric-strip { grid-template-columns: 1fr; }
   .metric { border-right: 0; border-bottom: 1px solid var(--line); }
@@ -1458,6 +1654,7 @@ h3 {
   .direction-row { grid-template-columns: 90px minmax(0, 1fr); }
   .direction-row > :last-child { grid-column: 2; }
   .source-facts { grid-template-columns: 1fr; }
+  .planned-layer-row { grid-template-columns: 1fr; gap: 2px; }
   .site-footer { display: grid; }
 }
 

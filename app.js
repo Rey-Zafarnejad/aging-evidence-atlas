@@ -5,18 +5,27 @@ const state = {
   searchIndex: [],
   sources: [],
   chunks: new Map(),
-  browseLimit: 80,
+  browseLimit: 25,
+  browseSort: { key: "symbol", direction: "asc" },
+  layerFilter: "all",
 };
 
 const main = document.querySelector("#main-content");
 const sectionNav = document.querySelector("#section-nav");
+const railLabel = document.querySelector(".rail-label");
 
-const SOURCE_LABELS = {
-  transcriptomic: "Transcriptomic",
-  epigenetic: "Epigenetic",
-  longevityMap: "LongevityMap",
-  genAge: "GenAge",
+const LAYER_DEFINITIONS = {
+  genomics: { label: "Genomics", status: "active" },
+  epigenomics: { label: "Epigenomics", status: "active" },
+  transcriptomics: { label: "Transcriptomics", status: "active" },
+  proteomics: { label: "Proteomics", status: "active" },
+  metabolomics: { label: "Metabolomics", status: "planned", note: "Coming next" },
+  integrative: { label: "Integrative", status: "planned", note: "IMM-AGE · coming next" },
 };
+
+const ACTIVE_LAYER_KEYS = Object.entries(LAYER_DEFINITIONS)
+  .filter(([, layer]) => layer.status === "active")
+  .map(([key]) => key);
 
 function escapeHtml(value) {
   return String(value ?? "")
@@ -50,18 +59,24 @@ function formatProbability(probability) {
   return value.toPrecision(3);
 }
 
-function sourceMarks(sources) {
-  return sources
+function evidenceMarks(layers) {
+  return layers
     .map(
-      (source) =>
-        `<span class="source-mark ${escapeHtml(source)}">${escapeHtml(SOURCE_LABELS[source] || source)}</span>`,
+      (layer) => {
+        const label = LAYER_DEFINITIONS[layer.key]?.label || layer.key;
+        const sourceText = layer.sources?.length ? ` (${layer.sources.join(" + ")})` : "";
+        return `<span class="source-mark ${escapeHtml(layer.key)}">${escapeHtml(label + sourceText)}</span>`;
+      },
     )
     .join("");
 }
 
-function setSectionNav(items) {
+function setSectionNav(items, label = "Contents") {
+  railLabel.textContent = label;
   sectionNav.innerHTML = items
-    .map((item) => `<a href="#${escapeHtml(item.id)}" data-section-target="${escapeHtml(item.id)}">${escapeHtml(item.label)}</a>`)
+    .map((item) => item.disabled
+      ? `<div class="rail-planned" aria-disabled="true"><strong>${escapeHtml(item.label)}</strong>${item.note ? `<span>${escapeHtml(item.note)}</span>` : ""}</div>`
+      : `<a href="#${escapeHtml(item.id)}" data-section-target="${escapeHtml(item.id)}">${escapeHtml(item.label)}</a>`)
     .join("");
   sectionNav.querySelectorAll("[data-section-target]").forEach((link) => {
     link.addEventListener("click", (event) => {
@@ -71,8 +86,29 @@ function setSectionNav(items) {
   });
 }
 
+function setAtlasLayerNav(onFilter) {
+  railLabel.textContent = "Evidence layers";
+  sectionNav.innerHTML = `
+    <button class="rail-filter active" type="button" data-layer-filter="all">All evidence</button>
+    ${ACTIVE_LAYER_KEYS.map(
+      (key) => `<button class="rail-filter" type="button" data-layer-filter="${key}">${escapeHtml(LAYER_DEFINITIONS[key].label)}</button>`,
+    ).join("")}
+    ${["metabolomics", "integrative"].map(
+      (key) => `<div class="rail-planned"><strong>${escapeHtml(LAYER_DEFINITIONS[key].label)}</strong><span>${escapeHtml(LAYER_DEFINITIONS[key].note)}</span></div>`,
+    ).join("")}`;
+  sectionNav.querySelectorAll("[data-layer-filter]").forEach((button) => {
+    button.addEventListener("click", () => {
+      state.layerFilter = button.dataset.layerFilter;
+      sectionNav.querySelectorAll("[data-layer-filter]").forEach((item) => {
+        item.classList.toggle("active", item === button);
+      });
+      onFilter();
+    });
+  });
+}
+
 function setActiveNav(route) {
-  const section = route.startsWith("gene/") || route === "genes" ? "genes" : route || "home";
+  const section = route.startsWith("gene/") || route === "genes" ? "home" : route || "home";
   document.querySelectorAll("[data-nav]").forEach((link) => {
     link.classList.toggle("active", link.dataset.nav === section);
   });
@@ -159,191 +195,159 @@ function initializeSearch(panel, inputSelector, resultSelector, buttonSelector) 
   });
 }
 
-function rankedGenes(limit = 30) {
-  const bySymbol = new Map(state.searchIndex.map((gene) => [gene.symbol, gene]));
-  const symbols = state.manifest.topEvidenceGenes || state.manifest.featuredGenes || [];
-  return symbols
-    .slice(0, limit)
-    .map((symbol, index) => {
-      const gene = bySymbol.get(symbol);
-      return gene ? { ...gene, evidenceRank: gene.evidenceRank || index + 1 } : null;
-    })
-    .filter(Boolean);
-}
-
-function homeGeneCard(gene) {
-  return `
-    <a class="gene-card" href="#/gene/${encodeURIComponent(gene.symbol)}">
-      <div class="evidence-rank-row">
-        <span class="evidence-rank" aria-label="Evidence-support rank ${escapeHtml(gene.evidenceRank)}">${String(gene.evidenceRank).padStart(2, "0")}</span>
-        <span class="evidence-rank-label">Evidence support</span>
-      </div>
-      <div class="gene-card-top">
-        <span class="gene-card-symbol">${escapeHtml(gene.symbol)}</span>
-        ${gene.mouseSymbol ? `<span class="ortholog-mini">Mouse ${escapeHtml(gene.mouseSymbol)}</span>` : ""}
-      </div>
-      <div class="gene-card-name">${escapeHtml(gene.name || "Approved HGNC gene")}</div>
-      <div class="source-marks">${sourceMarks(gene.sources)}</div>
-    </a>`;
-}
-
 function renderHome() {
-  const topGenes = rankedGenes(30);
-
   main.innerHTML = `
     ${pageHeader(
-      "Open evidence reference",
+      "Open gene-level evidence reference",
       "Human Aging Atlas",
-      "Search gene-level evidence across public transcriptomic, epigenetic, longevity, and curated ageing-gene sources.",
+      "Search ageing evidence across genomics, epigenomics, transcriptomics, and proteomics.",
     )}
 
-    <section class="search-panel" aria-label="Gene search">
-      <label class="search-label" for="home-gene-search">Search by human symbol, mouse ortholog, or gene name</label>
-      <div class="search-row">
-        <input id="home-gene-search" type="search" autocomplete="off" placeholder="Examples: TP53, Trp53, FOXO3, FKBP5" />
-        <button class="primary-button" id="home-search-button" type="button">Open gene record</button>
+    <section class="atlas-search-zone" id="atlas-search" aria-label="Gene search">
+      <div class="atlas-search-heading">
+        <p class="section-kicker">Atlas search</p>
+        <h2>Find a human gene or mouse ortholog</h2>
       </div>
-      <div class="search-results" id="home-search-results" role="listbox"></div>
-    </section>
-
-    <section class="section-block landscape-section" id="evidence-landscape">
-      <div class="section-heading-row">
-        <h2>Evidence landscape</h2>
-        <p>Distinct evidence types connected at the gene level</p>
-      </div>
-      <figure class="evidence-illustration full-width-artwork">
-        <img src="assets/evidence-landscape.png" alt="Gene-level evidence from transcriptomic, epigenetic, LongevityMap, and GenAge sources" />
-      </figure>
-    </section>
-
-    <section class="section-block" id="featured-genes">
-      <div class="section-heading-row">
-        <div><p class="section-kicker">Complete eligible source release</p><h2>Top evidence-supported genes</h2></div>
-        <a class="text-link" href="#/genes">Browse gene index</a>
-      </div>
-      <div class="gene-grid ranked-gene-grid" id="home-ranked-genes"></div>
-      <div class="ranked-gene-actions">
-        <p class="ranking-note">Order reflects breadth and support across the source evidence; it is not a causal or biological-importance rank.</p>
-        <button class="secondary-button" id="toggle-ranked-genes" type="button">Show top 30</button>
-      </div>
-    </section>`;
-
-  initializeSearch(main, "#home-gene-search", "#home-search-results", "#home-search-button");
-  const rankedGrid = main.querySelector("#home-ranked-genes");
-  const rankedToggle = main.querySelector("#toggle-ranked-genes");
-  let rankedLimit = 10;
-  const drawRankedGenes = () => {
-    rankedGrid.innerHTML = topGenes.slice(0, rankedLimit).map(homeGeneCard).join("");
-    rankedToggle.textContent = rankedLimit === 10 ? "Show top 30" : "Show top 10";
-  };
-  rankedToggle.addEventListener("click", () => {
-    rankedLimit = rankedLimit === 10 ? 30 : 10;
-    drawRankedGenes();
-  });
-  drawRankedGenes();
-  setSectionNav([
-    { id: "overview", label: "Overview" },
-    { id: "evidence-landscape", label: "Evidence landscape" },
-    { id: "featured-genes", label: "Top genes" },
-  ]);
-}
-
-function renderGeneIndex() {
-  main.innerHTML = `
-    ${pageHeader(
-      "Gene index",
-      "Browse human genes",
-      "Search approved human symbols, one-to-one mouse orthologs, or approved gene names.",
-    )}
-    <section class="gene-search-zone" id="gene-browser">
-      <div class="gene-search-heading">
-        <p class="section-kicker">Gene lookup</p>
-        <h2>Search the atlas</h2>
-      </div>
-      <div class="filter-bar">
+      <div class="atlas-search-row">
         <div class="filter-control grow">
-          <label for="browse-query">Human symbol, mouse ortholog, or gene name</label>
-          <input id="browse-query" type="search" placeholder="TP53, Trp53, tumor protein p53" />
+          <label for="atlas-query">Search by human symbol, mouse ortholog, or approved gene name</label>
+          <input id="atlas-query" type="search" autocomplete="off" placeholder="TP53, Trp53, tumor protein p53" />
         </div>
-        <div class="filter-control">
-          <label for="browse-source">Public source</label>
-          <select id="browse-source">
-            <option value="all">All sources</option>
-            ${Object.entries(SOURCE_LABELS).map(([key, label]) => `<option value="${key}">${label}</option>`).join("")}
+        <div class="filter-control mobile-layer-control">
+          <label for="atlas-layer">Evidence layer</label>
+          <select id="atlas-layer">
+            <option value="all">All evidence</option>
+            ${ACTIVE_LAYER_KEYS.map((key) => `<option value="${key}">${escapeHtml(LAYER_DEFINITIONS[key].label)}</option>`).join("")}
           </select>
         </div>
+        <button class="primary-button" id="open-first-match" type="button">Open first match</button>
       </div>
     </section>
-    <section class="gene-index-section" id="gene-index">
-      <div class="section-heading-row"><h2>Gene index</h2><p id="browse-summary">Filtered by the controls above</p></div>
-      <div class="table-wrap" id="gene-table-wrap"></div>
+
+    <section class="atlas-index-section" id="atlas-index">
+      <div class="section-heading-row">
+        <h2>Gene atlas</h2>
+        <p id="atlas-summary">Alphabetical reference</p>
+      </div>
+      <div class="table-wrap" id="atlas-table-wrap"></div>
       <div class="pagination-row"><button class="secondary-button" id="show-more" type="button">Show more</button></div>
     </section>`;
 
-  const query = main.querySelector("#browse-query");
-  const source = main.querySelector("#browse-source");
-  const summary = main.querySelector("#browse-summary");
-  const wrap = main.querySelector("#gene-table-wrap");
+  const query = main.querySelector("#atlas-query");
+  const layer = main.querySelector("#atlas-layer");
+  const summary = main.querySelector("#atlas-summary");
+  const wrap = main.querySelector("#atlas-table-wrap");
   const showMore = main.querySelector("#show-more");
+  const openFirst = main.querySelector("#open-first-match");
+  state.browseLimit = 25;
+  state.browseSort = { key: "symbol", direction: "asc" };
+  state.layerFilter = "all";
 
   const draw = () => {
     const term = query.value.trim().toUpperCase();
-    const sourceValue = source.value;
     const matches = state.searchIndex
       .filter((gene) => {
         const text = `${gene.symbol} ${gene.mouseSymbol || ""} ${gene.name || ""}`.toUpperCase();
-        return (!term || text.includes(term)) && (sourceValue === "all" || gene.sources.includes(sourceValue));
+        return (
+          (!term || text.includes(term))
+          && (state.layerFilter === "all" || gene.evidenceLayers.some((item) => item.key === state.layerFilter))
+        );
       })
-      .sort((left, right) => left.symbol.localeCompare(right.symbol));
+      .sort((left, right) => {
+        const direction = state.browseSort.direction === "asc" ? 1 : -1;
+        if (state.browseSort.key === "layers") {
+          const difference = left.evidenceLayerCount - right.evidenceLayerCount;
+          if (difference) return difference * direction;
+          return left.symbol.localeCompare(right.symbol);
+        }
+        return left.symbol.localeCompare(right.symbol) * direction;
+      });
     const visible = matches.slice(0, state.browseLimit);
-    summary.textContent = term || sourceValue !== "all" ? "Filtered by the controls above" : "Alphabetical reference";
+    summary.textContent = term || state.layerFilter !== "all" ? "Filtered atlas entries" : state.browseSort.key === "symbol" ? "Alphabetical reference" : "Ordered by evidence-layer breadth";
+    const symbolArrow = state.browseSort.key === "symbol" ? (state.browseSort.direction === "asc" ? " ↑" : " ↓") : "";
+    const layerArrow = state.browseSort.key === "layers" ? (state.browseSort.direction === "asc" ? " ↑" : " ↓") : "";
     wrap.innerHTML = `
-      <table class="data-table gene-index-table">
-        <thead><tr><th>Human gene</th><th>Approved name</th><th>Human locus</th><th>Mouse ortholog</th><th>Evidence sources</th></tr></thead>
+      <table class="data-table atlas-table">
+        <thead><tr>
+          <th aria-sort="${state.browseSort.key === "symbol" ? (state.browseSort.direction === "asc" ? "ascending" : "descending") : "none"}"><button class="sort-button" type="button" data-sort="symbol">Human gene${symbolArrow}</button></th>
+          <th>Approved name</th>
+          <th>Human locus</th>
+          <th>Mouse ortholog</th>
+          <th aria-sort="${state.browseSort.key === "layers" ? (state.browseSort.direction === "asc" ? "ascending" : "descending") : "none"}"><button class="sort-button" type="button" data-sort="layers">Evidence layers${layerArrow}</button></th>
+        </tr></thead>
         <tbody>
           ${visible.length ? visible
             .map(
               (gene) => `<tr>
                 <td><a class="gene-link" href="#/gene/${encodeURIComponent(gene.symbol)}">${escapeHtml(gene.symbol)}</a></td>
-                <td>${escapeHtml(gene.name || "Not reported")}</td>
+                <td title="${escapeHtml(gene.name || "Not reported")}">${escapeHtml(gene.name || "Not reported")}</td>
                 <td>${escapeHtml(gene.location || "Not reported")}</td>
                 <td>${gene.mouseSymbol ? escapeHtml(gene.mouseSymbol) : "—"}</td>
-                <td><div class="source-marks">${sourceMarks(gene.sources)}</div></td>
+                <td><div class="source-marks">${evidenceMarks(gene.evidenceLayers)}</div></td>
               </tr>`,
             )
-            .join("") : `<tr><td colspan="5">No matching gene record. Try another symbol, ortholog, name, or source.</td></tr>`}
+            .join("") : `<tr><td colspan="5">No matching gene record. Try another symbol, ortholog, name, or evidence layer.</td></tr>`}
         </tbody>
       </table>`;
     showMore.hidden = visible.length >= matches.length;
+    wrap.querySelectorAll("[data-sort]").forEach((button) => {
+      button.addEventListener("click", () => {
+        const key = button.dataset.sort;
+        if (state.browseSort.key === key) {
+          state.browseSort.direction = state.browseSort.direction === "asc" ? "desc" : "asc";
+        } else {
+          state.browseSort = { key, direction: key === "layers" ? "desc" : "asc" };
+        }
+        state.browseLimit = 25;
+        draw();
+      });
+    });
+    return matches;
   };
 
   query.addEventListener("input", () => {
-    state.browseLimit = 80;
+    state.browseLimit = 25;
     draw();
   });
-  source.addEventListener("change", () => {
-    state.browseLimit = 80;
+  layer.addEventListener("change", () => {
+    state.layerFilter = layer.value;
+    state.browseLimit = 25;
+    sectionNav.querySelectorAll("[data-layer-filter]").forEach((button) => {
+      button.classList.toggle("active", button.dataset.layerFilter === state.layerFilter);
+    });
     draw();
   });
   showMore.addEventListener("click", () => {
-    state.browseLimit += 80;
+    state.browseLimit += 25;
+    draw();
+  });
+  openFirst.addEventListener("click", () => {
+    const matches = draw();
+    if (matches.length) window.location.hash = `#/gene/${matches[0].symbol}`;
+  });
+  query.addEventListener("keydown", (event) => {
+    if (event.key === "Enter") openFirst.click();
+  });
+  setAtlasLayerNav(() => {
+    layer.value = state.layerFilter;
+    state.browseLimit = 25;
     draw();
   });
   draw();
-  setSectionNav([
-    { id: "overview", label: "Overview" },
-    { id: "gene-browser", label: "Search" },
-    { id: "gene-index", label: "Gene index" },
-  ]);
 }
 
-function sourceOverviewCard(key, value, detail) {
+function sourceOverviewCard(key, label, value, detail) {
   return `
     <div class="source-overview-card ${escapeHtml(key)}">
-      <span class="source-overview-label">${escapeHtml(SOURCE_LABELS[key])}</span>
+      <span class="source-overview-label">${escapeHtml(label)}</span>
       <strong>${escapeHtml(value)}</strong>
       <p>${escapeHtml(detail)}</p>
     </div>`;
+}
+
+function countLabel(value, singular, plural = `${singular}s`) {
+  const count = Number(value || 0);
+  return `${formatInteger(count)} ${count === 1 ? singular : plural}`;
 }
 
 function transcriptomicSection(records) {
@@ -353,7 +357,7 @@ function transcriptomicSection(records) {
   return `
     <section class="record-section" id="transcriptomic-evidence">
       <div class="section-heading-row">
-        <div><p class="section-kicker">Public source</p><h2>Cross-species transcriptomic signatures</h2></div>
+        <div><p class="section-kicker">Transcriptomics</p><h2>tAge</h2></div>
         <a class="source-link" href="${TRANSCRIPTOMIC_SOURCE}" target="_blank" rel="noreferrer">Source study</a>
       </div>
       <div class="evidence-facts">
@@ -382,7 +386,7 @@ function epigeneticSection(ageRecords, mortalityRecords) {
   const ageTable = ageRecords.length
     ? `
       <div class="evidence-subsection">
-        <h3>Chronological-age CpGs</h3>
+        <h3>cAge · chronological-age CpGs</h3>
         ${renderTable(
           ["CpG", "CpG locus", "Beta", "SE", "P"],
           ageRecords,
@@ -399,7 +403,7 @@ function epigeneticSection(ageRecords, mortalityRecords) {
   const mortalityTable = mortalityRecords.length
     ? `
       <div class="evidence-subsection">
-        <h3>All-cause mortality CpGs</h3>
+        <h3>bAge · all-cause mortality CpGs</h3>
         ${renderTable(
           ["CpG", "CpG locus", "Hazard ratio", "95% CI", "P", "Sensitivity model"],
           mortalityRecords,
@@ -422,7 +426,7 @@ function epigeneticSection(ageRecords, mortalityRecords) {
   return `
     <section class="record-section" id="epigenetic-evidence">
       <div class="section-heading-row">
-        <div><p class="section-kicker">Public source</p><h2>Human epigenetic associations</h2></div>
+        <div><p class="section-kicker">Epigenomics</p><h2>cAge and bAge</h2></div>
         <a class="source-link" href="${EPIGENETIC_SOURCE}" target="_blank" rel="noreferrer">Source study</a>
       </div>
       <p class="source-note">Coordinates identify CpG loci. Mortality sensitivity estimates come from the relatedness-adjusted model for the same CpG.</p>
@@ -430,13 +434,13 @@ function epigeneticSection(ageRecords, mortalityRecords) {
     </section>`;
 }
 
-function longevitySection(records) {
+function longevitySubsection(records) {
   if (!records.length) return "";
   return `
-    <section class="record-section" id="longevity-evidence">
-      <div class="section-heading-row">
-        <div><p class="section-kicker">Public source</p><h2>LongevityMap associations</h2></div>
-        <a class="source-link" href="${LONGEVITY_SOURCE}" target="_blank" rel="noreferrer">Open LongevityMap</a>
+    <div class="evidence-subsection source-subsection">
+      <div class="subsection-heading-row">
+        <h3>LongevityMap associations</h3>
+        <a class="source-link" href="${LONGEVITY_SOURCE}" target="_blank" rel="noreferrer">Open source</a>
       </div>
       ${renderTable(
         ["Variant", "Population", "Association", "Reference"],
@@ -450,10 +454,10 @@ function longevitySection(records) {
             : "Not reported",
         ],
       )}
-    </section>`;
+    </div>`;
 }
 
-function genAgeSection(humanRecord, mouseRecords) {
+function genAgeSubsection(humanRecord, mouseRecords) {
   if (!humanRecord && !mouseRecords.length) return "";
   const human = humanRecord
     ? `<div class="curation-block">
@@ -479,12 +483,47 @@ function genAgeSection(humanRecord, mouseRecords) {
       </div>`
     : "";
   return `
-    <section class="record-section" id="genage-evidence">
-      <div class="section-heading-row">
-        <div><p class="section-kicker">Public source</p><h2>GenAge</h2></div>
-        <a class="source-link" href="${GENAGE_SOURCE}" target="_blank" rel="noreferrer">Open GenAge</a>
+    <div class="evidence-subsection source-subsection">
+      <div class="subsection-heading-row">
+        <h3>GenAge</h3>
+        <a class="source-link" href="${GENAGE_SOURCE}" target="_blank" rel="noreferrer">Open source</a>
       </div>
       ${human}${mouse}
+    </div>`;
+}
+
+function genomicsSection(longevityRecords, humanRecord, mouseRecords) {
+  if (!longevityRecords.length && !humanRecord && !mouseRecords.length) return "";
+  return `
+    <section class="record-section" id="genomic-evidence">
+      <div class="section-heading-row">
+        <div><p class="section-kicker">Genomics</p><h2>Curated ageing and longevity evidence</h2></div>
+      </div>
+      ${genAgeSubsection(humanRecord, mouseRecords)}
+      ${longevitySubsection(longevityRecords)}
+    </section>`;
+}
+
+function organAgeSection(records) {
+  if (!records.length) return "";
+  return `
+    <section class="record-section" id="proteomic-evidence">
+      <div class="section-heading-row">
+        <div><p class="section-kicker">Proteomics</p><h2>OrganAge</h2></div>
+        <a class="source-link" href="${ORGANAGE_SOURCE}" target="_blank" rel="noreferrer">Source study</a>
+      </div>
+      <p class="source-note">Organ assignment follows the published tissue-enriched protein sets. Selection frequency is the number of non-zero appearances across 500 bootstrapped organ-age models.</p>
+      ${renderTable(
+        ["Organ", "Protein target", "SomaScan SeqId", "Selected models", "Coefficient direction"],
+        records,
+        (record) => [
+          record.organ,
+          record.targetFullName || record.targetName || "Not reported",
+          record.seqId,
+          `${formatInteger(record.selectedModels)} of ${formatInteger(record.modelCount)}`,
+          record.coefficientDirection,
+        ],
+      )}
     </section>`;
 }
 
@@ -523,11 +562,12 @@ const TRANSCRIPTOMIC_SOURCE = "https://doi.org/10.1038/s41586-026-10542-3";
 const EPIGENETIC_SOURCE = "https://doi.org/10.1186/s13073-023-01161-y";
 const LONGEVITY_SOURCE = "https://genomics.senescence.info/longevity/";
 const GENAGE_SOURCE = "https://genomics.senescence.info/genes/";
+const ORGANAGE_SOURCE = "https://doi.org/10.1038/s41586-023-06802-1";
 
 async function renderGene(symbol) {
   const gene = await loadGene(symbol);
   if (!gene) {
-    renderNotFound("Gene record not found", "Try the gene index or search using an approved human or mouse symbol.");
+    renderNotFound("Gene record not found", "Return to the atlas and search using an approved human or mouse symbol.");
     return;
   }
 
@@ -535,20 +575,23 @@ async function renderGene(symbol) {
   const stats = gene.statistics;
   const evidence = gene.evidence;
   const sourceCards = [];
-  if (evidence.transcriptomic.length) {
-    sourceCards.push(sourceOverviewCard("transcriptomic", `${formatInteger(stats.transcriptomicRecords)} associations`, `${gene.coverage.transcriptomicContexts.length} analysis contexts`));
+  const genomicSources = [];
+  if (evidence.genAgeHuman || evidence.genAgeMouse.length) genomicSources.push("GenAge");
+  if (evidence.longevityMap.length) genomicSources.push("LongevityMap");
+  if (genomicSources.length) {
+    sourceCards.push(sourceOverviewCard("genomics", `Genomics (${genomicSources.join(" + ")})`, countLabel(stats.longevityAssociations + stats.genAgeHumanRecords + stats.genAgeMouseRecords, "record"), "Curated ageing and longevity evidence"));
   }
   if (evidence.epigeneticAge.length || evidence.epigeneticMortality.length) {
-    sourceCards.push(sourceOverviewCard("epigenetic", `${formatInteger(stats.epigeneticAgeCpGs + stats.epigeneticMortalityCpGs)} CpGs`, `${stats.epigeneticAgeCpGs} age · ${stats.epigeneticMortalityCpGs} mortality`));
+    const sources = [];
+    if (evidence.epigeneticAge.length) sources.push("cAge");
+    if (evidence.epigeneticMortality.length) sources.push("bAge");
+    sourceCards.push(sourceOverviewCard("epigenomics", `Epigenomics (${sources.join(" + ")})`, `${formatInteger(stats.epigeneticAgeCpGs + stats.epigeneticMortalityCpGs)} CpGs`, `${stats.epigeneticAgeCpGs} age · ${stats.epigeneticMortalityCpGs} mortality`));
   }
-  if (evidence.longevityMap.length) {
-    sourceCards.push(sourceOverviewCard("longevityMap", `${formatInteger(stats.longevityAssociations)} reports`, "Significant human associations"));
+  if (evidence.transcriptomic.length) {
+    sourceCards.push(sourceOverviewCard("transcriptomics", "Transcriptomics (tAge)", countLabel(stats.transcriptomicRecords, "association"), countLabel(gene.coverage.transcriptomicContexts.length, "analysis context")));
   }
-  if (evidence.genAgeHuman || evidence.genAgeMouse.length) {
-    const parts = [];
-    if (evidence.genAgeHuman) parts.push("human curation");
-    if (evidence.genAgeMouse.length) parts.push("mouse lifespan evidence");
-    sourceCards.push(sourceOverviewCard("genAge", "GenAge evidence", parts.join(" · ")));
+  if (evidence.organAge.length) {
+    sourceCards.push(sourceOverviewCard("proteomics", "Proteomics (OrganAge)", countLabel(stats.organAgeProteinOrganRecords, "protein-organ record"), countLabel(stats.organAgeOrgans.length, "organ model")));
   }
 
   const summaryBlock = gene.summary
@@ -593,20 +636,20 @@ async function renderGene(symbol) {
       <div class="source-overview-grid">${sourceCards.join("")}</div>
     </section>
 
-    ${transcriptomicSection(evidence.transcriptomic)}
+    ${genomicsSection(evidence.longevityMap, evidence.genAgeHuman, evidence.genAgeMouse)}
     ${epigeneticSection(evidence.epigeneticAge, evidence.epigeneticMortality)}
-    ${longevitySection(evidence.longevityMap)}
-    ${genAgeSection(evidence.genAgeHuman, evidence.genAgeMouse)}
+    ${transcriptomicSection(evidence.transcriptomic)}
+    ${organAgeSection(evidence.organAge)}
   `;
 
   const nav = [
     { id: "overview", label: gene.symbol },
     ...(summaryBlock ? [{ id: "gene-function", label: "Gene function" }] : []),
     { id: "evidence-overview", label: "Evidence overview" },
-    ...(evidence.transcriptomic.length ? [{ id: "transcriptomic-evidence", label: "Transcriptomic" }] : []),
-    ...(evidence.epigeneticAge.length || evidence.epigeneticMortality.length ? [{ id: "epigenetic-evidence", label: "Epigenetic" }] : []),
-    ...(evidence.longevityMap.length ? [{ id: "longevity-evidence", label: "LongevityMap" }] : []),
-    ...(evidence.genAgeHuman || evidence.genAgeMouse.length ? [{ id: "genage-evidence", label: "GenAge" }] : []),
+    ...(evidence.longevityMap.length || evidence.genAgeHuman || evidence.genAgeMouse.length ? [{ id: "genomic-evidence", label: "Genomics" }] : []),
+    ...(evidence.epigeneticAge.length || evidence.epigeneticMortality.length ? [{ id: "epigenetic-evidence", label: "Epigenomics" }] : []),
+    ...(evidence.transcriptomic.length ? [{ id: "transcriptomic-evidence", label: "Transcriptomics" }] : []),
+    ...(evidence.organAge.length ? [{ id: "proteomic-evidence", label: "Proteomics" }] : []),
   ];
   setSectionNav(nav);
 }
@@ -616,60 +659,84 @@ function renderMethods() {
     ${pageHeader(
       "Methods",
       "Evidence architecture",
-      "Gene identity is harmonized, while source-specific study designs and statistics remain separate.",
+      "Evidence is organized by omics layer, while the study design and statistical unit of each source remain explicit.",
     )}
-    <section class="section-block" id="gene-selection">
-      <h2>Gene selection</h2>
-      <p>The atlas preserves curated GenAge and significant LongevityMap genes, then prioritizes additional genes with broader support across public sources, human evidence, analysis contexts, endpoints, replication, and statistical support.</p>
+    <section class="section-block prose-section" id="entry-scope">
+      <h2>Entry scope</h2>
+      <p>Gene pages are assembled from source-backed records and grouped into four active evidence layers. Breadth across layers can be used to order the atlas table, but it is not a biological-importance score or a causal rank.</p>
     </section>
-    <section class="section-block" id="identity-mapping">
+    <section class="section-block prose-section" id="identity-mapping">
       <h2>Human–mouse identity</h2>
       <p>Pages are anchored to approved HGNC human symbols. Mouse identifiers are linked only when the MGI/Alliance homology report defines a one-to-one human–mouse relationship; ambiguous one-to-many classes are not forced.</p>
     </section>
     <section class="section-block" id="source-scope">
-      <h2>Evidence scope</h2>
+      <h2>Evidence layers</h2>
       <div class="method-steps">
-        <div class="method-step"><h3>Transcriptomic</h3><p>All 18 source tables are evaluated. Displayed associations meet an FDR-adjusted P value threshold of 0.05. ITP is represented as a mouse cohort.</p></div>
-        <div class="method-step"><h3>Epigenetic</h3><p>Primary chronological-age CpGs and primary all-cause mortality CpGs are gene-annotated. The relatedness-adjusted mortality estimate is attached as a sensitivity analysis for the same CpG.</p></div>
-        <div class="method-step"><h3>Curated resources</h3><p>Significant human LongevityMap associations and GenAge human records are retained. Mouse GenAge lifespan records are linked through one-to-one orthology.</p></div>
+        <div class="method-step" id="method-genomics"><div class="method-step-content"><h3>Genomics</h3><p>GenAge contributes expert-curated human ageing genes and mouse lifespan evidence linked by one-to-one orthology. LongevityMap contributes curated significant human genetic-association reports. Gene labels identify GenAge, LongevityMap, or both.</p></div></div>
+        <div class="method-step" id="method-epigenomics"><div class="method-step-content"><h3>Epigenomics</h3><p>cAge denotes gene-annotated CpGs associated with chronological age. bAge denotes gene-annotated CpGs associated with all-cause mortality; the relatedness-adjusted estimate is retained as a sensitivity analysis for the same CpG.</p></div></div>
+        <div class="method-step" id="method-transcriptomics"><div class="method-step-content"><h3>Transcriptomics</h3><p>tAge records come from 18 age, normalized-age, mortality-rate, and maximum-lifespan analyses. Displayed associations meet an FDR-adjusted P value threshold of 0.05. ITP is represented as a mouse cohort.</p></div></div>
+        <div class="method-step" id="method-proteomics"><div class="method-step-content"><h3>Proteomics</h3><p>OrganAge records identify unambiguous single-gene SomaScan targets selected by the published organ-specific age models. The atlas reports organ assignment and selection frequency across 500 bootstrap models; organ-independent and cognition-optimized models are not treated as organ-specific evidence.</p></div></div>
+        <div class="method-step planned"><div class="method-step-content"><h3>Metabolomics</h3><p>Coming next.</p></div></div>
+        <div class="method-step planned"><div class="method-step-content"><h3>Integrative</h3><p>IMM-AGE · coming next.</p></div></div>
       </div>
     </section>
-    <section class="section-block" id="interpretation">
+    <section class="section-block prose-section" id="interpretation">
       <h2>Interpretation</h2>
-      <p>No universal evidence score or causal rank is assigned. Effects, P values, cohort context, and curation status must be interpreted within the design of each source.</p>
+      <p>No universal evidence score or causal rank is assigned. Effects, P values, model-selection frequencies, cohort context, and curation status must be interpreted within the design of their source.</p>
     </section>`;
   setSectionNav([
-    { id: "overview", label: "Overview" },
-    { id: "gene-selection", label: "Gene selection" },
-    { id: "identity-mapping", label: "Human–mouse mapping" },
-    { id: "source-scope", label: "Evidence scope" },
-    { id: "interpretation", label: "Interpretation" },
-  ]);
+    { id: "overview", label: "All evidence" },
+    { id: "method-genomics", label: "Genomics" },
+    { id: "method-epigenomics", label: "Epigenomics" },
+    { id: "method-transcriptomics", label: "Transcriptomics" },
+    { id: "method-proteomics", label: "Proteomics" },
+    { label: "Metabolomics", note: "Coming next", disabled: true },
+    { label: "Integrative", note: "IMM-AGE · coming next", disabled: true },
+  ], "Evidence layers");
 }
 
 function renderSources() {
+  const grouped = Object.fromEntries(ACTIVE_LAYER_KEYS.map((key) => [key, []]));
+  state.sources.forEach((source) => grouped[source.layerKey]?.push(source));
   main.innerHTML = `
     ${pageHeader(
       "Sources",
       "Public evidence collections",
-      "Each gene record links back to the study or curated resource from which the evidence was derived.",
+      "Source collections are nested under their omics layer, and each gene record links back to its originating study or resource.",
     )}
     <div id="source-collections">
-      ${state.sources
-        .map(
-          (source) => `<section class="source-entry ${escapeHtml(source.key)}">
-            <p class="section-kicker">${escapeHtml(source.organisms.join(" · "))}</p>
-            <h2>${escapeHtml(source.title)}</h2>
-            <p>${escapeHtml(source.description)}</p>
-            <a class="source-link" href="${escapeHtml(source.sourceUrl)}" target="_blank" rel="noreferrer">Open source</a>
-          </section>`,
-        )
-        .join("")}
+      ${ACTIVE_LAYER_KEYS.map((key) => `
+        <section class="source-layer-group ${escapeHtml(key)}" id="sources-${escapeHtml(key)}">
+          <p class="section-kicker">Evidence layer</p>
+          <h2>${escapeHtml(LAYER_DEFINITIONS[key].label)}</h2>
+          ${grouped[key].map((source) => `
+            <article class="source-entry ${escapeHtml(source.key)}">
+              <div>
+                <p class="source-organisms">${escapeHtml(source.organisms.join(" · "))}</p>
+                <h3>${escapeHtml(source.title)}</h3>
+                <p>${escapeHtml(source.description)}</p>
+              </div>
+              <a class="source-link" href="${escapeHtml(source.sourceUrl)}" target="_blank" rel="noreferrer">Open source</a>
+            </article>`).join("")}
+        </section>`).join("")}
+      <section class="source-layer-group planned-sources" id="sources-metabolomics">
+        <p class="section-kicker">Evidence layer</p>
+        <h2>Metabolomics <span class="planned-status">Coming next</span></h2>
+      </section>
+      <section class="source-layer-group planned-sources" id="sources-integrative">
+        <p class="section-kicker">Evidence layer</p>
+        <h2>Integrative <span class="planned-status"><a href="https://doi.org/10.1038/s41591-019-0381-y" target="_blank" rel="noreferrer">IMM-AGE</a> · coming next</span></h2>
+      </section>
     </div>`;
   setSectionNav([
-    { id: "overview", label: "Overview" },
-    { id: "source-collections", label: "Collections" },
-  ]);
+    { id: "overview", label: "All evidence" },
+    { id: "sources-genomics", label: "Genomics" },
+    { id: "sources-epigenomics", label: "Epigenomics" },
+    { id: "sources-transcriptomics", label: "Transcriptomics" },
+    { id: "sources-proteomics", label: "Proteomics" },
+    { label: "Metabolomics", note: "Coming next", disabled: true },
+    { label: "Integrative", note: "IMM-AGE · coming next", disabled: true },
+  ], "Evidence layers");
 }
 
 function renderNotFound(title = "Page not found", message = "The requested atlas page is unavailable.") {
@@ -682,7 +749,7 @@ async function renderRoute() {
   setActiveNav(route);
   window.scrollTo({ top: 0, left: 0, behavior: "auto" });
   if (route === "home") renderHome();
-  else if (route === "genes") renderGeneIndex();
+  else if (route === "genes") window.location.hash = "#/";
   else if (route === "methods") renderMethods();
   else if (route === "sources") renderSources();
   else if (route.startsWith("gene/")) await renderGene(decodeURIComponent(route.slice(5)).toUpperCase());
@@ -697,6 +764,9 @@ async function initialize() {
       fetchJson(`${DATA_ROOT}/sources.json`),
     ]);
     await renderRoute();
+    document.querySelector("[data-focus-search]")?.addEventListener("click", () => {
+      window.setTimeout(() => document.querySelector("#atlas-query")?.focus(), 0);
+    });
   } catch (error) {
     main.innerHTML = `<div class="error-state"><h1>Atlas data could not be loaded</h1><p>${escapeHtml(error.message)}</p></div>`;
   }

@@ -1,7 +1,7 @@
 {
   "title": "Human Aging Atlas",
-  "schemaVersion": 2,
-  "generatedAt": "2026-07-15T15:37:51+00:00",
+  "schemaVersion": 3,
+  "generatedAt": "2026-07-15T18:57:53+00:00",
   "geneCount": 1000,
   "chunkSize": 20,
   "chunks": [
@@ -256,51 +256,6 @@
       "geneCount": 20
     }
   ],
-  "featuredGenes": [
-    "AKT1",
-    "FOXO3",
-    "IGF1R",
-    "FOXO1",
-    "IRS2",
-    "NR3C1",
-    "UCP3",
-    "SERPINE1",
-    "GPX1",
-    "PPARG"
-  ],
-  "topEvidenceGenes": [
-    "AKT1",
-    "FOXO3",
-    "IGF1R",
-    "FOXO1",
-    "IRS2",
-    "NR3C1",
-    "UCP3",
-    "SERPINE1",
-    "GPX1",
-    "PPARG",
-    "RAD52",
-    "FLT1",
-    "NCOR2",
-    "HTT",
-    "RB1",
-    "STK24",
-    "PTK2",
-    "SOD2",
-    "NGFR",
-    "HTRA2",
-    "IGF1",
-    "TOP1",
-    "STAT3",
-    "CDKN1A",
-    "UCP2",
-    "CREBBP",
-    "MDM2",
-    "FOS",
-    "PRKDC",
-    "SOCS2"
-  ],
-  "topEvidenceUniverseGeneCount": 6490,
   "referenceGenesVerified": [
     "APOE",
     "CDKN2A",
@@ -313,8 +268,9 @@
     "TP53"
   ],
   "metrics": {
-    "publicSources": 4,
-    "evidenceRecords": 9503,
+    "publicSources": 5,
+    "activeEvidenceLayers": 4,
+    "evidenceRecords": 9417,
     "genesWithHumanMouseOrtholog": 966
   }
 }

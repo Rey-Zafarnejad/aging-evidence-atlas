@@ -11,7 +11,8 @@ from typing import Any
 
 ROOT = Path(__file__).resolve().parents[1]
 DATA = ROOT / "data"
-SOURCE_KEYS = {"transcriptomic", "epigenetic", "longevityMap", "genAge"}
+SOURCE_KEYS = {"transcriptomic", "epigenetic", "longevityMap", "genAge", "organAge"}
+LAYER_KEYS = {"genomics", "epigenomics", "transcriptomics", "proteomics"}
 REFERENCE_GENES = {"TP53", "CDKN2A", "MTOR", "SIRT1", "APOE", "TERT", "FOXO3", "IGF1", "FKBP5"}
 
 
@@ -38,27 +39,16 @@ def main() -> None:
     report = load("build-report.json")
 
     assert manifest["title"] == "Human Aging Atlas"
-    assert manifest["schemaVersion"] == 2
+    assert manifest["schemaVersion"] == 3
     assert manifest["geneCount"] == len(search) == report["selection"]["publishedGenes"]
     assert len({row["symbol"] for row in search}) == len(search)
     assert REFERENCE_GENES.issubset({row["symbol"] for row in search})
     assert {source["key"] for source in sources} == SOURCE_KEYS
     assert manifest["metrics"]["publicSources"] == len(SOURCE_KEYS)
+    assert {source["layerKey"] for source in sources} == LAYER_KEYS
+    assert manifest["metrics"]["activeEvidenceLayers"] == len(LAYER_KEYS)
     assert manifest["chunks"]
-
-    top_evidence = manifest["topEvidenceGenes"]
-    assert len(top_evidence) == 30
-    assert len(set(top_evidence)) == 30
-    assert report["selection"]["topEvidenceGenesDerivedBeforeStaticSelection"] == top_evidence
-    assert manifest["topEvidenceUniverseGeneCount"] >= manifest["geneCount"]
     search_by_symbol = {row["symbol"]: row for row in search}
-    assert set(top_evidence).issubset(search_by_symbol)
-    assert [search_by_symbol[symbol]["evidenceRank"] for symbol in top_evidence] == list(range(1, 31))
-    assert all(
-        row["evidenceRank"] is None
-        for row in search
-        if row["symbol"] not in set(top_evidence)
-    )
 
     genes: dict[str, dict[str, Any]] = {}
     for chunk in manifest["chunks"]:
@@ -86,10 +76,26 @@ def main() -> None:
             "epigenetic": bool(evidence["epigeneticAge"] or evidence["epigeneticMortality"]),
             "longevityMap": bool(evidence["longevityMap"]),
             "genAge": bool(evidence["genAgeHuman"] or evidence["genAgeMouse"]),
+            "organAge": bool(evidence["organAge"]),
         }
         assert gene["coverage"]["publicSources"] == [
-            key for key in ("transcriptomic", "epigenetic", "longevityMap", "genAge") if expected_sources[key]
+            key for key in ("transcriptomic", "epigenetic", "longevityMap", "genAge", "organAge") if expected_sources[key]
         ]
+        expected_layers = []
+        genomic_sources = [label for present, label in ((expected_sources["genAge"], "GenAge"), (expected_sources["longevityMap"], "LongevityMap")) if present]
+        epigenomic_sources = [label for present, label in ((bool(evidence["epigeneticAge"]), "cAge"), (bool(evidence["epigeneticMortality"]), "bAge")) if present]
+        if genomic_sources:
+            expected_layers.append({"key": "genomics", "sources": genomic_sources})
+        if epigenomic_sources:
+            expected_layers.append({"key": "epigenomics", "sources": epigenomic_sources})
+        if expected_sources["transcriptomic"]:
+            expected_layers.append({"key": "transcriptomics", "sources": ["tAge"]})
+        if expected_sources["organAge"]:
+            expected_layers.append({"key": "proteomics", "sources": ["OrganAge"]})
+        assert gene["coverage"]["evidenceLayers"] == expected_layers
+        assert gene["coverage"]["evidenceLayerCount"] == len(expected_layers)
+        assert search_by_symbol[symbol]["evidenceLayers"] == expected_layers
+        assert search_by_symbol[symbol]["evidenceLayerCount"] == len(expected_layers)
 
         records = (
             evidence["transcriptomic"]
@@ -97,6 +103,7 @@ def main() -> None:
             + evidence["epigeneticMortality"]
             + evidence["longevityMap"]
             + evidence["genAgeMouse"]
+            + evidence["organAge"]
             + ([evidence["genAgeHuman"]] if evidence["genAgeHuman"] else [])
         )
         stats = gene["statistics"]
@@ -107,6 +114,8 @@ def main() -> None:
         assert stats["longevityAssociations"] == len(evidence["longevityMap"])
         assert stats["genAgeHumanRecords"] == int(evidence["genAgeHuman"] is not None)
         assert stats["genAgeMouseRecords"] == len(evidence["genAgeMouse"])
+        assert stats["organAgeProteinOrganRecords"] == len(evidence["organAge"])
+        assert stats["organAgeOrgans"] == sorted({item["organ"] for item in evidence["organAge"]})
         total_records += len(records)
 
         for record in records:
@@ -124,6 +133,11 @@ def main() -> None:
                 assert record["sensitivityAnalysis"]["sourceSheet"] == "S4"
         for record in evidence["longevityMap"]:
             assert str(record["association"]).lower() == "significant"
+        for record in evidence["organAge"]:
+            assert record["organism"] == "Human"
+            assert record["modelCount"] == 500
+            assert 1 <= record["selectedModels"] <= record["modelCount"]
+            assert record["coefficientDirection"] in {"Positive", "Negative"}
 
         ortholog = gene.get("mouseOrtholog")
         if ortholog:
