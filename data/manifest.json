@@ -1,41 +1,285 @@
 {
-  "atlasName": "Aging Evidence Atlas",
-  "version": "0.2.0",
-  "generatedAt": "2026-07-14T20:11:51+00:00",
+  "title": "Human Aging Atlas",
+  "schemaVersion": 2,
+  "generatedAt": "2026-07-15T14:34:57+00:00",
   "geneCount": 1000,
-  "candidateGeneCount": 9182,
   "chunkSize": 20,
-  "chunkCount": 50,
+  "chunks": [
+    {
+      "id": 0,
+      "file": "genes-0.json",
+      "geneCount": 20
+    },
+    {
+      "id": 1,
+      "file": "genes-1.json",
+      "geneCount": 20
+    },
+    {
+      "id": 2,
+      "file": "genes-2.json",
+      "geneCount": 20
+    },
+    {
+      "id": 3,
+      "file": "genes-3.json",
+      "geneCount": 20
+    },
+    {
+      "id": 4,
+      "file": "genes-4.json",
+      "geneCount": 20
+    },
+    {
+      "id": 5,
+      "file": "genes-5.json",
+      "geneCount": 20
+    },
+    {
+      "id": 6,
+      "file": "genes-6.json",
+      "geneCount": 20
+    },
+    {
+      "id": 7,
+      "file": "genes-7.json",
+      "geneCount": 20
+    },
+    {
+      "id": 8,
+      "file": "genes-8.json",
+      "geneCount": 20
+    },
+    {
+      "id": 9,
+      "file": "genes-9.json",
+      "geneCount": 20
+    },
+    {
+      "id": 10,
+      "file": "genes-10.json",
+      "geneCount": 20
+    },
+    {
+      "id": 11,
+      "file": "genes-11.json",
+      "geneCount": 20
+    },
+    {
+      "id": 12,
+      "file": "genes-12.json",
+      "geneCount": 20
+    },
+    {
+      "id": 13,
+      "file": "genes-13.json",
+      "geneCount": 20
+    },
+    {
+      "id": 14,
+      "file": "genes-14.json",
+      "geneCount": 20
+    },
+    {
+      "id": 15,
+      "file": "genes-15.json",
+      "geneCount": 20
+    },
+    {
+      "id": 16,
+      "file": "genes-16.json",
+      "geneCount": 20
+    },
+    {
+      "id": 17,
+      "file": "genes-17.json",
+      "geneCount": 20
+    },
+    {
+      "id": 18,
+      "file": "genes-18.json",
+      "geneCount": 20
+    },
+    {
+      "id": 19,
+      "file": "genes-19.json",
+      "geneCount": 20
+    },
+    {
+      "id": 20,
+      "file": "genes-20.json",
+      "geneCount": 20
+    },
+    {
+      "id": 21,
+      "file": "genes-21.json",
+      "geneCount": 20
+    },
+    {
+      "id": 22,
+      "file": "genes-22.json",
+      "geneCount": 20
+    },
+    {
+      "id": 23,
+      "file": "genes-23.json",
+      "geneCount": 20
+    },
+    {
+      "id": 24,
+      "file": "genes-24.json",
+      "geneCount": 20
+    },
+    {
+      "id": 25,
+      "file": "genes-25.json",
+      "geneCount": 20
+    },
+    {
+      "id": 26,
+      "file": "genes-26.json",
+      "geneCount": 20
+    },
+    {
+      "id": 27,
+      "file": "genes-27.json",
+      "geneCount": 20
+    },
+    {
+      "id": 28,
+      "file": "genes-28.json",
+      "geneCount": 20
+    },
+    {
+      "id": 29,
+      "file": "genes-29.json",
+      "geneCount": 20
+    },
+    {
+      "id": 30,
+      "file": "genes-30.json",
+      "geneCount": 20
+    },
+    {
+      "id": 31,
+      "file": "genes-31.json",
+      "geneCount": 20
+    },
+    {
+      "id": 32,
+      "file": "genes-32.json",
+      "geneCount": 20
+    },
+    {
+      "id": 33,
+      "file": "genes-33.json",
+      "geneCount": 20
+    },
+    {
+      "id": 34,
+      "file": "genes-34.json",
+      "geneCount": 20
+    },
+    {
+      "id": 35,
+      "file": "genes-35.json",
+      "geneCount": 20
+    },
+    {
+      "id": 36,
+      "file": "genes-36.json",
+      "geneCount": 20
+    },
+    {
+      "id": 37,
+      "file": "genes-37.json",
+      "geneCount": 20
+    },
+    {
+      "id": 38,
+      "file": "genes-38.json",
+      "geneCount": 20
+    },
+    {
+      "id": 39,
+      "file": "genes-39.json",
+      "geneCount": 20
+    },
+    {
+      "id": 40,
+      "file": "genes-40.json",
+      "geneCount": 20
+    },
+    {
+      "id": 41,
+      "file": "genes-41.json",
+      "geneCount": 20
+    },
+    {
+      "id": 42,
+      "file": "genes-42.json",
+      "geneCount": 20
+    },
+    {
+      "id": 43,
+      "file": "genes-43.json",
+      "geneCount": 20
+    },
+    {
+      "id": 44,
+      "file": "genes-44.json",
+      "geneCount": 20
+    },
+    {
+      "id": 45,
+      "file": "genes-45.json",
+      "geneCount": 20
+    },
+    {
+      "id": 46,
+      "file": "genes-46.json",
+      "geneCount": 20
+    },
+    {
+      "id": 47,
+      "file": "genes-47.json",
+      "geneCount": 20
+    },
+    {
+      "id": 48,
+      "file": "genes-48.json",
+      "geneCount": 20
+    },
+    {
+      "id": 49,
+      "file": "genes-49.json",
+      "geneCount": 20
+    }
+  ],
   "featuredGenes": [
-    "IGF1R",
+    "AKT1",
     "FOXO3",
+    "IGF1R",
     "FOXO1",
     "IRS2",
-    "UCP3",
-    "AKT1",
     "NR3C1",
-    "STK24",
-    "RB1",
-    "HTT",
-    "FLT1",
-    "NCOR2",
-    "PTK2",
-    "NRIP1"
+    "UCP3",
+    "SERPINE1"
   ],
-  "evidenceCollections": 6,
-  "maximumBreadth": 4,
-  "breadthCounts": {
-    "2": 706,
-    "3": 280,
-    "4": 14
-  },
-  "moduleRows": {
-    "tAge": 6319,
-    "cAge": 10001,
-    "bAge": 1182,
-    "integrative": 721,
-    "longevity": 256,
-    "genAge": 286
-  },
-  "methodStatement": "Evidence components remain separate; rank is a browsing aid, not a score."
+  "referenceGenesVerified": [
+    "APOE",
+    "CDKN2A",
+    "FKBP5",
+    "FOXO3",
+    "IGF1",
+    "MTOR",
+    "SIRT1",
+    "TERT",
+    "TP53"
+  ],
+  "metrics": {
+    "publicSources": 4,
+    "evidenceRecords": 9503,
+    "genesWithHumanMouseOrtholog": 966
+  }
 }

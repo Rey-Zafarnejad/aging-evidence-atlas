@@ -1,30 +1,32 @@
 #!/usr/bin/env python3
-"""Validate the generated static atlas data package."""
+"""Validate the generated Human Aging Atlas static data package."""
 
 from __future__ import annotations
 
 import json
 import math
 from pathlib import Path
+from typing import Any
 
 
 ROOT = Path(__file__).resolve().parents[1]
 DATA = ROOT / "data"
-MODULES = ("tAge", "cAge", "bAge", "integrative", "longevity", "genAge")
+SOURCE_KEYS = {"transcriptomic", "epigenetic", "longevityMap", "genAge"}
+REFERENCE_GENES = {"TP53", "CDKN2A", "MTOR", "SIRT1", "APOE", "TERT", "FOXO3", "IGF1", "FKBP5"}
 
 
-def load(name: str):
+def load(name: str) -> Any:
     with (DATA / name).open(encoding="utf-8") as handle:
         return json.load(handle)
 
 
-def walk(value, path="root"):
+def walk(value: Any, path: str = "root") -> None:
     if isinstance(value, dict):
         for key, child in value.items():
-            yield from walk(child, f"{path}.{key}")
+            walk(child, f"{path}.{key}")
     elif isinstance(value, list):
         for index, child in enumerate(value):
-            yield from walk(child, f"{path}[{index}]")
+            walk(child, f"{path}[{index}]")
     elif isinstance(value, float) and (math.isnan(value) or math.isinf(value)):
         raise AssertionError(f"Non-finite number at {path}")
 
@@ -32,65 +34,102 @@ def walk(value, path="root"):
 def main() -> None:
     manifest = load("manifest.json")
     search = load("search-index.json")
-    datasets = load("datasets.json")
+    sources = load("sources.json")
     report = load("build-report.json")
 
-    assert manifest["version"] == "0.2.0"
-    assert manifest["evidenceCollections"] == len(MODULES)
-    assert manifest["geneCount"] == len(search) == report["selectedGeneCount"]
+    assert manifest["title"] == "Human Aging Atlas"
+    assert manifest["schemaVersion"] == 2
+    assert manifest["geneCount"] == len(search) == report["selection"]["publishedGenes"]
     assert len({row["symbol"] for row in search}) == len(search)
-    assert [row["rank"] for row in search] == list(range(1, len(search) + 1))
-    assert {dataset["id"] for dataset in datasets} == {*MODULES, "hgnc", "ncbi"}
-    assert report["ncbi"]["recordsMatchedByHumanEntrezAndSymbol"] == manifest["geneCount"]
-    assert not report["ncbi"]["symbolMismatchesExcluded"]
-    assert report["tAge"]["selectionRuleVerified"]
-    assert report["longevity"]["selectionRuleVerified"]
+    assert REFERENCE_GENES.issubset({row["symbol"] for row in search})
+    assert {source["key"] for source in sources} == SOURCE_KEYS
+    assert manifest["metrics"]["publicSources"] == len(SOURCE_KEYS)
+    assert manifest["chunks"]
 
-    loaded_symbols = set()
-    observed_modules = set()
-    for chunk in range(manifest["chunkCount"]):
-        payload = load(f"genes-{chunk}.json")
+    genes: dict[str, dict[str, Any]] = {}
+    for chunk in manifest["chunks"]:
+        payload = load(chunk["file"])
+        assert len(payload) == chunk["geneCount"]
         walk(payload)
-        loaded_symbols.update(payload)
-        for symbol, gene in payload.items():
-            assert symbol == gene["symbol"]
-            assert gene["rank"] >= 1
-            assert 1 <= gene["evidenceProfile"]["sourceBreadth"] <= len(MODULES)
-            assert gene["annotation"]["hgncId"].startswith("HGNC:")
-            assert set(gene["sourceFlags"]) == set(MODULES)
-            assert gene["evidenceProfile"]["sourceBreadth"] == sum(gene["sourceFlags"].values())
-            observed_modules.update(source for source, present in gene["sourceFlags"].items() if present)
+        genes.update(payload)
 
-            for record in gene["tAgeRecords"]:
-                assert record["adjustedPValue"]["value"] < 0.01
-            for key in ("cAgeRecords", "bAgeRecords"):
-                for record in gene[key]:
-                    assert record["coordinateNote"].startswith("Chromosome and position refer to the CpG")
-                    assert record["cpg"]
-            for record in gene["integrativeRecords"]:
-                assert record["coordinateNote"].endswith("in hg38")
-            for record in gene["longevityRecords"]:
-                assert record["association"].lower() == "significant"
+    assert set(genes) == {row["symbol"] for row in search}
+    assert len(genes) == manifest["geneCount"]
 
-    assert loaded_symbols == {row["symbol"] for row in search}
-    assert observed_modules == set(MODULES)
+    total_records = 0
+    observed_sources: set[str] = set()
+    record_ids: set[str] = set()
+    for symbol, gene in genes.items():
+        assert symbol == gene["symbol"]
+        assert gene["annotation"]["hgncId"].startswith("HGNC:")
+        assert set(gene["coverage"]["publicSources"]).issubset(SOURCE_KEYS)
+        assert gene["coverage"]["publicSourceCount"] == len(gene["coverage"]["publicSources"])
+        observed_sources.update(gene["coverage"]["publicSources"])
+
+        evidence = gene["evidence"]
+        expected_sources = {
+            "transcriptomic": bool(evidence["transcriptomic"]),
+            "epigenetic": bool(evidence["epigeneticAge"] or evidence["epigeneticMortality"]),
+            "longevityMap": bool(evidence["longevityMap"]),
+            "genAge": bool(evidence["genAgeHuman"] or evidence["genAgeMouse"]),
+        }
+        assert gene["coverage"]["publicSources"] == [
+            key for key in ("transcriptomic", "epigenetic", "longevityMap", "genAge") if expected_sources[key]
+        ]
+
+        records = (
+            evidence["transcriptomic"]
+            + evidence["epigeneticAge"]
+            + evidence["epigeneticMortality"]
+            + evidence["longevityMap"]
+            + evidence["genAgeMouse"]
+            + ([evidence["genAgeHuman"]] if evidence["genAgeHuman"] else [])
+        )
+        stats = gene["statistics"]
+        assert stats["totalEvidenceRecords"] == len(records)
+        assert stats["transcriptomicRecords"] == len(evidence["transcriptomic"])
+        assert stats["epigeneticAgeCpGs"] == len({item["cpg"] for item in evidence["epigeneticAge"]})
+        assert stats["epigeneticMortalityCpGs"] == len({item["cpg"] for item in evidence["epigeneticMortality"]})
+        assert stats["longevityAssociations"] == len(evidence["longevityMap"])
+        assert stats["genAgeHumanRecords"] == int(evidence["genAgeHuman"] is not None)
+        assert stats["genAgeMouseRecords"] == len(evidence["genAgeMouse"])
+        total_records += len(records)
+
+        for record in records:
+            assert record["recordId"] not in record_ids, record["recordId"]
+            record_ids.add(record["recordId"])
+        for record in evidence["transcriptomic"]:
+            assert record["adjustedPValue"]["value"] <= 0.05
+            assert gene["mouseOrtholog"]
+            assert record["humanSymbol"] == symbol
+            if record["cohort"] == "ITP":
+                assert record["organism"] == "Mouse"
+        for record in evidence["epigeneticMortality"]:
+            assert record["cpg"]
+            if record["sensitivityAnalysis"]:
+                assert record["sensitivityAnalysis"]["sourceSheet"] == "S4"
+        for record in evidence["longevityMap"]:
+            assert str(record["association"]).lower() == "significant"
+
+        ortholog = gene.get("mouseOrtholog")
+        if ortholog:
+            assert ortholog["humanSymbol"] == symbol
+            assert ortholog["mappingType"] == "one-to-one"
+
+    assert observed_sources == SOURCE_KEYS
+    assert total_records == manifest["metrics"]["evidenceRecords"]
     for row in search:
         assert row["symbol"] in load(f"genes-{row['chunk']}.json")
-        assert set(row["sources"]).issubset(MODULES)
-
-    maximum = max(row["sourceBreadth"] for row in search)
-    assert maximum == manifest["maximumBreadth"]
-    assert any(row["sourceBreadth"] == maximum for row in search)
 
     print(
         json.dumps(
             {
                 "status": "ok",
-                "publishedGenes": len(search),
-                "chunks": manifest["chunkCount"],
-                "evidenceModules": len(observed_modules),
-                "maximumModuleBreadth": maximum,
-                "featuredGenes": manifest["featuredGenes"],
+                "publishedGenes": len(genes),
+                "chunks": len(manifest["chunks"]),
+                "publicSources": len(observed_sources),
+                "evidenceRecords": total_records,
+                "referenceGenesVerified": sorted(REFERENCE_GENES),
             },
             indent=2,
         )

@@ -83,9 +83,8 @@ summary {
   align-items: center;
   gap: 24px;
   padding: 0 28px;
-  background: rgba(251, 250, 246, 0.97);
+  background: var(--paper);
   border-bottom: 1px solid var(--line);
-  backdrop-filter: blur(10px);
 }
 
 .brand {
@@ -408,7 +407,7 @@ h3 {
 
 .search-result {
   display: grid;
-  grid-template-columns: 78px minmax(0, 1fr) auto;
+  grid-template-columns: minmax(130px, auto) minmax(0, 1fr) auto;
   gap: 12px;
   padding: 10px 13px;
   border-bottom: 1px solid #edf0ef;
@@ -423,6 +422,12 @@ h3 {
 
 .search-result strong {
   color: var(--navy);
+}
+
+.search-result strong span {
+  color: var(--teal);
+  font-size: 12px;
+  font-weight: 700;
 }
 
 .search-result small {
@@ -503,6 +508,15 @@ h3 {
   display: block;
   width: 100%;
   height: auto;
+}
+
+.landscape-section {
+  width: 100%;
+}
+
+.full-width-artwork {
+  width: 100%;
+  background: #faf8f3;
 }
 
 .collection-list {
@@ -597,6 +611,12 @@ h3 {
   font-size: 12px;
 }
 
+.ortholog-mini {
+  color: var(--teal);
+  font-size: 12px;
+  font-weight: 700;
+}
+
 .gene-card-name {
   display: -webkit-box;
   min-height: 42px;
@@ -628,16 +648,14 @@ h3 {
   font-weight: 700;
 }
 
-.source-mark.tage { border-color: #a9ccc9; background: var(--teal-soft); color: #245e5b; }
-.source-mark.cage { border-color: #b5c6d1; background: #e7eff3; color: #315769; }
-.source-mark.bage { border-color: #d7c49e; background: #f6eddc; color: #71582e; }
-.source-mark.integrative { border-color: #b5c8b8; background: #e8f0e8; color: #3d6246; }
-.source-mark.longevity { border-color: #dfc997; background: var(--gold-soft); color: #76561d; }
-.source-mark.genage { border-color: #c8ced0; background: #eef0ef; color: #4a5b61; }
+.source-mark.transcriptomic { border-color: #a9ccc9; background: var(--teal-soft); color: #245e5b; }
+.source-mark.epigenetic { border-color: #b5c6d1; background: #e7eff3; color: #315769; }
+.source-mark.longevityMap { border-color: #dfc997; background: var(--gold-soft); color: #76561d; }
+.source-mark.genAge { border-color: #c8ced0; background: #eef0ef; color: #4a5b61; }
 
 .filter-bar {
   display: grid;
-  grid-template-columns: minmax(220px, 1.4fr) minmax(170px, 0.8fr) minmax(150px, 0.7fr);
+  grid-template-columns: minmax(260px, 1.5fr) minmax(180px, 0.7fr);
   gap: 12px;
   margin: 22px 0 15px;
   padding: 14px;
@@ -713,15 +731,15 @@ h3 {
 }
 
 .gene-identity {
-  display: grid;
-  grid-template-columns: minmax(0, 1.8fr) minmax(260px, 0.8fr);
-  gap: 34px;
-  align-items: start;
+  display: block;
+  max-width: 1050px;
+  scroll-margin-top: calc(var(--header-height) + 24px);
 }
 
 .gene-title-line {
   display: flex;
   align-items: baseline;
+  justify-content: space-between;
   gap: 12px;
   flex-wrap: wrap;
 }
@@ -736,14 +754,99 @@ h3 {
   font-size: 17px;
 }
 
+.gene-locus {
+  display: grid;
+  justify-items: end;
+  padding-left: 20px;
+  border-left: 1px solid var(--line);
+}
+
+.gene-locus span {
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 760;
+  text-transform: uppercase;
+}
+
+.gene-locus strong {
+  color: var(--navy);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 20px;
+}
+
+.ortholog-banner {
+  display: grid;
+  grid-template-columns: minmax(100px, auto) 34px minmax(100px, auto) 1fr;
+  gap: 14px;
+  align-items: center;
+  margin-top: 18px;
+  padding: 14px 16px;
+  border-top: 1px solid #b8ccca;
+  border-bottom: 1px solid #b8ccca;
+  background: var(--teal-soft);
+}
+
+.ortholog-banner div {
+  display: grid;
+}
+
+.ortholog-banner div span {
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 760;
+  text-transform: uppercase;
+}
+
+.ortholog-banner div strong {
+  color: var(--navy);
+  font-size: 18px;
+}
+
+.ortholog-link {
+  color: var(--teal);
+  font-size: 22px;
+  text-align: center;
+}
+
+.ortholog-banner p {
+  margin: 0;
+  color: #425960;
+  font-size: 13px;
+  text-align: right;
+}
+
+.gene-reference-links {
+  display: flex;
+  gap: 16px;
+  margin-top: 12px;
+  font-size: 13px;
+  font-weight: 700;
+}
+
 .gene-summary {
-  max-width: 860px;
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  max-width: 1050px;
+  margin-top: 30px;
+  padding: 18px 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
   font-size: 16px;
   line-height: 1.7;
+  scroll-margin-top: calc(var(--header-height) + 24px);
 }
 
 .gene-summary p {
-  margin-top: 0;
+  max-width: 850px;
+  margin: 0;
+}
+
+.gene-summary > a {
+  align-self: start;
+  flex: 0 0 auto;
+  font-size: 13px;
+  font-weight: 700;
 }
 
 .gene-meta {
@@ -895,8 +998,109 @@ h3 {
 .direction-positive { background: var(--positive); }
 .direction-negative { background: var(--negative); }
 
+.source-overview-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.source-overview-card {
+  min-height: 132px;
+  padding: 16px;
+  border-right: 1px solid var(--line);
+  border-top: 3px solid var(--teal);
+  background: rgba(255, 255, 255, 0.55);
+}
+
+.source-overview-card:last-child {
+  border-right: 0;
+}
+
+.source-overview-card.epigenetic { border-top-color: var(--navy-2); }
+.source-overview-card.longevityMap { border-top-color: var(--gold); }
+.source-overview-card.genAge { border-top-color: #7a8e95; }
+
+.source-overview-label {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 780;
+  text-transform: uppercase;
+}
+
+.source-overview-card strong {
+  display: block;
+  color: var(--navy);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 21px;
+  line-height: 1.25;
+}
+
+.source-overview-card p {
+  margin: 7px 0 0;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.45;
+}
+
 .record-section {
-  margin-top: 28px;
+  margin-top: 48px;
+  scroll-margin-top: calc(var(--header-height) + 24px);
+}
+
+.section-kicker {
+  margin: 0 0 3px !important;
+  color: var(--teal) !important;
+  font-size: 10px !important;
+  font-weight: 780;
+  text-transform: uppercase;
+}
+
+.source-link,
+.text-link {
+  flex: 0 0 auto;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.evidence-facts {
+  display: flex;
+  gap: 22px;
+  flex-wrap: wrap;
+  margin: 0 0 14px;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.evidence-facts strong {
+  color: var(--navy);
+  font-size: 15px;
+}
+
+.evidence-table-wrap {
+  margin-top: 14px;
+}
+
+.evidence-subsection {
+  margin-top: 24px;
+}
+
+.evidence-subsection h3 {
+  margin-bottom: 10px;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 15px;
+  font-weight: 760;
+}
+
+.additional-records {
+  margin-top: 10px;
+}
+
+.compact-meta {
+  color: var(--muted);
+  font-size: 13px;
 }
 
 .record-section details {
@@ -972,12 +1176,14 @@ h3 {
 }
 
 .source-entry {
-  display: grid;
-  grid-template-columns: minmax(230px, 0.8fr) minmax(0, 1.5fr);
-  gap: 28px;
+  display: block;
   max-width: 1050px;
   padding: 22px 0;
   border-bottom: 1px solid var(--line);
+}
+
+.source-entry > p {
+  max-width: 780px;
 }
 
 .source-entry h2 {
@@ -1088,6 +1294,9 @@ h3 {
   .profile-component:nth-child(3) { border-right: 0; }
   .profile-component:nth-child(n + 4) { border-top: 1px solid var(--line); }
   .modality-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .source-overview-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .source-overview-card:nth-child(2) { border-right: 0; }
+  .source-overview-card:nth-child(n + 3) { border-top-width: 1px; }
 }
 
 @media (max-width: 860px) {
@@ -1123,7 +1332,7 @@ h3 {
   .metric:nth-child(-n + 2) { border-bottom: 1px solid var(--line); }
   .evidence-map { grid-template-columns: 1fr; }
   .gene-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .gene-identity { grid-template-columns: 1fr; }
+  .gene-identity { display: block; }
   .profile-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .profile-component { border-top: 1px solid var(--line); }
   .profile-component:first-child,
@@ -1132,6 +1341,8 @@ h3 {
   .profile-component:nth-child(3) { border-right: 1px solid var(--line); }
   .filter-bar { grid-template-columns: 1fr; }
   .source-entry { grid-template-columns: 1fr; gap: 10px; }
+  .ortholog-banner { grid-template-columns: minmax(90px, auto) 28px minmax(90px, auto); }
+  .ortholog-banner p { grid-column: 1 / -1; text-align: left; }
   .site-footer { padding-bottom: 28px; }
 }
 
@@ -1144,6 +1355,15 @@ h3 {
   .metric { border-right: 0; border-bottom: 1px solid var(--line); }
   .metric:last-child { border-bottom: 0; }
   .gene-grid { grid-template-columns: 1fr; }
+  .search-result { grid-template-columns: 1fr; gap: 2px; }
+  .search-result small { display: none; }
+  .gene-title-line { display: block; }
+  .gene-locus { justify-items: start; margin-top: 16px; padding: 10px 0 0; border-top: 1px solid var(--line); border-left: 0; }
+  .ortholog-banner { grid-template-columns: minmax(80px, 1fr) 24px minmax(80px, 1fr); gap: 8px; }
+  .source-overview-grid { grid-template-columns: 1fr; }
+  .source-overview-card { min-height: 0; border-right: 0; border-top-width: 1px; }
+  .gene-summary { display: block; }
+  .gene-summary > a { display: inline-block; margin-top: 12px; }
   .modality-grid { grid-template-columns: 1fr; }
   .profile-grid { grid-template-columns: 1fr; }
   .profile-component { border-right: 0 !important; }

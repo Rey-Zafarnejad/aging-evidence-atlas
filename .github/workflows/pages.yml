@@ -1,4 +1,4 @@
-name: Deploy Aging Evidence Atlas to Pages
+name: Deploy Human Aging Atlas to Pages
 
 on:
   push:
