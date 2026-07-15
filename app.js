@@ -249,7 +249,6 @@ function renderHome() {
 }
 
 function renderGeneIndex() {
-  const topGenes = rankedGenes(10);
   main.innerHTML = `
     ${pageHeader(
       "Gene index",
@@ -274,14 +273,6 @@ function renderGeneIndex() {
           </select>
         </div>
       </div>
-    </section>
-    <section class="section-block ranked-genes-section" id="evidence-ranking">
-      <div class="section-heading-row">
-        <div><p class="section-kicker">Complete eligible source release</p><h2>Top evidence-supported genes</h2></div>
-        <p>Cross-source evidence-support order</p>
-      </div>
-      <div class="gene-grid ranked-gene-grid">${topGenes.map(homeGeneCard).join("")}</div>
-      <p class="ranking-note">Order reflects breadth and support across the source evidence; it is not a causal or biological-importance rank.</p>
     </section>
     <section class="gene-index-section" id="gene-index">
       <div class="section-heading-row"><h2>Gene index</h2><p id="browse-summary">Filtered by the controls above</p></div>
@@ -342,7 +333,6 @@ function renderGeneIndex() {
   setSectionNav([
     { id: "overview", label: "Overview" },
     { id: "gene-browser", label: "Search" },
-    { id: "evidence-ranking", label: "Top genes" },
     { id: "gene-index", label: "Gene index" },
   ]);
 }
